@@ -14,7 +14,8 @@ function getFlexClass(index: number) {
 }
 
 interface IProps {
-    baseNote: Note;
+    stringNumber: number;
+    baseNote?: Note;
 }
 
 export const String: React.FC<IProps> = ({ baseNote = Note.E }) => {
