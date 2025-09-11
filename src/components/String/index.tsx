@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { ALL_NOTES, Note } from 'src/constants';
+import { useFretBoardStore } from 'src/store';
 
 function getFlexClass(index: number) {
     if (index < 3) {
@@ -15,12 +15,11 @@ function getFlexClass(index: number) {
 
 interface IProps {
     stringNumber: number;
-    baseNote?: Note;
 }
 
-export const String: React.FC<IProps> = ({ baseNote = Note.E }) => {
-    const startIndex = ALL_NOTES.indexOf(baseNote);
-    const notes = Array.from({ length: 12 }, (_, i) => ALL_NOTES[(startIndex + i) % ALL_NOTES.length]);
+export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
+    const { getByString } = useFretBoardStore();
+    const [baseNote, ...notes] = getByString(stringNumber);
 
     return (
         <div className="p-1 flex items-center">

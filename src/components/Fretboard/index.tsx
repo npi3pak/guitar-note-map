@@ -2,13 +2,18 @@ import { String } from 'components/String';
 import { useFretBoardStore } from 'src/store';
 
 export const Fretboard: React.FC = () => {
-    const { strings, pressNote } = useFretBoardStore();
+    const { pressNote, tuneDownNoteByString } = useFretBoardStore();
 
     return (
         <div className="p-12">
             <div className="m-4">
                 <button className="btn btn-neutral" onClick={() => pressNote(0, 0)}>
                     check
+                </button>
+            </div>
+            <div className="m-4">
+                <button className="btn btn-neutral" onClick={() => tuneDownNoteByString(6)}>
+                    tune down
                 </button>
             </div>
             <div className="bg-gray-100 rounded-xl">
