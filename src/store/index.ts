@@ -3,7 +3,7 @@ import * as R from 'ramda';
 import { FULL_NOTES } from 'src/constants';
 
 interface IFret {
-    name: string;
+    note: string;
     baseNote: string;
     pressed: boolean;
     similar: boolean;
@@ -18,13 +18,18 @@ interface IFretBoardState {
     strings: Record<number, IGuitarString>;
 }
 
+export interface IHighlightNotesState {
+    highlightedNotes: Record<string, { display: boolean; colorNum: number }>;
+}
+
 interface IFretBoardActions {
     tuneUpAll: () => void;
     tuneDownAll: () => void;
     tuneUpNoteByString: (stringNumber: number) => void;
     tuneDownNoteByString: (stringNumber: number) => void;
     pressNote: (stringNumber: number, fretNumber: number) => void;
-    getByString: (stringNumber: number) => string[];
+    getByString: (stringNumber: number) => Partial<IFret>[];
+    getHighlightNotes: () => IHighlightNotesState['highlightedNotes'];
 }
 
 const getBaseNote = (note: string) => note.replace(/[0-9]/, '');
@@ -37,7 +42,7 @@ const getInitialFretList = (baseNote: string) =>
         return {
             ...acc,
             [index]: {
-                name: item,
+                note: item,
                 baseNote: getBaseNote(item),
                 pressed: false,
                 similar: false,
@@ -53,7 +58,7 @@ const updateStringFrets = (tuneNote: string) => (fret: Record<number, IFret>) =>
             const fretNum = Number(fretNumStr);
             acc[fretNum] = {
                 ...data,
-                name: notesToTune[fretNum],
+                note: notesToTune[fretNum],
                 baseNote: getBaseNote(notesToTune[fretNum]),
             };
             return acc;
@@ -85,7 +90,7 @@ const updateStringTune = (
     direction: TuneDirection,
     targetNote?: string,
 ): IGuitarString => {
-    const currentTuneNote = strings[stringNumber].fret[0].name;
+    const currentTuneNote = strings[stringNumber].fret[0].note;
     const noteToTune = transposeNote(currentTuneNote, direction, targetNote);
 
     const updatedString = R.modifyPath([stringNumber, 'fret'], updateStringFrets(noteToTune), strings);
@@ -95,8 +100,24 @@ const updateStringTune = (
 
 /////////
 
-export const useFretBoardStore = create<IFretBoardState & IFretBoardActions>((set, get) => {
+type TStore = IFretBoardState & IHighlightNotesState & IFretBoardActions;
+
+export const useFretBoardStore = create<TStore>((set, get) => {
     return {
+        highlightedNotes: {
+            C: { display: false, colorNum: 1 },
+            'C#': { display: false, colorNum: 2 },
+            D: { display: false, colorNum: 3 },
+            'D#': { display: false, colorNum: 4 },
+            E: { display: false, colorNum: 5 },
+            F: { display: false, colorNum: 6 },
+            'F#': { display: false, colorNum: 7 },
+            G: { display: false, colorNum: 8 },
+            'G#': { display: false, colorNum: 9 },
+            A: { display: false, colorNum: 10 },
+            'A#': { display: false, colorNum: 11 },
+            B: { display: false, colorNum: 12 },
+        },
         strings: {
             1: {
                 number: 1,
@@ -126,8 +147,13 @@ export const useFretBoardStore = create<IFretBoardState & IFretBoardActions>((se
         getByString: (stringNumber) => {
             const selectedString = get().strings[stringNumber].fret;
 
-            return Object.entries(selectedString).map(([fretNum, data]) => data.name);
+            return Object.entries(selectedString).map(([fretNum, data]) => ({
+                note: data.note,
+                baseNote: data.baseNote,
+                pressed: data.pressed,
+            }));
         },
+        getHighlightNotes: () => get().highlightedNotes,
         tuneUpAll: () =>
             set((state) => ({
                 strings: {
@@ -154,7 +180,7 @@ export const useFretBoardStore = create<IFretBoardState & IFretBoardActions>((se
             })),
         tuneUpNoteByString: (stringNumber) =>
             set((state) => {
-                const currentTuneNote = state.strings[stringNumber].fret[0].name;
+                const currentTuneNote = state.strings[stringNumber].fret[0].note;
                 const noteToTune = FULL_NOTES[FULL_NOTES.indexOf(currentTuneNote) + 1];
 
                 const updatedString = R.modifyPath(
@@ -171,7 +197,7 @@ export const useFretBoardStore = create<IFretBoardState & IFretBoardActions>((se
             }),
         tuneDownNoteByString: (stringNumber) =>
             set((state) => {
-                const currentTuneNote = state.strings[stringNumber].fret[0].name;
+                const currentTuneNote = state.strings[stringNumber].fret[0].note;
                 const noteToTune = FULL_NOTES[FULL_NOTES.indexOf(currentTuneNote) - 1];
 
                 const updatedString = R.modifyPath(
@@ -189,8 +215,14 @@ export const useFretBoardStore = create<IFretBoardState & IFretBoardActions>((se
         pressNote: (stringNumber, fretNumber) =>
             set((state) => {
                 const updatedString = R.modifyPath([stringNumber, 'fret', fretNumber, 'pressed'], R.not, state.strings);
+                const baseNote = state.strings[stringNumber].fret[fretNumber].baseNote;
+
+                const updatedHighlightedNotes = R.modifyPath([baseNote, 'display'], R.not, state.highlightedNotes);
 
                 return {
+                    highlightedNotes: {
+                        ...updatedHighlightedNotes,
+                    },
                     strings: {
                         ...updatedString,
                     },
