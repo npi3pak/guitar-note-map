@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { useFretBoardStore, IHighlightNotesState } from 'src/store';
+import { useFretBoardStore } from 'src/store';
 
 const colorMap: Record<number, string> = {
     1: 'bg-blue-300/25 text-blue-500/50',
@@ -30,7 +30,7 @@ function getFlexClass(index: number) {
 
 const isPressedStyles = (isPressed: boolean) => (isPressed ? 'font-bold text-red-600/50 bg-red-400/25 rounded-xl' : '');
 
-const isHighlightedStyles = (note: string, highlightNotes: IHighlightNotesState['highlightedNotes']) => {
+const isHighlightedStyles = (note: string, highlightNotes: any) => {
     console.log('note', note);
     console.log('highlightNotes', highlightNotes);
 
