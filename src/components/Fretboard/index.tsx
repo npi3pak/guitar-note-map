@@ -1,4 +1,5 @@
 import { String } from 'components/String';
+import { GlobalTuneShift } from 'components/Fretboard/GlobalTuneShift';
 import { useFretBoardStore } from 'src/store';
 
 export const Fretboard: React.FC = () => {
@@ -6,23 +7,16 @@ export const Fretboard: React.FC = () => {
 
     return (
         <div className="p-12">
-            <div className="m-4">
-                <button className="btn btn-neutral" onClick={() => pressNote(0, 0)}>
-                    check
-                </button>
-            </div>
-            <div className="m-4">
-                <button className="btn btn-neutral" onClick={() => tuneDownNoteByString(6)}>
-                    tune down
-                </button>
-            </div>
-            <div className="bg-gray-100 rounded-xl">
-                <String stringNumber={1} />
-                <String stringNumber={2} />
-                <String stringNumber={3} />
-                <String stringNumber={4} />
-                <String stringNumber={5} />
-                <String stringNumber={6} />
+            <div className="bg-gray-100 rounded-xl p-4">
+                {GlobalTuneShift()}
+                <div>
+                    <String stringNumber={1} />
+                    <String stringNumber={2} />
+                    <String stringNumber={3} />
+                    <String stringNumber={4} />
+                    <String stringNumber={5} />
+                    <String stringNumber={6} />
+                </div>
             </div>
         </div>
     );

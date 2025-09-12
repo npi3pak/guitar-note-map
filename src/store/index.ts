@@ -19,6 +19,8 @@ interface IFretBoardState {
 }
 
 interface IFretBoardActions {
+    tuneUpAll: () => void;
+    tuneDownAll: () => void;
     tuneUpNoteByString: (stringNumber: number) => void;
     tuneDownNoteByString: (stringNumber: number) => void;
     pressNote: (stringNumber: number, fretNumber: number) => void;
@@ -60,6 +62,39 @@ const updateStringFrets = (tuneNote: string) => (fret: Record<number, IFret>) =>
     );
 };
 
+////// TODO replace to my code
+
+type TuneDirection = 1 | -1 | 0;
+
+const transposeNote = (note: string, direction: TuneDirection, targetNote?: string): string => {
+    if (direction === 0 && targetNote) {
+        return targetNote;
+    }
+
+    const index = FULL_NOTES.indexOf(note);
+    if (index === -1) {
+        throw new Error(`Unknown note: ${note}`);
+    }
+
+    return FULL_NOTES[(index + direction + FULL_NOTES.length) % FULL_NOTES.length];
+};
+
+const updateStringTune = (
+    strings: Record<number, { fret: Record<number, IFret> }>,
+    stringNumber: number,
+    direction: TuneDirection,
+    targetNote?: string,
+): IGuitarString => {
+    const currentTuneNote = strings[stringNumber].fret[0].name;
+    const noteToTune = transposeNote(currentTuneNote, direction, targetNote);
+
+    const updatedString = R.modifyPath([stringNumber, 'fret'], updateStringFrets(noteToTune), strings);
+
+    return updatedString[stringNumber] as IGuitarString;
+};
+
+/////////
+
 export const useFretBoardStore = create<IFretBoardState & IFretBoardActions>((set, get) => {
     return {
         strings: {
@@ -93,6 +128,30 @@ export const useFretBoardStore = create<IFretBoardState & IFretBoardActions>((se
 
             return Object.entries(selectedString).map(([fretNum, data]) => data.name);
         },
+        tuneUpAll: () =>
+            set((state) => ({
+                strings: {
+                    ...state.strings,
+                    [1]: updateStringTune(state.strings, 1, +1),
+                    [2]: updateStringTune(state.strings, 2, +1),
+                    [3]: updateStringTune(state.strings, 3, +1),
+                    [4]: updateStringTune(state.strings, 4, +1),
+                    [5]: updateStringTune(state.strings, 5, +1),
+                    [6]: updateStringTune(state.strings, 6, +1),
+                },
+            })),
+        tuneDownAll: () =>
+            set((state) => ({
+                strings: {
+                    ...state.strings,
+                    [1]: updateStringTune(state.strings, 1, -1),
+                    [2]: updateStringTune(state.strings, 2, -1),
+                    [3]: updateStringTune(state.strings, 3, -1),
+                    [4]: updateStringTune(state.strings, 4, -1),
+                    [5]: updateStringTune(state.strings, 5, -1),
+                    [6]: updateStringTune(state.strings, 6, -1),
+                },
+            })),
         tuneUpNoteByString: (stringNumber) =>
             set((state) => {
                 const currentTuneNote = state.strings[stringNumber].fret[0].name;
