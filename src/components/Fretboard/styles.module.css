@@ -1,0 +1,7 @@
+.fretboard {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 4fr) repeat(3, 4fr) repeat(3, 2fr) repeat(2, 2fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}

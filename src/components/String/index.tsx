@@ -28,13 +28,18 @@ function getFlexClass(index: number) {
     return 'flex-[0.5]';
 }
 
-const isPressedStyles = (isPressed: boolean) => (isPressed ? 'font-bold text-red-600/50 bg-red-400/25 rounded-xl' : '');
+const isPressedStyles = (isPressed: boolean) => (isPressed ? 'font-bold text-red-600/50 bg-red-400/25' : '');
 
 const isHighlightedStyles = (note: string, highlightNotes: any) => {
-    console.log('note', note);
-    console.log('highlightNotes', highlightNotes);
-
     if (!highlightNotes[note].display) {
+        return '';
+    }
+
+    return `${colorMap[highlightNotes[note].colorNum]} font-semibold rounded-xl`;
+};
+
+const isHighlightedHoverStyles = (note: string, highlightNotes: any) => {
+    if (!highlightNotes[note].hover) {
         return '';
     }
 
@@ -46,39 +51,41 @@ interface IProps {
 }
 
 export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
-    const { getByString, getHighlightNotes, pressNote } = useFretBoardStore();
+    const { getByString, getHighlightNotes, pressNote, addHoverNote, removeHoverNote } = useFretBoardStore();
     const [zeroFret, ...frets] = getByString(stringNumber);
     const highlightNotes = getHighlightNotes();
 
     return (
         <>
-            <div className="p-1 flex items-center">
-                <div className="rounded-l w-15">
-                    <span className="text-gray-600/50 dark:text-sky-400/50">{zeroFret.note}</span>
-                </div>
-                <div className="flex-1 relative">
-                    <div className="absolute top-1/2 left-0 w-full h-[2px] bg-blue-400/25"></div>
-                    <div className="flex text-center">
-                        {frets.map((fret, index) => (
-                            <div
-                                className={classnames(
-                                    `border-r-4 border-blue-400 flex justify-center ${getFlexClass(index)}`,
-                                )}
-                                key={index}
-                            >
-                                <button
-                                    className={classnames(
-                                        `relative z-10 text-blue-600/50 dark:text-sky-400/50 ${isHighlightedStyles(fret.baseNote, highlightNotes)} ${isPressedStyles(fret.pressed)}`,
-                                    )}
-                                    onClick={() => pressNote(stringNumber, index + 1)}
-                                >
-                                    {fret.note}
-                                </button>
-                            </div>
-                        ))}
-                    </div>
-                </div>
+            <div className="rounded-l self-center justify-self-center p-2">
+                <span className="text-gray-600/50 dark:text-sky-400/50">{zeroFret.note}</span>
             </div>
+            {frets.map((fret, index) => (
+                <div
+                    className={classnames(
+                        `relative border-r-4 border-blue-400 flex justify-center ${getFlexClass(index)}`,
+                    )}
+                    key={index}
+                >
+                    <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gray-400/25 -translate-y-1/2 pointer-events-none"></div>
+                    <button
+                        className={classnames(
+                            'relative z-10 text-blue-600/50 dark:text-sky-400/50 hover:cursor-pointer',
+                        )}
+                        onClick={() => pressNote(stringNumber, index + 1)}
+                    >
+                        <div
+                            className={classnames(
+                                ` rounded-xl w-12 ${isHighlightedStyles(fret.baseNote, highlightNotes)} ${isHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedStyles(fret.pressed)}`,
+                            )}
+                            onMouseEnter={() => addHoverNote(fret.baseNote)}
+                            onMouseLeave={() => removeHoverNote(fret.baseNote)}
+                        >
+                            {fret.note}
+                        </div>
+                    </button>
+                </div>
+            ))}
         </>
     );
 };

@@ -105,18 +105,18 @@ export const useFretBoardStore = create<TStore>()(
     persist((set, get) => {
         return {
             highlightedNotes: {
-                C: { display: false, colorNum: 1 },
-                'C#': { display: false, colorNum: 2 },
-                D: { display: false, colorNum: 3 },
-                'D#': { display: false, colorNum: 4 },
-                E: { display: false, colorNum: 5 },
-                F: { display: false, colorNum: 6 },
-                'F#': { display: false, colorNum: 7 },
-                G: { display: false, colorNum: 8 },
-                'G#': { display: false, colorNum: 9 },
-                A: { display: false, colorNum: 10 },
-                'A#': { display: false, colorNum: 11 },
-                B: { display: false, colorNum: 12 },
+                C: { display: false, hover: false, colorNum: 1 },
+                'C#': { display: false, hover: false, colorNum: 2 },
+                D: { display: false, hover: false, colorNum: 3 },
+                'D#': { display: false, hover: false, colorNum: 4 },
+                E: { display: false, hover: false, colorNum: 5 },
+                F: { display: false, hover: false, colorNum: 6 },
+                'F#': { display: false, hover: false, colorNum: 7 },
+                G: { display: false, hover: false, colorNum: 8 },
+                'G#': { display: false, hover: false, colorNum: 9 },
+                A: { display: false, hover: false, colorNum: 10 },
+                'A#': { display: false, hover: false, colorNum: 11 },
+                B: { display: false, hover: false, colorNum: 12 },
             },
             strings: {
                 1: {
