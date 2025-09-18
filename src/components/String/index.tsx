@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useFretBoardStore } from 'src/store';
 
 const colorMap: Record<number, string> = {
@@ -60,32 +61,50 @@ export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
             <div className="rounded-l self-center justify-self-center p-2">
                 <span className="text-gray-600/50 dark:text-sky-400/50">{zeroFret.note}</span>
             </div>
-            {frets.map((fret, index) => (
-                <div
-                    className={classnames(
-                        `relative border-r-4 border-blue-400 flex justify-center ${getFlexClass(index)}`,
-                    )}
-                    key={index}
-                >
-                    <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gray-400/25 -translate-y-1/2 pointer-events-none"></div>
-                    <button
+            {frets.map((fret, index) => {
+                console.log('fret', fret);
+                const animationOffsetSign = fret.animationType === 'leftShift' ? -1 : 1;
+                const offset = 50;
+
+                return (
+                    <div
                         className={classnames(
-                            'relative z-10 text-blue-600/50 dark:text-sky-400/50 hover:cursor-pointer',
+                            `relative border-r-4 border-blue-400 flex justify-center ${getFlexClass(index)}`,
                         )}
-                        onClick={() => pressNote(stringNumber, index + 1)}
+                        key={index}
                     >
-                        <div
+                        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gray-400/25 -translate-y-1/2 pointer-events-none"></div>
+                        <button
                             className={classnames(
-                                ` rounded-xl w-12 ${isHighlightedStyles(fret.baseNote, highlightNotes)} ${isHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedStyles(fret.pressed)}`,
+                                'relative z-10 text-blue-600/50 dark:text-sky-400/50 hover:cursor-pointer',
                             )}
-                            onMouseEnter={() => addHoverNote(fret.baseNote)}
-                            onMouseLeave={() => removeHoverNote(fret.baseNote)}
+                            onClick={() => pressNote(stringNumber, index + 1)}
                         >
-                            {fret.note}
-                        </div>
-                    </button>
-                </div>
-            ))}
+                            <div className="w-12 flex justify-center">
+                                <AnimatePresence>
+                                    <motion.div
+                                        key={fret.note}
+                                        // initial={{ x: offset * animationOffsetSign, opacity: 0 }}
+                                        // exit={{ x: offset * animationOffsetSign, opacity: 0 }}
+                                        initial={{ x: 50, opacity: 0 }}
+                                        exit={{ x: -50, opacity: 0 }}
+                                        // initial={{ x: 50, opacity: 0 }}
+                                        animate={{ x: 0, opacity: 1 }}
+                                        transition={{ duration: 0.1 }}
+                                        className={classnames(
+                                            ` rounded-xl w-12 ${isHighlightedStyles(fret.baseNote, highlightNotes)} ${isHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedStyles(fret.pressed)}`,
+                                        )}
+                                        onMouseEnter={() => addHoverNote(fret.baseNote)}
+                                        onMouseLeave={() => removeHoverNote(fret.baseNote)}
+                                    >
+                                        {fret.note}
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
+                        </button>
+                    </div>
+                );
+            })}
         </>
     );
 };

@@ -14,7 +14,7 @@ export default defineConfig({
     plugins: [react(), tailwindcss()],
     server: {
         watch: {
-            usePolling: true, // заставляет Vite следить через polling
+            usePolling: true,
         },
     },
 });

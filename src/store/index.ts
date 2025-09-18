@@ -12,6 +12,7 @@ interface IFret {
 
 interface IGuitarString {
     number: number;
+    animationType: 'leftShift' | 'rightShift';
     fret: Record<number, IFret>;
 }
 
@@ -94,7 +95,16 @@ const updateStringTune = (
     const currentTuneNote = strings[stringNumber].fret[0].note;
     const noteToTune = transposeNote(currentTuneNote, direction, targetNote);
 
-    const updatedString = R.modifyPath([stringNumber, 'fret'], updateStringFrets(noteToTune), strings);
+    // const updatedString = R.modifyPath([stringNumber, 'fret'], updateStringFrets(noteToTune), strings);
+    const updatedString = R.compose(
+        R.modifyPath([stringNumber, 'fret'], updateStringFrets(noteToTune)),
+        R.modifyPath([stringNumber, 'animationType'], () => (direction > 0 ? 'leftShift' : 'rightShift')),
+    )(strings);
+
+    // const updatedString = {
+    //     ...R.modifyPath([stringNumber, 'fret'], updateStringFrets(noteToTune), strings),
+    //     ...R.modifyPath([stringNumber, 'animationType'], () => (direction > 0 ? 'leftShift' : 'rightShift'), strings),
+    // };
 
     return updatedString[stringNumber] as IGuitarString;
 };
@@ -121,89 +131,108 @@ export const useFretBoardStore = create<TStore>()(
             strings: {
                 1: {
                     number: 1,
-                    fret: getInitialFretList('E4'),
+                    animationType: null,
+                fret: getInitialFretList('E4'),
                 },
                 2: {
                     number: 2,
-                    fret: getInitialFretList('B3'),
+                    animationType: null,
+                fret: getInitialFretList('B3'),
                 },
                 3: {
                     number: 3,
-                    fret: getInitialFretList('G3'),
+                    animationType: null,
+                fret: getInitialFretList('G3'),
                 },
                 4: {
                     number: 4,
-                    fret: getInitialFretList('D3'),
+                    animationType: null,
+                fret: getInitialFretList('D3'),
                 },
                 5: {
                     number: 5,
-                    fret: getInitialFretList('A2'),
+                    animationType: null,
+                fret: getInitialFretList('A2'),
                 },
                 6: {
                     number: 6,
-                    fret: getInitialFretList('E2'),
+                    animationType: null,
+                fret: getInitialFretList('E2'),
                 },
             },
             getByString: (stringNumber) => {
                 const selectedString = get().strings[stringNumber].fret;
+            const animationType = get().strings[stringNumber].animationType;
 
-                return Object.entries(selectedString).map(([fretNum, data]) => ({
-                    note: data.note,
-                    baseNote: data.baseNote,
-                    pressed: data.pressed,
-                }));
-            },
-            getHighlightNotes: () => get().highlightedNotes,
-            tuneUpAll: () =>
-                set((state) => ({
+            return Object.entries(selectedString).map(([fretNum, data]) => ({
+                note: data.note,
+                baseNote: data.baseNote,
+                pressed: data.pressed,
+            }));
+        },
+        getHighlightNotes: () => get().highlightedNotes,
+        tuneUpAll: () =>
+            set((state) => ({
+                strings: {
+                    ...state.strings,
+                    [1]: updateStringTune(state.strings, 1, +1),
+                    [2]: updateStringTune(state.strings, 2, +1),
+                    [3]: updateStringTune(state.strings, 3, +1),
+                    [4]: updateStringTune(state.strings, 4, +1),
+                    [5]: updateStringTune(state.strings, 5, +1),
+                    [6]: updateStringTune(state.strings, 6, +1),
+                },
+            })),
+        tuneDownAll: () =>
+            set((state) => ({
+                strings: {
+                    ...state.strings,
+                    [1]: updateStringTune(state.strings, 1, -1),
+                    [2]: updateStringTune(state.strings, 2, -1),
+                    [3]: updateStringTune(state.strings, 3, -1),
+                    [4]: updateStringTune(state.strings, 4, -1),
+                    [5]: updateStringTune(state.strings, 5, -1),
+                    [6]: updateStringTune(state.strings, 6, -1),
+                },
+            })),
+        tuneUpNoteByString: (stringNumber) =>
+            set((state) => {
+                const currentTuneNote = state.strings[stringNumber].fret[0].note;
+                const noteToTune = FULL_NOTES[FULL_NOTES.indexOf(currentTuneNote) + 1];
+
+                const updatedString = R.modifyPath(
+                    [stringNumber, 'fret'],
+                    updateStringFrets(noteToTune),
+                    state.strings,
+                );
+
+                return {
                     strings: {
-                        ...Object.keys(state.strings).reduce(
-                            (acc, stringNum) => ({
-                                ...acc,
-                                [stringNum]: updateStringTune(state.strings, Number(stringNum), +1),
-                            }),
-                            {},
-                        ),
+                        ...updatedString,
                     },
-                })),
-            tuneDownAll: () =>
-                set((state) => ({
+                };
+            }),
+        tuneDownNoteByString: (stringNumber) =>
+            set((state) => {
+                const currentTuneNote = state.strings[stringNumber].fret[0].note;
+                const noteToTune = FULL_NOTES[FULL_NOTES.indexOf(currentTuneNote) - 1];
+
+                const updatedString = R.modifyPath(
+                    [stringNumber, 'fret'],
+                    updateStringFrets(noteToTune),
+                    state.strings,
+                );
+
+                return {
                     strings: {
-                        ...Object.keys(state.strings).reduce(
-                            (acc, stringNum) => ({
-                                ...acc,
-                                [stringNum]: updateStringTune(state.strings, Number(stringNum), -1),
-                            }),
-                            {},
-                        ),
+                        ...updatedString,
                     },
-                })),
-            tuneUpNoteByString: (stringNumber) =>
-                set((state) => {
-                    return {
-                        strings: {
-                            ...state.strings,
-                            [stringNumber]: updateStringTune(state.strings, stringNumber, +1),
-                        },
-                    };
-                }),
-            tuneDownNoteByString: (stringNumber) =>
-                set((state) => {
-                    return {
-                        strings: {
-                            ...state.strings,
-                            [stringNumber]: updateStringTune(state.strings, stringNumber, -1),
-                        },
-                    };
-                }),
-            pressNote: (stringNumber, fretNumber) =>
-                set((state) => {
-                    const updatedString = R.modifyPath(
-                        [stringNumber, 'fret', fretNumber, 'pressed'],
-                        R.not,
-                        state.strings,
-                    );
-                    const baseNote = state.strings[stringNumber].fret[fretNumber].baseNote;
+                };
+            }),
+        pressNote: (stringNumber, fretNumber) =>
+            set((state) => {
+                const updatedString = R.modifyPath([stringNumber, 'fret', fretNumber, 'pressed'], R.not, state.strings);
+                const baseNote = state.strings[stringNumber].fret[fretNumber].baseNote;
 
                     const updatedHighlightedNotes = R.modifyPath([baseNote, 'display'], R.not, state.highlightedNotes);
 
