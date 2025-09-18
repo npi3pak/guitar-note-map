@@ -1,5 +1,6 @@
 import classnames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
+import React from 'react';
 import { useFretBoardStore } from 'src/store';
 
 const colorMap: Record<number, string> = {
@@ -62,9 +63,10 @@ export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
                 <span className="text-gray-600/50 dark:text-sky-400/50">{zeroFret.note}</span>
             </div>
             {frets.map((fret, index) => {
-                console.log('fret', fret);
-                const animationOffsetSign = fret.animationType === 'leftShift' ? -1 : 1;
-                const offset = 50;
+                const animationOffsetSign =
+                    fret.animationType === 'leftShift'
+                        ? { initial: { x: 50, opacity: 0 }, exit: { x: -50, opacity: 0 } }
+                        : { initial: { x: -100, opacity: 0 }, exit: { x: 100, opacity: 0 } };
 
                 return (
                     <div
@@ -81,14 +83,11 @@ export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
                             onClick={() => pressNote(stringNumber, index + 1)}
                         >
                             <div className="w-12 flex justify-center">
-                                <AnimatePresence>
+                                <AnimatePresence mode="wait">
                                     <motion.div
+                                        layout
                                         key={fret.note}
-                                        // initial={{ x: offset * animationOffsetSign, opacity: 0 }}
-                                        // exit={{ x: offset * animationOffsetSign, opacity: 0 }}
-                                        initial={{ x: 50, opacity: 0 }}
-                                        exit={{ x: -50, opacity: 0 }}
-                                        // initial={{ x: 50, opacity: 0 }}
+                                        {...animationOffsetSign}
                                         animate={{ x: 0, opacity: 1 }}
                                         transition={{ duration: 0.1 }}
                                         className={classnames(
