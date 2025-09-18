@@ -41,11 +41,11 @@ const chevronRight = (
 );
 
 export const GlobalTuneShift = () => {
-    const [isLocked, setLock] = React.useState(false);
+    const [isLocked, setLock] = React.useState(true);
     const { tuneUpAll, tuneDownAll } = useFretBoardStore();
 
     return (
-        <div className="join join-vertical lg:join-horizontal py-4">
+        <div className="join join-vertical lg:join-horizontal py-2 w-20">
             <button className="btn btn-xs join-item text-red-400/70" onClick={() => tuneDownAll()} disabled={isLocked}>
                 {chevronLeft}
             </button>
