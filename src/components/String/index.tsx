@@ -54,16 +54,22 @@ interface IProps {
 }
 
 export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
-    const { getByString, getHighlightNotes, pressNote, addHoverNote, removeHoverNote } = useFretBoardStore();
+    const { getByString, getHighlightNotes, pressNote, addHoverNote, removeHoverNote, getIsLocked } =
+        useFretBoardStore();
     const [zeroFret, ...frets] = getByString(stringNumber);
     const highlightNotes = getHighlightNotes();
+    const { isLocked } = getIsLocked();
 
     return (
         <>
             <div className="flex rounded-l self-center justify-self-center p-2">
-                <button className="btn btn-ghost btn-xs text-blue-600/50">{chevronLeft}</button>
+                <button className={classnames('btn btn-ghost btn-xs text-blue-600/50', { hidden: isLocked })}>
+                    {chevronLeft}
+                </button>
                 <span className="text-gray-600/50 dark:text-sky-400/50">{zeroFret.note}</span>
-                <button className="btn btn-ghost btn-xs text-blue-600/50">{chevronRight}</button>
+                <button className={classnames('btn btn-ghost btn-xs text-blue-600/50', { hidden: isLocked })}>
+                    {chevronRight}
+                </button>
             </div>
             {frets.map((fret, index) => {
                 const animationOffsetSign =
