@@ -2,6 +2,7 @@ import classnames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import { useFretBoardStore } from 'src/store';
+import { chevronLeft, chevronRight } from 'src/components/Icons';
 
 const colorMap: Record<number, string> = {
     1: 'bg-blue-300/25 text-blue-500/50',
@@ -59,8 +60,10 @@ export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
 
     return (
         <>
-            <div className="rounded-l self-center justify-self-center p-2">
+            <div className="flex rounded-l self-center justify-self-center p-2">
+                <button className="btn btn-ghost btn-xs text-blue-600/50">{chevronLeft}</button>
                 <span className="text-gray-600/50 dark:text-sky-400/50">{zeroFret.note}</span>
+                <button className="btn btn-ghost btn-xs text-blue-600/50">{chevronRight}</button>
             </div>
             {frets.map((fret, index) => {
                 const animationOffsetSign =

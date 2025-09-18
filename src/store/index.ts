@@ -122,6 +122,9 @@ export const useFretBoardStore = create<TStore>()(
                 'A#': { display: false, hover: false, colorNum: 11 },
                 B: { display: false, hover: false, colorNum: 12 },
             },
+            settings: {
+                isLocked: true,
+            },
             strings: {
                 1: {
                     number: 1,
@@ -162,7 +165,17 @@ export const useFretBoardStore = create<TStore>()(
                     note: data.note,
                     baseNote: data.baseNote,
                     pressed: data.pressed,
+                    animationType,
                 }));
+            },
+            setLock: () =>
+                set((state) => ({
+                    settings: {
+                        isLocked: !state.settings.isLocked,
+                    },
+                })),
+            getIsLocked: () => {
+                return { isLocked: get().settings.isLocked };
             },
             getHighlightNotes: () => get().highlightedNotes,
             tuneUpAll: () =>
@@ -240,6 +253,34 @@ export const useFretBoardStore = create<TStore>()(
                         },
                         strings: {
                             ...updatedString,
+                        },
+                    };
+                }),
+            addHoverNote: (baseNote) =>
+                set((state) => {
+                    const updatedHighlightedNotes = R.modifyPath(
+                        [baseNote, 'hover'],
+                        () => true,
+                        state.highlightedNotes,
+                    );
+
+                    return {
+                        highlightedNotes: {
+                            ...updatedHighlightedNotes,
+                        },
+                    };
+                }),
+            removeHoverNote: (baseNote) =>
+                set((state) => {
+                    const updatedHighlightedNotes = R.modifyPath(
+                        [baseNote, 'hover'],
+                        () => false,
+                        state.highlightedNotes,
+                    );
+
+                    return {
+                        highlightedNotes: {
+                            ...updatedHighlightedNotes,
                         },
                     };
                 }),
