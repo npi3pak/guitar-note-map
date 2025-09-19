@@ -1,17 +1,14 @@
 import classnames from 'classnames';
 import { String } from 'components/String';
 import { GlobalTuneShift } from 'components/Fretboard/GlobalTuneShift';
-import { useFretBoardStore } from 'src/store';
 import styles from './styles.module.css';
 
 export const Fretboard: React.FC = () => {
-    const { pressNote, tuneDownNoteByString } = useFretBoardStore();
-
     return (
         <div className="p-12">
             <div className="bg-gray-100 rounded-xl p-4">
                 <div className={styles.fretboard}>
-                    <div className="self-center justify-self-center">{GlobalTuneShift()}</div>
+                    <div />
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((index) => {
                         const isMarker = [3, 5, 7, 9].includes(index);
 
@@ -28,7 +25,7 @@ export const Fretboard: React.FC = () => {
                                 {index}
                             </div>
                         );
-                    })}{' '}
+                    })}
                     <String stringNumber={1} />
                     <String stringNumber={2} />
                     <String stringNumber={3} />
@@ -36,6 +33,7 @@ export const Fretboard: React.FC = () => {
                     <String stringNumber={5} />
                     <String stringNumber={6} />
                 </div>
+                <GlobalTuneShift />
             </div>
         </div>
     );
