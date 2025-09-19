@@ -203,39 +203,19 @@ export const useFretBoardStore = create<TStore>()(
                     },
                 })),
             tuneUpNoteByString: (stringNumber) =>
-                set((state) => {
-                    const currentTuneNote = state.strings[stringNumber].fret[0].note;
-                    const noteToTune = FULL_NOTES[FULL_NOTES.indexOf(currentTuneNote) + 1];
-
-                    const updatedString = R.modifyPath(
-                        [stringNumber, 'fret'],
-                        updateStringFrets(noteToTune),
-                        state.strings,
-                    );
-
-                    return {
-                        strings: {
-                            ...updatedString,
-                        },
-                    };
-                }),
+                set((state) => ({
+                    strings: {
+                        ...state.strings,
+                        [stringNumber]: updateStringTune(state.strings, stringNumber, +1),
+                    },
+                })),
             tuneDownNoteByString: (stringNumber) =>
-                set((state) => {
-                    const currentTuneNote = state.strings[stringNumber].fret[0].note;
-                    const noteToTune = FULL_NOTES[FULL_NOTES.indexOf(currentTuneNote) - 1];
-
-                    const updatedString = R.modifyPath(
-                        [stringNumber, 'fret'],
-                        updateStringFrets(noteToTune),
-                        state.strings,
-                    );
-
-                    return {
-                        strings: {
-                            ...updatedString,
-                        },
-                    };
-                }),
+                set((state) => ({
+                    strings: {
+                        ...state.strings,
+                        [stringNumber]: updateStringTune(state.strings, stringNumber, -1),
+                    },
+                })),
             pressNote: (stringNumber, fretNumber) =>
                 set((state) => {
                     const updatedString = R.modifyPath(

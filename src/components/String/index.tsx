@@ -54,22 +54,44 @@ interface IProps {
 }
 
 export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
-    const { getByString, getHighlightNotes, pressNote, addHoverNote, removeHoverNote, getIsLocked } =
-        useFretBoardStore();
+    const {
+        getByString,
+        getHighlightNotes,
+        pressNote,
+        addHoverNote,
+        removeHoverNote,
+        getIsLocked,
+        tuneUpNoteByString,
+        tuneDownNoteByString,
+    } = useFretBoardStore();
     const [zeroFret, ...frets] = getByString(stringNumber);
     const highlightNotes = getHighlightNotes();
     const { isLocked } = getIsLocked();
 
     return (
         <>
-            <div className="flex rounded-l self-center justify-self-center p-2">
-                <button className={classnames('btn btn-ghost btn-xs text-blue-600/50', { hidden: isLocked })}>
-                    {chevronLeft}
-                </button>
-                <span className="text-gray-600/50 dark:text-sky-400/50">{zeroFret.note}</span>
-                <button className={classnames('btn btn-ghost btn-xs text-blue-600/50', { hidden: isLocked })}>
-                    {chevronRight}
-                </button>
+            <div className="flex  justify-self-center p-2">
+                <div className="flex w-24 justify-between">
+                    <motion.button
+                        animate={{ opacity: isLocked ? 0 : 1 }}
+                        transition={{ duration: 0.2, ease: 'easeInOut' }}
+                        style={{ visibility: isLocked ? 'hidden' : 'visible' }}
+                        className="btn btn-ghost btn-xs text-blue-600/50"
+                        onClick={() => tuneDownNoteByString(stringNumber)}
+                    >
+                        {chevronLeft}
+                    </motion.button>
+                    <span className="text-gray-600/50 dark:text-sky-400/50">{zeroFret.note}</span>
+                    <motion.button
+                        animate={{ opacity: isLocked ? 0 : 1 }}
+                        transition={{ duration: 0.2, ease: 'easeInOut' }}
+                        style={{ visibility: isLocked ? 'hidden' : 'visible' }}
+                        className="btn btn-ghost btn-xs text-blue-600/50"
+                        onClick={() => tuneUpNoteByString(stringNumber)}
+                    >
+                        {chevronRight}
+                    </motion.button>
+                </div>
             </div>
             {frets.map((fret, index) => {
                 const animationOffsetSign =
