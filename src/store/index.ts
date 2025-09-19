@@ -178,6 +178,18 @@ export const useFretBoardStore = create<TStore>()(
                 return { isLocked: get().settings.isLocked };
             },
             getHighlightNotes: () => get().highlightedNotes,
+            tuneToStandard: () =>
+                set((state) => ({
+                    strings: {
+                        ...state.strings,
+                        [1]: updateStringTune(state.strings, 1, 0, 'E4'),
+                        [2]: updateStringTune(state.strings, 2, 0, 'B3'),
+                        [3]: updateStringTune(state.strings, 3, 0, 'G3'),
+                        [4]: updateStringTune(state.strings, 4, 0, 'D3'),
+                        [5]: updateStringTune(state.strings, 5, 0, 'A2'),
+                        [6]: updateStringTune(state.strings, 6, 0, 'E2'),
+                    },
+                })),
             tuneUpAll: () =>
                 set((state) => ({
                     strings: {

@@ -46,7 +46,7 @@ const isHighlightedHoverStyles = (note: string, highlightNotes: any) => {
         return '';
     }
 
-    return `${colorMap[highlightNotes[note].colorNum]} font-semibold rounded-xl`;
+    return `${colorMap[highlightNotes[note].colorNum]} font-semibold rounded-xl transition-colors duration-100`;
 };
 
 interface IProps {

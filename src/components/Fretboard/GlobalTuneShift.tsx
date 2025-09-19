@@ -2,7 +2,7 @@ import { chevronLeft, chevronRight, lockIcon, unlockIcon } from 'src/components/
 import { useFretBoardStore } from 'src/store';
 
 export const GlobalTuneShift = () => {
-    const { tuneUpAll, tuneDownAll, getIsLocked, setLock } = useFretBoardStore();
+    const { tuneUpAll, tuneDownAll, getIsLocked, setLock, tuneToStandard } = useFretBoardStore();
     const { isLocked } = getIsLocked();
 
     return (
@@ -26,7 +26,9 @@ export const GlobalTuneShift = () => {
                     {chevronRight}
                 </button>
             </div>
-            <button className="btn btn-xs text-red-400/70 ml-4">Reset to standart</button>
+            <button className="btn btn-xs text-red-400/70 ml-4" onClick={() => tuneToStandard()} disabled={isLocked}>
+                Reset to standart
+            </button>
         </div>
     );
 };
