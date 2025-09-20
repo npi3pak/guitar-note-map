@@ -30,15 +30,20 @@ interface ISettings {
 
 interface IFretBoardActions {
     setLock: () => void;
+    getIsLocked: () => ISettings['settings'];
     resetHighlightedNotes: () => void;
     resetPressedNotes: () => void;
     tuneUpAll: () => void;
     tuneDownAll: () => void;
+    tuneToStandard: () => void;
     tuneUpNoteByString: (stringNumber: number) => void;
     tuneDownNoteByString: (stringNumber: number) => void;
     pressNote: (stringNumber: number, fretNumber: number) => void;
     getByString: (stringNumber: number) => Partial<IFret>[];
     getHighlightNotes: () => IHighlightNotesState['highlightedNotes'];
+    getStringsCount: () => number;
+    decStrings: () => void;
+    incStrings: () => void;
 }
 
 const getBaseNote = (note: string) => note.replace(/[0-9]/, '');

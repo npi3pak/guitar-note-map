@@ -8,7 +8,7 @@ export const GlobalTuneShift = () => {
     return (
         <>
             <div className="flex py-2">
-                <div className="join join-vertical lg:join-horizontal">
+                <div className="join join-horizontal">
                     <button className="btn btn-xs join-item text-red-400/70 w-10" onClick={() => setLock()}>
                         {isLocked ? lockIcon : unlockIcon}
                     </button>

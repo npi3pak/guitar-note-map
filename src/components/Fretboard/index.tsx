@@ -11,7 +11,7 @@ export const Fretboard: React.FC = () => {
 
     return (
         <div className="p-12">
-            <div className="bg-gray-100 rounded-xl p-4">
+            <div className="bg-gray-100 rounded-xl p-4 overflow-x-scroll">
                 <div className={styles.fretboard}>
                     <StringsCountOptions />
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((index) => {
