@@ -12,7 +12,7 @@ interface IFret {
 
 interface IGuitarString {
     number: number;
-    animationType: 'leftShift' | 'rightShift';
+    animationType: 'leftShift' | 'rightShift' | null;
     fret: Record<number, IFret>;
 }
 
@@ -24,7 +24,14 @@ export interface IHighlightNotesState {
     highlightedNotes: Record<string, { display: boolean; colorNum: number }>;
 }
 
+interface ISettings {
+    settings: { isLocked: boolean };
+}
+
 interface IFretBoardActions {
+    setLock: () => void;
+    resetHighlightedNotes: () => void;
+    resetPressedNotes: () => void;
     tuneUpAll: () => void;
     tuneDownAll: () => void;
     tuneUpNoteByString: (stringNumber: number) => void;
@@ -93,20 +100,22 @@ const updateStringTune = (
     const currentTuneNote = strings[stringNumber].fret[0].note;
     const noteToTune = transposeNote(currentTuneNote, direction, targetNote);
 
-    const updatedString = R.compose(
-        R.modifyPath([stringNumber, 'fret'], updateStringFrets(noteToTune)),
-        R.modifyPath([stringNumber, 'animationType'], () => (direction > 0 ? 'leftShift' : 'rightShift')),
-    )(strings);
+    const stringToUpdate = strings[stringNumber] as IGuitarString;
 
-    return updatedString[stringNumber] as IGuitarString;
+    const updatedString: IGuitarString = {
+        ...stringToUpdate,
+        fret: updateStringFrets(noteToTune)(stringToUpdate.fret),
+        animationType: direction > 0 ? 'leftShift' : 'rightShift',
+    };
+    return updatedString;
 };
 
-type TStore = IFretBoardState & IHighlightNotesState & IFretBoardActions;
+type TStore = IFretBoardState & IHighlightNotesState & IFretBoardActions & ISettings;
 
 export const useFretBoardStore = create<TStore>()(
-    persist((set, get) => {
-        return {
-            highlightedNotes: {
+    persist(
+        (set, get) => {
+            const initialHighlightedNotes = {
                 C: { display: false, hover: false, colorNum: 1 },
                 'C#': { display: false, hover: false, colorNum: 2 },
                 D: { display: false, hover: false, colorNum: 3 },
@@ -119,11 +128,9 @@ export const useFretBoardStore = create<TStore>()(
                 A: { display: false, hover: false, colorNum: 10 },
                 'A#': { display: false, hover: false, colorNum: 11 },
                 B: { display: false, hover: false, colorNum: 12 },
-            },
-            settings: {
-                isLocked: true,
-            },
-            strings: {
+            };
+
+            const initialStrings = {
                 1: {
                     number: 1,
                     animationType: null,
@@ -154,172 +161,213 @@ export const useFretBoardStore = create<TStore>()(
                     animationType: null,
                     fret: getInitialFretList('E2'),
                 },
-            },
-            getByString: (stringNumber) => {
-                const selectedString = get().strings[stringNumber].fret;
-                const animationType = get().strings[stringNumber].animationType;
+            };
 
-                return Object.entries(selectedString).map(([fretNum, data]) => ({
-                    note: data.note,
-                    baseNote: data.baseNote,
-                    pressed: data.pressed,
-                    animationType,
-                }));
-            },
-            setLock: () =>
-                set((state) => ({
-                    settings: {
-                        isLocked: !state.settings.isLocked,
-                    },
-                })),
-            getIsLocked: () => {
-                return { isLocked: get().settings.isLocked };
-            },
-            getHighlightNotes: () => get().highlightedNotes,
-            getStringsCount: () => Number(Object.keys(get().strings).length),
-            incStrings: () =>
-                set((state) => {
-                    const newStringNum = Number(Object.keys(state.strings).length + 1);
+            return {
+                highlightedNotes: initialHighlightedNotes,
+                settings: {
+                    isLocked: true,
+                },
+                strings: initialStrings,
+                resetHighlightedNotes: () =>
+                    set(() => ({
+                        highlightedNotes: initialHighlightedNotes,
+                    })),
+                resetPressedNotes: () =>
+                    set((state) => ({
+                        strings: R.map(
+                            (guitarString) => ({
+                                ...guitarString,
+                                fret: R.map(R.assoc('pressed', false), guitarString.fret),
+                            }),
+                            state.strings,
+                        ),
+                    })),
+                getByString: (stringNumber) => {
+                    const selectedString = get().strings[stringNumber].fret;
+                    const animationType = get().strings[stringNumber].animationType;
 
-                    console.log('newStringNum', newStringNum);
+                    return Object.entries(selectedString).map(([fretNum, data]) => ({
+                        note: data.note,
+                        baseNote: data.baseNote,
+                        pressed: data.pressed,
+                        animationType,
+                    }));
+                },
+                setLock: () =>
+                    set((state) => ({
+                        settings: {
+                            isLocked: !state.settings.isLocked,
+                        },
+                    })),
+                getIsLocked: () => {
+                    return { isLocked: get().settings.isLocked };
+                },
+                getHighlightNotes: () => get().highlightedNotes,
+                getStringsCount: () => Number(Object.keys(get().strings).length),
+                incStrings: () =>
+                    set((state) => {
+                        const newStringNum = Number(Object.keys(state.strings).length + 1);
 
-                    if (newStringNum < 9) {
-                        const initialNote = STANDARD_TUNE[newStringNum - 1];
+                        if (newStringNum < 9) {
+                            const initialNote = STANDARD_TUNE[newStringNum - 1];
+
+                            return {
+                                strings: {
+                                    ...state.strings,
+                                    [newStringNum]: {
+                                        number: newStringNum,
+                                        animationType: null,
+                                        fret: getInitialFretList(initialNote),
+                                    },
+                                },
+                            };
+                        }
 
                         return {
                             strings: {
                                 ...state.strings,
-                                [newStringNum]: {
-                                    number: newStringNum,
-                                    animationType: null,
-                                    fret: getInitialFretList(initialNote),
-                                },
                             },
                         };
-                    }
+                    }),
+                decStrings: () =>
+                    set((state) => {
+                        const lastStringNum = Number(Object.keys(state.strings).length);
 
-                    return {
-                        strings: {
-                            ...state.strings,
-                        },
-                    };
-                }),
-            decStrings: () =>
-                set((state) => {
-                    const lastStringNum = Number(Object.keys(state.strings).length);
+                        if (lastStringNum > 1) {
+                            const { [lastStringNum]: _, ...restStrings } = state.strings;
 
-                    if (lastStringNum > 1) {
-                        const { [lastStringNum]: _, ...restStrings } = state.strings;
+                            return {
+                                strings: {
+                                    ...restStrings,
+                                },
+                            };
+                        }
 
                         return {
                             strings: {
-                                ...restStrings,
+                                ...state.strings,
                             },
                         };
-                    }
+                    }),
+                tuneToStandard: () => {
+                    get().resetPressedNotes();
+                    get().resetHighlightedNotes();
+                    return set((state) => ({
+                        strings: {
+                            [1]: updateStringTune(state.strings, 1, 0, 'E4'),
+                            [2]: updateStringTune(state.strings, 2, 0, 'B3'),
+                            [3]: updateStringTune(state.strings, 3, 0, 'G3'),
+                            [4]: updateStringTune(state.strings, 4, 0, 'D3'),
+                            [5]: updateStringTune(state.strings, 5, 0, 'A2'),
+                            [6]: updateStringTune(state.strings, 6, 0, 'E2'),
+                        },
+                    }));
+                },
+                tuneUpAll: () => {
+                    get().resetPressedNotes();
+                    get().resetHighlightedNotes();
 
-                    return {
+                    return set((state) => ({
+                        strings: Object.keys(state.strings).reduce(
+                            (acc, stringNum) => ({
+                                ...acc,
+                                [stringNum]: updateStringTune(state.strings, Number(stringNum), +1),
+                            }),
+                            {},
+                        ),
+                    }));
+                },
+                tuneDownAll: () => {
+                    get().resetPressedNotes();
+                    get().resetHighlightedNotes();
+
+                    return set((state) => ({
+                        strings: Object.keys(state.strings).reduce(
+                            (acc, stringNum) => ({
+                                ...acc,
+                                [stringNum]: updateStringTune(state.strings, Number(stringNum), -1),
+                            }),
+                            {},
+                        ),
+                    }));
+                },
+                tuneUpNoteByString: (stringNumber) => {
+                    get().resetPressedNotes();
+                    get().resetHighlightedNotes();
+
+                    return set((state) => ({
                         strings: {
                             ...state.strings,
+                            [stringNumber]: updateStringTune(state.strings, stringNumber, +1),
                         },
-                    };
-                }),
-            tuneToStandard: () =>
-                set((state) => ({
-                    strings: {
-                        [1]: updateStringTune(state.strings, 1, 0, 'E4'),
-                        [2]: updateStringTune(state.strings, 2, 0, 'B3'),
-                        [3]: updateStringTune(state.strings, 3, 0, 'G3'),
-                        [4]: updateStringTune(state.strings, 4, 0, 'D3'),
-                        [5]: updateStringTune(state.strings, 5, 0, 'A2'),
-                        [6]: updateStringTune(state.strings, 6, 0, 'E2'),
-                    },
-                })),
-            tuneUpAll: () =>
-                set((state) => ({
-                    strings: Object.keys(state.strings).reduce(
-                        (acc, stringNum) => ({
-                            ...acc,
-                            [stringNum]: updateStringTune(state.strings, Number(stringNum), +1),
-                        }),
-                        {},
-                    ),
-                })),
-            tuneDownAll: () =>
-                set((state) => ({
-                    strings: Object.keys(state.strings).reduce(
-                        (acc, stringNum) => ({
-                            ...acc,
-                            [stringNum]: updateStringTune(state.strings, Number(stringNum), -1),
-                        }),
-                        {},
-                    ),
-                })),
-            tuneUpNoteByString: (stringNumber) =>
-                set((state) => ({
-                    strings: {
-                        ...state.strings,
-                        [stringNumber]: updateStringTune(state.strings, stringNumber, +1),
-                    },
-                })),
-            tuneDownNoteByString: (stringNumber) =>
-                set((state) => ({
-                    strings: {
-                        ...state.strings,
-                        [stringNumber]: updateStringTune(state.strings, stringNumber, -1),
-                    },
-                })),
-            pressNote: (stringNumber, fretNumber) =>
-                set((state) => {
-                    const updatedString = R.modifyPath(
-                        [stringNumber, 'fret', fretNumber, 'pressed'],
-                        R.not,
-                        state.strings,
-                    );
-                    const baseNote = state.strings[stringNumber].fret[fretNumber].baseNote;
+                    }));
+                },
+                tuneDownNoteByString: (stringNumber) => {
+                    get().resetPressedNotes();
+                    get().resetHighlightedNotes();
 
-                    const updatedHighlightedNotes = R.modifyPath([baseNote, 'display'], R.not, state.highlightedNotes);
-
-                    return {
-                        highlightedNotes: {
-                            ...updatedHighlightedNotes,
-                        },
+                    return set((state) => ({
                         strings: {
-                            ...updatedString,
+                            ...state.strings,
+                            [stringNumber]: updateStringTune(state.strings, stringNumber, -1),
                         },
-                    };
-                }),
-            addHoverNote: (baseNote) =>
-                set((state) => {
-                    const updatedHighlightedNotes = R.modifyPath(
-                        [baseNote, 'hover'],
-                        () => true,
-                        state.highlightedNotes,
-                    );
+                    }));
+                },
+                pressNote: (stringNumber, fretNumber) =>
+                    set((state) => {
+                        const updatedString = R.modifyPath(
+                            [stringNumber, 'fret', fretNumber, 'pressed'],
+                            R.not,
+                            state.strings,
+                        );
+                        const baseNote = state.strings[stringNumber].fret[fretNumber].baseNote;
 
-                    return {
-                        highlightedNotes: {
-                            ...updatedHighlightedNotes,
-                        },
-                    };
-                }),
-            removeHoverNote: (baseNote) =>
-                set((state) => {
-                    const updatedHighlightedNotes = R.modifyPath(
-                        [baseNote, 'hover'],
-                        () => false,
-                        state.highlightedNotes,
-                    );
+                        const updatedHighlightedNotes = R.modifyPath(
+                            [baseNote, 'display'],
+                            R.not,
+                            state.highlightedNotes,
+                        );
 
-                    return {
-                        highlightedNotes: {
-                            ...updatedHighlightedNotes,
-                        },
-                    };
-                }),
-        };
-    }),
-    {
-        name: 'fretboard-storage',
-    },
+                        return {
+                            highlightedNotes: {
+                                ...updatedHighlightedNotes,
+                            },
+                            strings: {
+                                ...updatedString,
+                            },
+                        };
+                    }),
+                addHoverNote: (baseNote: string) =>
+                    set((state) => {
+                        const updatedHighlightedNotes = R.modifyPath<IHighlightNotesState['highlightedNotes']>(
+                            [baseNote, 'hover'],
+                            () => true,
+                            state.highlightedNotes,
+                        );
+
+                        return {
+                            highlightedNotes: {
+                                ...updatedHighlightedNotes,
+                            },
+                        };
+                    }),
+                removeHoverNote: (baseNote: string) =>
+                    set((state) => {
+                        const updatedHighlightedNotes = R.modifyPath<IHighlightNotesState['highlightedNotes']>(
+                            [baseNote, 'hover'],
+                            () => false,
+                            state.highlightedNotes,
+                        );
+
+                        return {
+                            highlightedNotes: {
+                                ...updatedHighlightedNotes,
+                            },
+                        };
+                    }),
+            };
+        },
+        { name: 'fretboard-storage' },
+    ),
 );
