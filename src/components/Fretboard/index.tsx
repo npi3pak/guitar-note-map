@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { String } from 'components/String';
-import { GlobalTuneShift } from 'components/Fretboard/GlobalTuneShift';
+import { StringsTuneShift } from 'src/components/Fretboard/StringsTuneShift';
 import { StringsCountOptions } from 'components/Fretboard/StringsCountOptions';
 import { useFretBoardStore } from 'src/store';
 import styles from './styles.module.css';
@@ -31,11 +31,11 @@ export const Fretboard: React.FC = () => {
                             </div>
                         );
                     })}
-                    {[...Array(stringsCount).keys()].map((stringNum) => (
-                        <String stringNumber={stringNum + 1} />
+                    {[...Array(stringsCount).keys()].map((stringNum, item) => (
+                        <String stringNumber={stringNum + 1} key={item}/>
                     ))}
                 </div>
-                <GlobalTuneShift />
+                <StringsTuneShift />
             </div>
         </div>
     );

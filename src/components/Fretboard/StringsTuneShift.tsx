@@ -1,7 +1,7 @@
 import { chevronLeft, chevronRight, lockIcon, unlockIcon } from 'src/components/Icons';
 import { useFretBoardStore } from 'src/store';
 
-export const GlobalTuneShift = () => {
+export const StringsTuneShift = () => {
     const { tuneUpAll, tuneDownAll, getIsLocked, setLock, tuneToStandard } = useFretBoardStore();
     const { isLocked } = getIsLocked();
 
