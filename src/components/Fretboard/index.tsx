@@ -1,14 +1,19 @@
 import classnames from 'classnames';
 import { String } from 'components/String';
 import { GlobalTuneShift } from 'components/Fretboard/GlobalTuneShift';
+import { StringsCountOptions } from 'components/Fretboard/StringsCountOptions';
+import { useFretBoardStore } from 'src/store';
 import styles from './styles.module.css';
 
 export const Fretboard: React.FC = () => {
+    const { getStringsCount } = useFretBoardStore();
+    const stringsCount = getStringsCount();
+
     return (
         <div className="p-12">
             <div className="bg-gray-100 rounded-xl p-4">
                 <div className={styles.fretboard}>
-                    <div />
+                    <StringsCountOptions />
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((index) => {
                         const isMarker = [3, 5, 7, 9].includes(index);
 
@@ -26,12 +31,9 @@ export const Fretboard: React.FC = () => {
                             </div>
                         );
                     })}
-                    <String stringNumber={1} />
-                    <String stringNumber={2} />
-                    <String stringNumber={3} />
-                    <String stringNumber={4} />
-                    <String stringNumber={5} />
-                    <String stringNumber={6} />
+                    {[...Array(stringsCount).keys()].map((stringNum) => (
+                        <String stringNumber={stringNum + 1} />
+                    ))}
                 </div>
                 <GlobalTuneShift />
             </div>

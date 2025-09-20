@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import * as R from 'ramda';
-import { FULL_NOTES } from 'src/constants';
+import { FULL_NOTES, STANDARD_TUNE } from 'src/constants';
 import { persist } from 'zustand/middleware';
 
 interface IFret {
@@ -68,8 +68,6 @@ const updateStringFrets = (tuneNote: string) => (fret: Record<number, IFret>) =>
         {} as Record<number, IFret>,
     );
 };
-
-////// TODO replace to my code
 
 type TuneDirection = 1 | -1 | 0;
 
@@ -178,10 +176,57 @@ export const useFretBoardStore = create<TStore>()(
                 return { isLocked: get().settings.isLocked };
             },
             getHighlightNotes: () => get().highlightedNotes,
+            getStringsCount: () => Number(Object.keys(get().strings).length),
+            incStrings: () =>
+                set((state) => {
+                    const newStringNum = Number(Object.keys(state.strings).length + 1);
+
+                    console.log('newStringNum', newStringNum);
+
+                    if (newStringNum < 9) {
+                        const initialNote = STANDARD_TUNE[newStringNum - 1];
+
+                        return {
+                            strings: {
+                                ...state.strings,
+                                [newStringNum]: {
+                                    number: newStringNum,
+                                    animationType: null,
+                                    fret: getInitialFretList(initialNote),
+                                },
+                            },
+                        };
+                    }
+
+                    return {
+                        strings: {
+                            ...state.strings,
+                        },
+                    };
+                }),
+            decStrings: () =>
+                set((state) => {
+                    const lastStringNum = Number(Object.keys(state.strings).length);
+
+                    if (lastStringNum > 1) {
+                        const { [lastStringNum]: _, ...restStrings } = state.strings;
+
+                        return {
+                            strings: {
+                                ...restStrings,
+                            },
+                        };
+                    }
+
+                    return {
+                        strings: {
+                            ...state.strings,
+                        },
+                    };
+                }),
             tuneToStandard: () =>
                 set((state) => ({
                     strings: {
-                        ...state.strings,
                         [1]: updateStringTune(state.strings, 1, 0, 'E4'),
                         [2]: updateStringTune(state.strings, 2, 0, 'B3'),
                         [3]: updateStringTune(state.strings, 3, 0, 'G3'),
@@ -192,27 +237,23 @@ export const useFretBoardStore = create<TStore>()(
                 })),
             tuneUpAll: () =>
                 set((state) => ({
-                    strings: {
-                        ...state.strings,
-                        [1]: updateStringTune(state.strings, 1, +1),
-                        [2]: updateStringTune(state.strings, 2, +1),
-                        [3]: updateStringTune(state.strings, 3, +1),
-                        [4]: updateStringTune(state.strings, 4, +1),
-                        [5]: updateStringTune(state.strings, 5, +1),
-                        [6]: updateStringTune(state.strings, 6, +1),
-                    },
+                    strings: Object.keys(state.strings).reduce(
+                        (acc, stringNum) => ({
+                            ...acc,
+                            [stringNum]: updateStringTune(state.strings, Number(stringNum), +1),
+                        }),
+                        {},
+                    ),
                 })),
             tuneDownAll: () =>
                 set((state) => ({
-                    strings: {
-                        ...state.strings,
-                        [1]: updateStringTune(state.strings, 1, -1),
-                        [2]: updateStringTune(state.strings, 2, -1),
-                        [3]: updateStringTune(state.strings, 3, -1),
-                        [4]: updateStringTune(state.strings, 4, -1),
-                        [5]: updateStringTune(state.strings, 5, -1),
-                        [6]: updateStringTune(state.strings, 6, -1),
-                    },
+                    strings: Object.keys(state.strings).reduce(
+                        (acc, stringNum) => ({
+                            ...acc,
+                            [stringNum]: updateStringTune(state.strings, Number(stringNum), -1),
+                        }),
+                        {},
+                    ),
                 })),
             tuneUpNoteByString: (stringNumber) =>
                 set((state) => ({

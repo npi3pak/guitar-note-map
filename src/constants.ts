@@ -27,3 +27,4 @@ export const Note = {
 export const ALL_NOTES = ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#'];
 
 export type Note = (typeof Note)[keyof typeof Note];
+export const STANDARD_TUNE = ['E4', 'B3', 'G3', 'D3', 'A2', 'E2', 'B1', 'F#1'];
