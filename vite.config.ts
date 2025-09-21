@@ -5,6 +5,7 @@ import path from 'path';
 
 // https://vite.dev/config/
 export default defineConfig({
+    base: '/guitar-note-map/',
     resolve: {
         alias: {
             src: path.resolve(__dirname, './src'),
