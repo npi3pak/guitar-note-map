@@ -1,2 +1,21 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 @plugin "daisyui";
+
+:root {
+  --color-piano-pressed: #f2d3d3;
+
+  --color-piano-white: #ffffff;
+  --color-piano-black: #6b7281;
+
+  --color-piano-C: #fce9e8;
+  --color-piano-Csharp: #fce9e8;
+  --color-piano-D: #fce9e8;
+  --color-piano-Dsharp: #fef7d4;
+  --color-piano-E: #fce9e8;
+  --color-piano-F: #fce9e8;
+  --color-piano-Fsharp: #e9ecfe;
+  --color-piano-G: #fce9e8;
+  --color-piano-Gsharp: #fdeedd;
+  --color-piano-A: #fce9e8;
+  --color-piano-Asharp: #dff9fe;
+}
