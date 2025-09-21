@@ -376,6 +376,6 @@ export const useFretBoardStore = create<TStore>()(
                     }),
             };
         },
-        { name: 'fretboard-storage' },
+        { name: 'fretboard-storage', partialize: (state) => ({ strings: state.strings }) },
     ),
 );

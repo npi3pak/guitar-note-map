@@ -4,10 +4,15 @@ import { StringsTuneShift } from 'src/components/Fretboard/StringsTuneShift';
 import { StringsCountOptions } from 'components/Fretboard/StringsCountOptions';
 import { useFretBoardStore } from 'src/store';
 import styles from './styles.module.css';
+import React from 'react';
 
 export const Fretboard: React.FC = () => {
-    const { getStringsCount } = useFretBoardStore();
+    const { getStringsCount, resetPressedNotes } = useFretBoardStore();
     const stringsCount = getStringsCount();
+
+    React.useEffect(() => {
+        resetPressedNotes();
+    }, []);
 
     return (
         <div className="px-12 pt-6">
@@ -32,7 +37,7 @@ export const Fretboard: React.FC = () => {
                         );
                     })}
                     {[...Array(stringsCount).keys()].map((stringNum, item) => (
-                        <String stringNumber={stringNum + 1} key={item}/>
+                        <String stringNumber={stringNum + 1} key={item} />
                     ))}
                 </div>
                 <StringsTuneShift />
