@@ -40,7 +40,7 @@ const getColor = ({ note, highlightNotes, isPressed = false }) => {
 };
 
 const Octave = () => {
-    const { getHighlightNotes, addHoverNote, removeHoverNote } = useFretBoardStore();
+    const { getHighlightNotes } = useFretBoardStore();
 
     const highlightNotes = getHighlightNotes();
 

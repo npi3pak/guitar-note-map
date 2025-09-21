@@ -8,6 +8,7 @@ interface IFret {
     baseNote: string;
     pressed: boolean;
     similar: boolean;
+    animationType?: string;
 }
 
 interface IGuitarString {
@@ -44,6 +45,8 @@ interface IFretBoardActions {
     getStringsCount: () => number;
     decStrings: () => void;
     incStrings: () => void;
+    addHoverNote: (baseNote: string) => void;
+    removeHoverNote: (baseNote: string) => void;
 }
 
 const getBaseNote = (note: string) => note.replace(/[0-9]/, '');
