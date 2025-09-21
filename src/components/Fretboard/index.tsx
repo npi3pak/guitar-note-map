@@ -10,7 +10,7 @@ export const Fretboard: React.FC = () => {
     const stringsCount = getStringsCount();
 
     return (
-        <div className="p-12">
+        <div className="px-12 pt-6">
             <div className="bg-gray-100 rounded-xl p-4 overflow-x-scroll">
                 <div className={styles.fretboard}>
                     <StringsCountOptions />
