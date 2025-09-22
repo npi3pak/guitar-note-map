@@ -45,7 +45,7 @@ const Octave = () => {
     const highlightNotes = getHighlightNotes();
 
     return (
-        <div className="flex h-24 w-120">
+        <div className="flex h-24 w-full lg:w-120">
             <div className={classnames(`border-l-0 ${whiteKeyStyle} ${getColor({ note: 'C', highlightNotes })}`)}>
                 <div className={classnames(`${blackKeyStyle} ${getColor({ note: 'C#', highlightNotes })}`)}></div>
             </div>
@@ -70,7 +70,7 @@ const Octave = () => {
 export const Piano = () => {
     return (
         <div className="flex pt-4">
-            <div className="flex pl-12 flex-[3]">
+            <div className="hidden md:flex pl-12 flex-[3]">
                 <div className="bg-gray-100 rounded-xl p-10 flex w-full">
                     <div className="flex-1">
                         <h1 className="text-4xl text-red-500/50 font-bold">Guitar Note Map</h1>
@@ -82,8 +82,8 @@ export const Piano = () => {
                     <div className="flex-1"></div>
                 </div>
             </div>
-            <div className="flex pl-6 pr-12 flex-[1]">
-                <div className="bg-gray-100 rounded-xl p-10 flex items-center">
+            <div className="flex pl-12 md:pl-6 pr-12 flex-[1]">
+                <div className="bg-gray-100 rounded-xl p-10 flex items-center w-full h-full">
                     <Octave />
                 </div>
             </div>
