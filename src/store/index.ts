@@ -11,9 +11,14 @@ interface IFret {
     animationType?: string;
 }
 
+export enum EAnimationType {
+    leftShift = 'leftShift',
+    rightShift = 'rightShift',
+}
+
 interface IGuitarString {
     number: number;
-    animationType: 'leftShift' | 'rightShift' | null;
+    animationType: EAnimationType | null;
     fret: Record<number, IFret>;
 }
 
@@ -48,6 +53,9 @@ interface IFretBoardActions {
     addHoverNote: (baseNote: string) => void;
     removeHoverNote: (baseNote: string) => void;
 }
+
+type TuneDirection = 1 | -1 | 0;
+type TStore = IFretBoardState & IHighlightNotesState & IFretBoardActions & ISettings;
 
 const getBaseNote = (note: string) => note.replace(/[0-9]/, '');
 
@@ -84,8 +92,6 @@ const updateStringFrets = (tuneNote: string) => (fret: Record<number, IFret>) =>
     );
 };
 
-type TuneDirection = 1 | -1 | 0;
-
 const transposeNote = (note: string, direction: TuneDirection, targetNote?: string): string => {
     if (direction === 0 && targetNote) {
         return targetNote;
@@ -113,12 +119,10 @@ const updateStringTune = (
     const updatedString: IGuitarString = {
         ...stringToUpdate,
         fret: updateStringFrets(noteToTune)(stringToUpdate.fret),
-        animationType: direction > 0 ? 'leftShift' : 'rightShift',
+        animationType: direction > 0 ? EAnimationType.leftShift : EAnimationType.rightShift,
     };
     return updatedString;
 };
-
-type TStore = IFretBoardState & IHighlightNotesState & IFretBoardActions & ISettings;
 
 export const useFretBoardStore = create<TStore>()(
     persist(

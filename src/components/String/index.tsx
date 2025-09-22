@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
-import { useFretBoardStore } from 'src/store';
+import { EAnimationType, useFretBoardStore } from 'src/store';
 import { chevronLeft, chevronRight } from 'src/components/Icons';
 
 const colorMap: Record<number, string> = {
@@ -33,7 +33,7 @@ function getFlexClass(index: number) {
 
 const isPressedStyles = (isPressed: boolean) => (isPressed ? 'font-bold text-red-600/50 bg-red-400/25' : '');
 
-const isHighlightedStyles = (note: string, highlightNotes: any) => {
+const isHighlightedStyles = (note: string, highlightNotes: unknown) => {
     if (!highlightNotes[note].display) {
         return '';
     }
@@ -41,7 +41,7 @@ const isHighlightedStyles = (note: string, highlightNotes: any) => {
     return `${colorMap[highlightNotes[note].colorNum]} font-semibold rounded-xl`;
 };
 
-const isHighlightedHoverStyles = (note: string, highlightNotes: any) => {
+const isHighlightedHoverStyles = (note: string, highlightNotes: unknown) => {
     if (!highlightNotes[note].hover) {
         return '';
     }
@@ -95,7 +95,7 @@ export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
             </div>
             {frets.map((fret, index) => {
                 const animationOffsetSign =
-                    fret.animationType === 'leftShift'
+                    fret.animationType === EAnimationType.rightShift
                         ? { initial: { x: 50, opacity: 0 }, exit: { x: -50, opacity: 0 } }
                         : { initial: { x: -100, opacity: 0 }, exit: { x: 100, opacity: 0 } };
 
