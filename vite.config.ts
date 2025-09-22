@@ -10,6 +10,7 @@ export default defineConfig({
         alias: {
             src: path.resolve(__dirname, './src'),
             components: path.resolve(__dirname, './src/components'),
+            store: path.resolve(__dirname, './src/store'),
         },
     },
     plugins: [react(), tailwindcss()],

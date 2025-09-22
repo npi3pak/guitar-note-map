@@ -1,12 +1,12 @@
 import { Fretboard } from 'components/Fretboard';
-import { Piano } from 'components/Piano';
 import { Footer } from 'components/Footer';
+import { TopPanels } from 'components/TopPanels';
 
 function App() {
     return (
         <div className="flex flex-col min-h-screen">
             <main className="flex-grow flex flex-col">
-                <Piano />
+                <TopPanels />
                 <Fretboard />
             </main>
             <Footer />
