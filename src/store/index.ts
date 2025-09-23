@@ -34,9 +34,14 @@ interface ISettings {
     settings: { isLocked: boolean };
 }
 
+interface ISelectedNotes {
+    selectedNotes: string[];
+}
+
 interface IFretBoardActions {
     setLock: () => void;
     getIsLocked: () => ISettings['settings'];
+    getSelectedNotes: () => void;
     resetHighlightedNotes: () => void;
     resetPressedNotes: () => void;
     tuneUpAll: () => void;
@@ -55,7 +60,7 @@ interface IFretBoardActions {
 }
 
 type TuneDirection = 1 | -1 | 0;
-type TStore = IFretBoardState & IHighlightNotesState & IFretBoardActions & ISettings;
+type TStore = IFretBoardState & IHighlightNotesState & IFretBoardActions & ISettings & ISelectedNotes;
 
 const getBaseNote = (note: string) => note.replace(/[0-9]/, '');
 
@@ -124,6 +129,8 @@ const updateStringTune = (
     return updatedString;
 };
 
+export const toggleInArray = (arr, item) => (R.includes(item, arr) ? R.without([item], arr) : R.append(item, arr));
+
 export const useFretBoardStore = create<TStore>()(
     persist(
         (set, get) => {
@@ -176,6 +183,7 @@ export const useFretBoardStore = create<TStore>()(
             };
 
             return {
+                selectedNotes: [],
                 highlightedNotes: initialHighlightedNotes,
                 settings: {
                     isLocked: true,
@@ -187,6 +195,7 @@ export const useFretBoardStore = create<TStore>()(
                     })),
                 resetPressedNotes: () =>
                     set((state) => ({
+                        selectedNotes: [],
                         strings: R.map(
                             (guitarString) => ({
                                 ...guitarString,
@@ -195,6 +204,10 @@ export const useFretBoardStore = create<TStore>()(
                             state.strings,
                         ),
                     })),
+                resetNotes: () => {
+                    get().resetPressedNotes();
+                    get().resetHighlightedNotes();
+                },
                 getByString: (stringNumber) => {
                     const selectedString = get().strings[stringNumber].fret;
                     const animationType = get().strings[stringNumber].animationType;
@@ -216,6 +229,8 @@ export const useFretBoardStore = create<TStore>()(
                     return { isLocked: get().settings.isLocked };
                 },
                 getHighlightNotes: () => get().highlightedNotes,
+                getSelectedNotes: () => get().selectedNotes,
+                getUniqSelectedNotes: () => [...new Set(get().selectedNotes.map((item) => item.baseNote))],
                 getStringsCount: () => Number(Object.keys(get().strings).length),
                 incStrings: () =>
                     set((state) => {
@@ -263,8 +278,7 @@ export const useFretBoardStore = create<TStore>()(
                         };
                     }),
                 tuneToStandard: () => {
-                    get().resetPressedNotes();
-                    get().resetHighlightedNotes();
+                    get().resetNotes();
                     return set((state) => ({
                         strings: {
                             [1]: updateStringTune(state.strings, 1, 0, 'E4'),
@@ -277,8 +291,7 @@ export const useFretBoardStore = create<TStore>()(
                     }));
                 },
                 tuneUpAll: () => {
-                    get().resetPressedNotes();
-                    get().resetHighlightedNotes();
+                    get().resetNotes();
 
                     return set((state) => ({
                         strings: Object.keys(state.strings).reduce(
@@ -291,9 +304,7 @@ export const useFretBoardStore = create<TStore>()(
                     }));
                 },
                 tuneDownAll: () => {
-                    get().resetPressedNotes();
-                    get().resetHighlightedNotes();
-
+                    get().resetNotes();
                     return set((state) => ({
                         strings: Object.keys(state.strings).reduce(
                             (acc, stringNum) => ({
@@ -305,9 +316,7 @@ export const useFretBoardStore = create<TStore>()(
                     }));
                 },
                 tuneUpNoteByString: (stringNumber) => {
-                    get().resetPressedNotes();
-                    get().resetHighlightedNotes();
-
+                    get().resetNotes();
                     return set((state) => ({
                         strings: {
                             ...state.strings,
@@ -316,9 +325,7 @@ export const useFretBoardStore = create<TStore>()(
                     }));
                 },
                 tuneDownNoteByString: (stringNumber) => {
-                    get().resetPressedNotes();
-                    get().resetHighlightedNotes();
-
+                    get().resetNotes();
                     return set((state) => ({
                         strings: {
                             ...state.strings,
@@ -335,13 +342,24 @@ export const useFretBoardStore = create<TStore>()(
                         );
                         const baseNote = state.strings[stringNumber].fret[fretNumber].baseNote;
 
-                        const updatedHighlightedNotes = R.modifyPath(
-                            [baseNote, 'display'],
-                            R.not,
-                            state.highlightedNotes,
-                        );
+                        const updatedHighlightedNotes = {
+                            ...state.highlightedNotes,
+                            [baseNote]: {
+                                ...state.highlightedNotes[baseNote],
+                                display: !state.highlightedNotes[baseNote].display,
+                            },
+                        };
+
+                        const pressedNote = {
+                            baseNote,
+                            pressedPlace: {
+                                stringNumber,
+                                fretNumber,
+                            },
+                        };
 
                         return {
+                            selectedNotes: toggleInArray(state.selectedNotes, pressedNote),
                             highlightedNotes: {
                                 ...updatedHighlightedNotes,
                             },

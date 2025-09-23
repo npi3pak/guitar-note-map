@@ -1,6 +1,6 @@
 import classnames from 'classnames';
 import { useFretBoardStore } from 'src/store';
-import { xIcon } from '../Icons';
+import { trash, xIcon } from '../Icons';
 
 const whiteKeyStyle = 'relative flex-1 border-l border-gray-400/25 rounded-b-xl hover:cursor-pointer';
 const blackKeyStyle = 'absolute top-0 left-[65%] w-[70%] h-[60%] z-10 rounded-b-xl hover:cursor-pointer';
@@ -40,29 +40,22 @@ const getColor = ({ note, highlightNotes, isPressed = false }) => {
     return 'bg-(--color-piano-white)';
 };
 
-const NoteSelectedLabel = ({ note = 'C', onDelete = () => {} }) => (
-    <label className="block">
-        <div className="flex items-center gap-2 mb-2 px-1">
-            <div className="flex flex-wrap gap-2 flex-1">
-                <span className="inline-flex items-center gap-2 px-2 py-1 rounded-md border border-base-300 bg-red-100 text-red-500 shadow-sm">
-                    <span className="text-sm">{note}</span>
-                    <button
-                        type="button"
-                        aria-label={`Remove ${note}`}
-                        className="btn btn-ghost btn-sm btn-circle"
-                        onClick={onDelete}
-                    >
-                        {xIcon}
-                    </button>
-                </span>
-            </div>
-        </div> 
-    </label>
+const NoteSelectedLabel = ({ note = 'C', onDelete = (note: string) => {} }) => (
+    <div className="flex items-center px-1 rounded-md bg-red-100 text-red-500">
+        <div>{note}</div>
+        <button
+            type="button"
+            aria-label={`Remove ${note}`}
+            className="btn btn-ghost btn-xs btn-circle mx-1"
+            onClick={() => onDelete(note)}
+        >
+            {xIcon}
+        </button>
+    </div>
 );
 
 const Piano = () => {
     const { getHighlightNotes } = useFretBoardStore();
-
     const highlightNotes = getHighlightNotes();
 
     return (
@@ -89,6 +82,11 @@ const Piano = () => {
 };
 
 export const TopPanels = () => {
+    const { getUniqSelectedNotes, resetNotes } = useFretBoardStore();
+    const selectedNotes = getUniqSelectedNotes();
+
+    const handleNoteDelete = (note: string) => {};
+
     return (
         <div className="flex pt-4">
             <div className="hidden md:flex pl-12 flex-[1.5]">
@@ -104,25 +102,18 @@ export const TopPanels = () => {
                 </div>
             </div>
             <div className="hidden md:flex pl-6 flex-[1.5]">
-                <div className="bg-gray-100 rounded-xl p-10 flex w-full">
-                    {/* <div>
-                        <div className="badge bg-red-500/75 text-red-200 badge-lg">C</div>
-                        <div className="badge bg-red-500/75 text-red-200 badge-lg">C</div>
-                        <div className="badge bg-red-500/75 text-red-200 badge-lg">C</div>
-                        <div className="badge bg-red-500/75 text-red-200 badge-lg">C</div>
-                        <div className="badge bg-red-500/75 text-red-200 badge-lg">C</div>
-                        <div className="badge bg-red-500/75 text-red-200 badge-lg">C</div>
-                        <div className="badge bg-red-500/75 text-red-200 badge-lg">C</div>
-                        <div className="badge bg-red-500/75 text-red-200 badge-lg">C</div>
-                        <div className="badge bg-red-500/75 text-red-200 badge-lg">C</div>
-                        <div className="badge bg-red-500/75 text-red-200 badge-lg">C</div>
-                        <div className="badge bg-red-500/75 text-red-200 badge-lg">C</div>
-                        <div className="badge bg-red-500/75 text-red-200 badge-lg">C</div>
-                    </div> */}
-                    <NoteSelectedLabel />
-                    <NoteSelectedLabel />
-                    <NoteSelectedLabel />
-                    <NoteSelectedLabel />
+                <div className="bg-gray-100 rounded-xl p-10 w-full">
+                    <div className="flex flex-wrap gap-2 bg-white/50 p-2 rounded-md border-1 border-gray-300">
+                        <button className="btn btn-xs text-red-400/70" onClick={resetNotes}>
+                            {trash}
+                        </button>
+                        {selectedNotes.map((baseNote, index) => (
+                            <NoteSelectedLabel note={baseNote} key={index} />
+                        ))}
+                        {/* <NoteSelectedLabel /> */}
+                        {/* <NoteSelectedLabel /> */}
+                    </div>
+                    {/* <textarea className="textarea h-2" placeholder="Bio"></textarea> */}
                 </div>
             </div>
             <div className="flex pl-12 md:pl-6 pr-12 flex-[1]">
