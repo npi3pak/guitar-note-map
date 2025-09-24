@@ -7,6 +7,7 @@ interface IFret {
     note: string;
     baseNote: string;
     pressed: boolean;
+    scaleDisplay: boolean;
     similar: boolean;
     animationType?: string;
 }
@@ -131,9 +132,32 @@ const updateStringTune = (
 
 export const toggleInArray = (arr, item) => (R.includes(item, arr) ? R.without([item], arr) : R.append(item, arr));
 
+const containsAllNotesInScale = (scaleNotes, targetNotes) => targetNotes.every((el) => scaleNotes.includes(el));
+
 export const useFretBoardStore = create<TStore>()(
     persist(
         (set, get) => {
+            const initialScale = {
+                C: {
+                    minor: {
+                        isSelected: false,
+                        notes: ['C', 'D', 'D#', 'F', 'G', 'G#', 'A#'],
+                    },
+                },
+                D: {
+                    minor: {
+                        name: 'minor',
+                        notes: ['D', 'E', 'F', 'G', 'A', 'A#', 'C'],
+                    },
+                },
+            };
+
+            const initialSelectedScale = {
+                keyNote: null,
+                scaleType: null,
+                isFilteredByHighlightedNotes: false,
+            };
+
             const initialHighlightedNotes = {
                 C: { display: false, hover: false, colorNum: 1 },
                 'C#': { display: false, hover: false, colorNum: 2 },
@@ -183,12 +207,18 @@ export const useFretBoardStore = create<TStore>()(
             };
 
             return {
+                scales: initialScale,
+                selectedScale: initialSelectedScale,
                 selectedNotes: [],
                 highlightedNotes: initialHighlightedNotes,
                 settings: {
                     isLocked: true,
                 },
                 strings: initialStrings,
+                getScaleKeys: () => Object.keys(get().scales),
+                getScaleByKeys: (key) => {
+                    return Object.keys(get().scales[key]).map((scaleObjKey) => get().scales[key][scaleObjKey].name);
+                },
                 resetHighlightedNotes: () =>
                     set(() => ({
                         highlightedNotes: initialHighlightedNotes,
