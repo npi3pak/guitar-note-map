@@ -81,6 +81,31 @@ const Piano = () => {
     );
 };
 
+const ScaleSelector = () => {
+    return (
+        <>
+            <fieldset className="fieldset border-gray-300 rounded-box border p-4">
+                <legend className="fieldset-legend text-gray-500">Scale</legend>
+                <div className="flex join join-horizontal">
+                    <select defaultValue="Key" className="select select-sm mr-2 flex-1 rounded-md">
+                        <option>C</option>
+                        <option>D</option>
+                    </select>
+                    <select defaultValue="Scale" className="select select-sm flex-3 rounded-l-md">
+                        <option>minor</option>
+                        <option>major</option>
+                    </select>
+                    <button className="btn btn-sm text-red-400/70 join-item rounded-r-md">Scale</button>
+                </div>
+                <label className="label text-xs py-4">
+                    <input type="checkbox" defaultChecked className="checkbox checkbox-md" />
+                    Filter by selected notes
+                </label>
+            </fieldset>
+        </>
+    );
+};
+
 export const TopPanels = () => {
     const { getUniqSelectedNotes, resetNotes } = useFretBoardStore();
     const selectedNotes = getUniqSelectedNotes();
@@ -113,6 +138,10 @@ export const TopPanels = () => {
                         {/* <NoteSelectedLabel /> */}
                         {/* <NoteSelectedLabel /> */}
                     </div>
+                    <div className="mt-4">
+                        <ScaleSelector />
+                    </div>
+
                     {/* <textarea className="textarea h-2" placeholder="Bio"></textarea> */}
                 </div>
             </div>
