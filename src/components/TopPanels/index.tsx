@@ -54,6 +54,12 @@ const NoteSelectedLabel = ({ note = 'C', onDelete = (note: string) => {} }) => (
     </div>
 );
 
+const ScaleNote = ({ note = 'C' }) => (
+    <div className="flex items-center px-1 rounded-md bg-indigo-500/25 text-indigo-600">
+        <div>{note}</div>
+    </div>
+);
+
 const Piano = () => {
     const { getHighlightNotes } = useFretBoardStore();
     const highlightNotes = getHighlightNotes();
@@ -82,25 +88,63 @@ const Piano = () => {
 };
 
 const ScaleSelector = () => {
+    const {
+        getScale,
+        getScaleKeys,
+        getAllScaleNames,
+        setScaleKey,
+        setScaleName,
+        getScaleNotesByKeyName,
+        toggleScaleDisplay,
+    } = useFretBoardStore();
+
+    const scaleKeys = getScaleKeys();
+    const scaleNames = getAllScaleNames();
+    const { selectedKey, selectedScaleName, isDisplayed } = getScale();
+    const notes = isDisplayed ? getScaleNotesByKeyName() : [];
+
     return (
         <>
             <fieldset className="fieldset border-gray-300 rounded-box border p-4">
                 <legend className="fieldset-legend text-gray-500">Scale</legend>
-                <div className="flex join join-horizontal">
-                    <select defaultValue="Key" className="select select-sm mr-2 flex-1 rounded-md">
-                        <option>C</option>
-                        <option>D</option>
-                    </select>
-                    <select defaultValue="Scale" className="select select-sm flex-3 rounded-l-md">
-                        <option>minor</option>
-                        <option>major</option>
-                    </select>
-                    <button className="btn btn-sm text-red-400/70 join-item rounded-r-md">Scale</button>
-                </div>
                 <label className="label text-xs py-4">
                     <input type="checkbox" defaultChecked className="checkbox checkbox-md" />
                     Filter by selected notes
                 </label>
+                <div className="flex join join-horizontal">
+                    <select
+                        className="select select-sm mr-2 flex-1 rounded-md"
+                        value={selectedKey}
+                        onChange={(e) => setScaleKey(e.target.value)}
+                    >
+                        <option value={null} />
+                        {scaleKeys.map((scaleKey, item) => (
+                            <option key={item}>{scaleKey}</option>
+                        ))}
+                    </select>
+                    <select
+                        className="select select-sm flex-3 rounded-l-md"
+                        value={selectedScaleName}
+                        onChange={(e) => setScaleName(e.target.value)}
+                    >
+                        <option value={null} />
+                        {scaleNames.map((scaleName, item) => (
+                            <option key={item}>{scaleName}</option>
+                        ))}
+                    </select>
+                    <button
+                        className="btn btn-sm text-red-400/70 join-item rounded-r-md"
+                        onClick={() => toggleScaleDisplay()}
+                        disabled={!selectedKey || !selectedScaleName}
+                    >
+                        Scale
+                    </button>
+                </div>
+                <div className="flex flex-wrap mt-2 gap-2">
+                    {notes.map((note, item) => (
+                        <ScaleNote note={note} key={item} />
+                    ))}
+                </div>
             </fieldset>
         </>
     );
@@ -128,21 +172,18 @@ export const TopPanels = () => {
             </div>
             <div className="hidden md:flex pl-6 flex-[1.5]">
                 <div className="bg-gray-100 rounded-xl p-10 w-full">
-                    <div className="flex flex-wrap gap-2 bg-white/50 p-2 rounded-md border-1 border-gray-300">
+                    <fieldset className="fieldset border-gray-300 rounded-box border flex flex-wrap bg-white/50 p-2">
+                        <legend className="fieldset-legend text-gray-500">Selected Notes</legend>
                         <button className="btn btn-xs text-red-400/70" onClick={resetNotes}>
                             {trash}
                         </button>
                         {selectedNotes.map((baseNote, index) => (
                             <NoteSelectedLabel note={baseNote} key={index} />
                         ))}
-                        {/* <NoteSelectedLabel /> */}
-                        {/* <NoteSelectedLabel /> */}
-                    </div>
-                    <div className="mt-4">
+                    </fieldset>
+                    <div className="">
                         <ScaleSelector />
                     </div>
-
-                    {/* <textarea className="textarea h-2" placeholder="Bio"></textarea> */}
                 </div>
             </div>
             <div className="flex pl-12 md:pl-6 pr-12 flex-[1]">

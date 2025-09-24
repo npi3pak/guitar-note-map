@@ -3,6 +3,23 @@ import * as R from 'ramda';
 import { FULL_NOTES, STANDARD_TUNE } from 'src/constants';
 import { persist } from 'zustand/middleware';
 
+interface IScales {
+    [key: string]: Record<
+        string,
+        {
+            name: string;
+            notes: string[];
+        }
+    >;
+}
+
+interface ISelectedScale {
+    selectedKey: string | null;
+    selectedScaleName: string | null;
+    isDisplayed: boolean;
+    isFilteredByHighlightedNotes: boolean;
+}
+
 interface IFret {
     note: string;
     baseNote: string;
@@ -58,10 +75,23 @@ interface IFretBoardActions {
     incStrings: () => void;
     addHoverNote: (baseNote: string) => void;
     removeHoverNote: (baseNote: string) => void;
+    getAllScaleNames: () => void;
+    setScaleKey: (selectedKey: string) => void;
+    setScaleName: (selectedScaleName: string) => void;
+    toggleScaleDisplay: () => void;
+    getScale: () => ISelectedScale;
+    getScaleKeys: () => string[];
+    getScaleNotesByKeyName: () => string[] | [];
 }
 
 type TuneDirection = 1 | -1 | 0;
-type TStore = IFretBoardState & IHighlightNotesState & IFretBoardActions & ISettings & ISelectedNotes;
+type TStore = IFretBoardState &
+    IHighlightNotesState &
+    IFretBoardActions &
+    ISettings &
+    ISelectedNotes &
+    ISelectedScale &
+    IScales;
 
 const getBaseNote = (note: string) => note.replace(/[0-9]/, '');
 
@@ -140,7 +170,11 @@ export const useFretBoardStore = create<TStore>()(
             const initialScale = {
                 C: {
                     minor: {
-                        isSelected: false,
+                        name: 'minor',
+                        notes: ['C', 'D', 'D#', 'F', 'G', 'G#', 'A#'],
+                    },
+                    minor2: {
+                        name: 'minor',
                         notes: ['C', 'D', 'D#', 'F', 'G', 'G#', 'A#'],
                     },
                 },
@@ -153,8 +187,9 @@ export const useFretBoardStore = create<TStore>()(
             };
 
             const initialSelectedScale = {
-                keyNote: null,
-                scaleType: null,
+                selectedKey: null,
+                selectedScaleName: null,
+                isDisplayed: false,
                 isFilteredByHighlightedNotes: false,
             };
 
@@ -215,10 +250,33 @@ export const useFretBoardStore = create<TStore>()(
                     isLocked: true,
                 },
                 strings: initialStrings,
+                getScale: () => get().selectedScale,
                 getScaleKeys: () => Object.keys(get().scales),
-                getScaleByKeys: (key) => {
-                    return Object.keys(get().scales[key]).map((scaleObjKey) => get().scales[key][scaleObjKey].name);
+                getScaleNotesByKeyName: () => {
+                    const selectedKey = get().selectedScale.selectedKey;
+                    const selectedScaleName = get().selectedScale.selectedScaleName;
+
+                    if (selectedKey && selectedScaleName) {
+                        return get().scales[selectedKey][selectedScaleName].notes;
+                    }
+
+                    return [];
                 },
+                getAllScaleNames: () => {
+                    return Object.keys(get().scales['C']).map((scaleObjKey) => get().scales['C'][scaleObjKey].name);
+                },
+                setScaleKey: (selectedKey) =>
+                    set((state) => ({
+                        selectedScale: { ...state.selectedScale, selectedKey },
+                    })),
+                setScaleName: (selectedScaleName) =>
+                    set((state) => ({
+                        selectedScale: { ...state.selectedScale, selectedScaleName },
+                    })),
+                toggleScaleDisplay: () =>
+                    set((state) => ({
+                        selectedScale: { ...state.selectedScale, isDisplayed: !state.selectedScale.isDisplay },
+                    })),
                 resetHighlightedNotes: () =>
                     set(() => ({
                         highlightedNotes: initialHighlightedNotes,
