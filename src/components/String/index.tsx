@@ -53,17 +53,29 @@ interface IProps {
     stringNumber: number;
 }
 
+const FretNote = ({ note, animationOffsetSign, baseNote, highlightNotes, isPressed }) => {
+    const { addHoverNote, removeHoverNote } = useFretBoardStore();
+
+    return (
+        <motion.div
+            layout
+            {...animationOffsetSign}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.1 }}
+            className={classnames(
+                ` rounded-xl w-12 ${isHighlightedStyles(baseNote, highlightNotes)} ${isHighlightedHoverStyles(baseNote, highlightNotes)} ${isPressedStyles(isPressed)}`,
+            )}
+            onMouseEnter={() => addHoverNote(baseNote)}
+            onMouseLeave={() => removeHoverNote(baseNote)}
+        >
+            {note}
+        </motion.div>
+    );
+};
+
 export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
-    const {
-        getByString,
-        getHighlightNotes,
-        pressNote,
-        addHoverNote,
-        removeHoverNote,
-        getIsLocked,
-        tuneUpNoteByString,
-        tuneDownNoteByString,
-    } = useFretBoardStore();
+    const { getByString, getHighlightNotes, pressNote, getIsLocked, tuneUpNoteByString, tuneDownNoteByString } =
+        useFretBoardStore();
     const [zeroFret, ...frets] = getByString(stringNumber);
     const highlightNotes = getHighlightNotes();
     const { isLocked } = getIsLocked();
@@ -115,20 +127,14 @@ export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
                         >
                             <div className="w-12 flex justify-center">
                                 <AnimatePresence mode="wait">
-                                    <motion.div
-                                        layout
+                                    <FretNote
                                         key={fret.note}
-                                        {...animationOffsetSign}
-                                        animate={{ x: 0, opacity: 1 }}
-                                        transition={{ duration: 0.1 }}
-                                        className={classnames(
-                                            ` rounded-xl w-12 ${isHighlightedStyles(fret.baseNote, highlightNotes)} ${isHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedStyles(fret.pressed)}`,
-                                        )}
-                                        onMouseEnter={() => addHoverNote(fret.baseNote)}
-                                        onMouseLeave={() => removeHoverNote(fret.baseNote)}
-                                    >
-                                        {fret.note}
-                                    </motion.div>
+                                        note={fret.note}
+                                        animationOffsetSign={animationOffsetSign}
+                                        baseNote={fret.baseNote}
+                                        highlightNotes={highlightNotes}
+                                        isPressed={fret.pressed}
+                                    />
                                 </AnimatePresence>
                             </div>
                         </button>
