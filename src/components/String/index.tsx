@@ -53,8 +53,13 @@ interface IProps {
     stringNumber: number;
 }
 
-const FretNote = ({ note, animationOffsetSign, baseNote, highlightNotes, isPressed }) => {
+const FretNote = ({ note, animationType, baseNote, highlightNotes, isPressed }) => {
     const { addHoverNote, removeHoverNote } = useFretBoardStore();
+
+    const animationOffsetSign =
+        animationType === EAnimationType.rightShift
+            ? { initial: { x: 50, opacity: 0 }, exit: { x: -50, opacity: 0 } }
+            : { initial: { x: -100, opacity: 0 }, exit: { x: 100, opacity: 0 } };
 
     return (
         <motion.div
@@ -106,11 +111,6 @@ export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
                 </div>
             </div>
             {frets.map((fret, index) => {
-                const animationOffsetSign =
-                    fret.animationType === EAnimationType.rightShift
-                        ? { initial: { x: 50, opacity: 0 }, exit: { x: -50, opacity: 0 } }
-                        : { initial: { x: -100, opacity: 0 }, exit: { x: 100, opacity: 0 } };
-
                 return (
                     <div
                         className={classnames(
@@ -130,7 +130,7 @@ export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
                                     <FretNote
                                         key={fret.note}
                                         note={fret.note}
-                                        animationOffsetSign={animationOffsetSign}
+                                        animationType={fret.animationType}
                                         baseNote={fret.baseNote}
                                         highlightNotes={highlightNotes}
                                         isPressed={fret.pressed}
