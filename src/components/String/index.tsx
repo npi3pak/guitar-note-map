@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
-import { EAnimationType, useFretBoardStore } from 'src/store';
+import { EAnimationType, useFretBoardStore, type IFret, type IHighlightNotesState } from 'src/store';
 import { chevronLeft, chevronRight } from 'src/components/Icons';
 
 const colorMap: Record<number, string> = {
@@ -33,6 +33,8 @@ function getFlexClass(index: number) {
 
 const isPressedStyles = (isPressed: boolean) => (isPressed ? 'font-bold text-red-600/50 bg-red-400/25' : '');
 
+const isScaleDisplayStyles = (isScaleDisplay: boolean) => (isScaleDisplay ? 'border-indigo-600/50' : '');
+
 const isHighlightedStyles = (note: string, highlightNotes: unknown) => {
     if (!highlightNotes[note].display) {
         return '';
@@ -53,11 +55,16 @@ interface IProps {
     stringNumber: number;
 }
 
-const FretNote = ({ note, animationType, baseNote, highlightNotes, isPressed }) => {
+interface IFretNote {
+    fret: Partial<IFret>;
+    highlightNotes: IHighlightNotesState['highlightedNotes'];
+}
+
+const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes }) => {
     const { addHoverNote, removeHoverNote } = useFretBoardStore();
 
     const animationOffsetSign =
-        animationType === EAnimationType.rightShift
+        fret.animationType === EAnimationType.rightShift
             ? { initial: { x: 50, opacity: 0 }, exit: { x: -50, opacity: 0 } }
             : { initial: { x: -100, opacity: 0 }, exit: { x: 100, opacity: 0 } };
 
@@ -68,12 +75,12 @@ const FretNote = ({ note, animationType, baseNote, highlightNotes, isPressed }) 
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.1 }}
             className={classnames(
-                ` rounded-xl w-12 ${isHighlightedStyles(baseNote, highlightNotes)} ${isHighlightedHoverStyles(baseNote, highlightNotes)} ${isPressedStyles(isPressed)}`,
+                ` rounded-xl w-12 ${isHighlightedStyles(fret.baseNote, highlightNotes)} ${isHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedStyles(fret.pressed)} ${isScaleDisplayStyles(fret.scaleDisplay)}`,
             )}
-            onMouseEnter={() => addHoverNote(baseNote)}
-            onMouseLeave={() => removeHoverNote(baseNote)}
+            onMouseEnter={() => addHoverNote(fret.baseNote)}
+            onMouseLeave={() => removeHoverNote(fret.baseNote)}
         >
-            {note}
+            {fret.note}
         </motion.div>
     );
 };
@@ -127,14 +134,7 @@ export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
                         >
                             <div className="w-12 flex justify-center">
                                 <AnimatePresence mode="wait">
-                                    <FretNote
-                                        key={fret.note}
-                                        note={fret.note}
-                                        animationType={fret.animationType}
-                                        baseNote={fret.baseNote}
-                                        highlightNotes={highlightNotes}
-                                        isPressed={fret.pressed}
-                                    />
+                                    <FretNote key={fret.note} fret={fret} highlightNotes={highlightNotes} />
                                 </AnimatePresence>
                             </div>
                         </button>

@@ -20,7 +20,7 @@ interface ISelectedScale {
     isFilteredByHighlightedNotes: boolean;
 }
 
-interface IFret {
+export interface IFret {
     note: string;
     baseNote: string;
     pressed: boolean;
