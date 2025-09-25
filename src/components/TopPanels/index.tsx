@@ -41,7 +41,7 @@ const getColor = ({ note, highlightNotes, isPressed = false }) => {
 };
 
 const NoteSelectedLabel = ({ note = 'C', onDelete = (note: string) => {} }) => (
-    <div className="flex items-center px-1 rounded-md bg-red-100 text-red-500">
+    <div className="flex items-center px-1 rounded-md bg-red-100 text-red-500 h-7">
         <div>{note}</div>
         <button
             type="button"
@@ -107,12 +107,8 @@ const ScaleSelector = () => {
 
     return (
         <>
-            <fieldset className="fieldset border-gray-300 rounded-box border p-4">
+            <fieldset className="fieldset border-gray-300 rounded-box border h-42 p-2 mt-2">
                 <legend className="fieldset-legend text-gray-500">Scale</legend>
-                <label className="label text-xs py-4">
-                    <input type="checkbox" defaultChecked className="checkbox checkbox-md" />
-                    Filter by selected notes
-                </label>
                 <div className="flex join join-horizontal">
                     <select
                         className="select select-sm mr-2 flex-1 rounded-md"
@@ -142,7 +138,11 @@ const ScaleSelector = () => {
                         Scale
                     </button>
                 </div>
-                <div className="flex flex-wrap mt-2 gap-2">
+                <label className="label mt-2">
+                    <input type="checkbox" defaultChecked className="toggle text-red-400/70" />
+                    filter scales by selected notes
+                </label>
+                <div className="flex flex-wrap mt-2 gap-2 justify-center">
                     {notes.map((note, item) => (
                         <ScaleNote note={note} key={item} />
                     ))}
@@ -161,7 +161,7 @@ export const TopPanels = () => {
     return (
         <div className="flex pt-4">
             <div className="hidden md:flex pl-12 flex-[1.5]">
-                <div className="bg-gray-100 rounded-xl p-10 flex w-full">
+                <div className="bg-gray-100 rounded-xl p-8 flex w-full">
                     <div className="flex-1">
                         <h1 className="text-4xl text-red-500/50 font-bold">Guitar Note Map</h1>
                         <p className="py-2 text-gray-400">
@@ -173,15 +173,19 @@ export const TopPanels = () => {
                 </div>
             </div>
             <div className="hidden md:flex pl-6 flex-[1.5]">
-                <div className="bg-gray-100 rounded-xl p-10 w-full">
+                <div className="bg-gray-100 rounded-xl py-5 px-10 w-full">
                     <fieldset className="fieldset border-gray-300 rounded-box border flex flex-wrap bg-white/50 p-2">
                         <legend className="fieldset-legend text-gray-500">Selected Notes</legend>
-                        <button className="btn btn-xs text-red-400/70" onClick={resetNotes}>
-                            {trash}
-                        </button>
-                        {selectedNotes.map((baseNote, index) => (
-                            <NoteSelectedLabel note={baseNote} key={index} />
-                        ))}
+                        <div className="flex flex-row justify-between w-full">
+                            <div className="flex flex-wrap gap-1 justify-center h-15">
+                                {selectedNotes.map((baseNote, index) => (
+                                    <NoteSelectedLabel note={baseNote} key={index} />
+                                ))}
+                            </div>
+                            <button className="btn btn-xs text-red-400/70" onClick={resetNotes}>
+                                {trash}
+                            </button>
+                        </div>
                     </fieldset>
                     <div className="">
                         <ScaleSelector />
