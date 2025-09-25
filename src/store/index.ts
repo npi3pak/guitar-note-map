@@ -24,8 +24,7 @@ export interface IFret {
     note: string;
     baseNote: string;
     pressed: boolean;
-    scaleDisplay: boolean;
-    similar: boolean;
+    isNoteInScale: boolean;
     animationType?: string;
 }
 
@@ -106,7 +105,7 @@ const getInitialFretList = (baseNote: string) =>
                 note: item,
                 baseNote: getBaseNote(item),
                 pressed: false,
-                similar: false,
+                isNoteInScale: false,
             },
         };
     }, {});
@@ -333,6 +332,7 @@ export const useFretBoardStore = create<TStore>()(
                                     [newStringNum]: {
                                         number: newStringNum,
                                         animationType: null,
+                                        isNoteInScale: false,
                                         fret: getInitialFretList(initialNote),
                                     },
                                 },
@@ -484,6 +484,34 @@ export const useFretBoardStore = create<TStore>()(
                             },
                         };
                     }),
+                // addScaleBorderToNote: (baseNote: string) =>
+                //     set((state) => {
+                //         const updatedHighlightedNotes = R.modifyPath<IHighlightNotesState['highlightedNotes']>(
+                //             [baseNote, 'hover'],
+                //             () => true,
+                //             state.highlightedNotes,
+                //         );
+
+                //         return {
+                //             highlightedNotes: {
+                //                 ...updatedHighlightedNotes,
+                //             },
+                //         };
+                //     }),
+                // removeScaleBorderToNote: (baseNote: string) =>
+                //     set((state) => {
+                //         const updatedHighlightedNotes = R.modifyPath<IHighlightNotesState['highlightedNotes']>(
+                //             [baseNote, 'hover'],
+                //             () => false,
+                //             state.highlightedNotes,
+                //         );
+
+                //         return {
+                //             highlightedNotes: {
+                //                 ...updatedHighlightedNotes,
+                //             },
+                //         };
+                //     }),
             };
         },
         { name: 'fretboard-storage', partialize: (state) => ({ strings: state.strings }) },

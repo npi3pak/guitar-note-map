@@ -58,9 +58,10 @@ interface IProps {
 interface IFretNote {
     fret: Partial<IFret>;
     highlightNotes: IHighlightNotesState['highlightedNotes'];
+    scaleStepNumber?: number;
 }
 
-const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes }) => {
+const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes, scaleStepNumber = 10 }) => {
     const { addHoverNote, removeHoverNote } = useFretBoardStore();
 
     const animationOffsetSign =
@@ -80,7 +81,14 @@ const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes }) => {
             onMouseEnter={() => addHoverNote(fret.baseNote)}
             onMouseLeave={() => removeHoverNote(fret.baseNote)}
         >
-            {fret.note}
+            <div className="indicator">
+                {fret.isNoteInScale && (
+                    <span className="indicator-item badge border-indigo-300/25 bg-indigo-300/25 text-indigo-400/50 badge-xs text-[10px] px-1">
+                        {scaleStepNumber}
+                    </span>
+                )}
+                {fret.note}
+            </div>
         </motion.div>
     );
 };
