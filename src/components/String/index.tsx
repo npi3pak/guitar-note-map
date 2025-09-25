@@ -33,7 +33,7 @@ function getFlexClass(index: number) {
 
 const isPressedStyles = (isPressed: boolean) => (isPressed ? 'font-bold text-red-600/50 bg-red-400/25' : '');
 
-const isScaleDisplayStyles = (isScaleDisplay: boolean) => (isScaleDisplay ? 'border-indigo-600/50' : '');
+const isScaleDisplayStyles = (isScaleDisplay: boolean) => (isScaleDisplay ? 'border-1 border-indigo-600/25' : '');
 
 const isHighlightedStyles = (note: string, highlightNotes: unknown) => {
     if (!highlightNotes[note].display) {
@@ -61,13 +61,18 @@ interface IFretNote {
     scaleStepNumber?: number;
 }
 
-const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes, scaleStepNumber = 10 }) => {
-    const { addHoverNote, removeHoverNote } = useFretBoardStore();
+const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes }) => {
+    const { addHoverNote, removeHoverNote, getScale, getScaleNotesByKeyName } = useFretBoardStore();
 
     const animationOffsetSign =
         fret.animationType === EAnimationType.rightShift
             ? { initial: { x: 50, opacity: 0 }, exit: { x: -50, opacity: 0 } }
             : { initial: { x: -100, opacity: 0 }, exit: { x: 100, opacity: 0 } };
+
+    const scaleNoteList = getScaleNotesByKeyName();
+
+    const isScaleDisplayed = getScale().isDisplayed && fret.isNoteInScale;
+    const scaleStepNumber = isScaleDisplayed ? scaleNoteList.indexOf(fret.baseNote) + 1 : null;
 
     return (
         <motion.div
@@ -76,14 +81,14 @@ const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes, scaleStepNumber =
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.1 }}
             className={classnames(
-                ` rounded-xl w-12 ${isHighlightedStyles(fret.baseNote, highlightNotes)} ${isHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedStyles(fret.pressed)} ${isScaleDisplayStyles(fret.scaleDisplay)}`,
+                `rounded-xl w-12 ${isHighlightedStyles(fret.baseNote, highlightNotes)} ${isHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedStyles(fret.pressed)} ${isScaleDisplayStyles(isScaleDisplayed)}`,
             )}
             onMouseEnter={() => addHoverNote(fret.baseNote)}
             onMouseLeave={() => removeHoverNote(fret.baseNote)}
         >
             <div className="indicator">
-                {fret.isNoteInScale && (
-                    <span className="indicator-item badge border-indigo-300/25 bg-indigo-300/25 text-indigo-400/50 badge-xs text-[10px] px-1">
+                {isScaleDisplayed && (
+                    <span className="indicator-item badge border-indigo-300/25 bg-indigo-100 text-indigo-400/50 badge-xs text-[10px] px-1">
                         {scaleStepNumber}
                     </span>
                 )}

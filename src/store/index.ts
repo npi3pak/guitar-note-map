@@ -273,9 +273,35 @@ export const useFretBoardStore = create<TStore>()(
                         selectedScale: { ...state.selectedScale, selectedScaleName },
                     })),
                 toggleScaleDisplay: () =>
-                    set((state) => ({
-                        selectedScale: { ...state.selectedScale, isDisplayed: !state.selectedScale.isDisplay },
-                    })),
+                    set((state) => {
+                        get().updateNotesInScale();
+
+                        return {
+                            selectedScale: { ...state.selectedScale, isDisplayed: !state.selectedScale.isDisplay },
+                        };
+                    }),
+                updateNotesInScale: () =>
+                    set((state) => {
+                        const scaleNotes = get().getScaleNotesByKeyName();
+
+                        if (scaleNotes.length) {
+                            return {
+                                strings: R.mapObjIndexed((stringData: IGuitarString) => {
+                                    const newFrets = R.mapObjIndexed((fret: IFret) => ({
+                                        ...fret,
+                                        isNoteInScale: R.includes(fret.baseNote, scaleNotes),
+                                    }))(stringData.fret);
+
+                                    return {
+                                        ...stringData,
+                                        fret: newFrets,
+                                    };
+                                }, state.strings),
+                            };
+                        }
+
+                        return { strings: state.strings };
+                    }),
                 resetHighlightedNotes: () =>
                     set(() => ({
                         highlightedNotes: initialHighlightedNotes,
@@ -303,6 +329,7 @@ export const useFretBoardStore = create<TStore>()(
                         note: data.note,
                         baseNote: data.baseNote,
                         pressed: data.pressed,
+                        isNoteInScale: data.isNoteInScale,
                         animationType,
                     }));
                 },
