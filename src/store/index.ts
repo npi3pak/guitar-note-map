@@ -277,7 +277,7 @@ export const useFretBoardStore = create<TStore>()(
                         get().updateNotesInScale();
 
                         return {
-                            selectedScale: { ...state.selectedScale, isDisplayed: !state.selectedScale.isDisplay },
+                            selectedScale: { ...state.selectedScale, isDisplayed: !state.selectedScale.isDisplayed },
                         };
                     }),
                 updateNotesInScale: () =>

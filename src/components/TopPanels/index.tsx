@@ -103,6 +103,8 @@ const ScaleSelector = () => {
     const { selectedKey, selectedScaleName, isDisplayed } = getScale();
     const notes = isDisplayed ? getScaleNotesByKeyName() : [];
 
+    const toggleBntColor = isDisplayed ? 'bg-indigo-300/25' : 'text-red-400/70';
+
     return (
         <>
             <fieldset className="fieldset border-gray-300 rounded-box border p-4">
@@ -133,7 +135,7 @@ const ScaleSelector = () => {
                         ))}
                     </select>
                     <button
-                        className="btn btn-sm text-red-400/70 join-item rounded-r-md"
+                        className={`btn btn-sm  join-item rounded-r-md ${toggleBntColor}`}
                         onClick={() => toggleScaleDisplay()}
                         disabled={!selectedKey || !selectedScaleName}
                     >
