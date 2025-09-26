@@ -17,7 +17,7 @@ interface ISelectedScale {
     selectedKey: string | null;
     selectedScaleName: string | null;
     isDisplayed: boolean;
-    isFilteredByHighlightedNotes: boolean;
+    isFiltered: boolean;
 }
 
 export interface IFret {
@@ -182,16 +182,19 @@ export const useFretBoardStore = create<TStore>()(
                     minor: {
                         name: 'minor',
                         notes: ['C', 'D', 'D#', 'F', 'G', 'G#', 'A#'],
+                        makeAsFiltered: false,
                     },
                     minor2: {
                         name: 'minor',
                         notes: ['C', 'D', 'D#', 'F', 'G', 'G#', 'A#'],
+                        makeAsFiltered: false,
                     },
                 },
                 D: {
                     minor: {
                         name: 'minor',
                         notes: ['D', 'E', 'F', 'G', 'A', 'A#', 'C'],
+                        makeAsFiltered: false,
                     },
                 },
             };
@@ -200,7 +203,7 @@ export const useFretBoardStore = create<TStore>()(
                 selectedKey: null,
                 selectedScaleName: null,
                 isDisplayed: false,
-                isFilteredByHighlightedNotes: false,
+                isFiltered: false,
             };
 
             const initialHighlightedNotes = {
@@ -260,6 +263,7 @@ export const useFretBoardStore = create<TStore>()(
                     isLocked: true,
                 },
                 strings: initialStrings,
+
                 getScale: () => get().selectedScale,
                 getScaleKeys: () => Object.keys(get().scales),
                 getScaleNotesByKeyName: () => {
@@ -283,6 +287,36 @@ export const useFretBoardStore = create<TStore>()(
                     set((state) => ({
                         selectedScale: { ...state.selectedScale, selectedScaleName },
                     })),
+                toggleScaleFilter: () =>
+                    set((state) => {
+                        const isScaleFiltered = !state.selectedScale.isFiltered;
+                        get().updateFilteredScale(isScaleFiltered);
+
+                        return {
+                            selectedScale: { ...state.selectedScale, isFiltered: isScaleFiltered },
+                        };
+                    }),
+                updateFilteredScale: (isFiltered) =>
+                    set((state) => {
+                        const updatedScale = {
+                            scales: R.mapObjIndexed((scaleKey) => {
+                                const scaleName = R.mapObjIndexed((scaleNameItem) => ({
+                                    ...scaleNameItem,
+                                    isFiltered: isFiltered
+                                        ? containsAllNotesInScale(scaleNameItem.notes, get().getHighlightNotes())
+                                        : false,
+                                }))(scaleKey);
+
+                                return {
+                                    ...scaleName,
+                                };
+                            }, state.scales),
+                        };
+
+                        return {
+                            scales: updatedScale,
+                        };
+                    }),
                 toggleScaleDisplay: () =>
                     set((state) => {
                         get().updateNotesInScale();
@@ -475,6 +509,8 @@ export const useFretBoardStore = create<TStore>()(
                                 display: !state.highlightedNotes[baseNote].display,
                             },
                         };
+
+                        get().updateFilteredScale(get().selectedScale.isFiltered);
 
                         const pressedNote = {
                             baseNote,
