@@ -303,7 +303,7 @@ export const useFretBoardStore = create<TStore>()(
                                 const scaleName = R.mapObjIndexed((scaleNameItem) => ({
                                     ...scaleNameItem,
                                     isFiltered: isFiltered
-                                        ? containsAllNotesInScale(scaleNameItem.notes, get().getHighlightNotes())
+                                        ? containsAllNotesInScale(scaleNameItem.notes, get().getUniqSelectedNotes())
                                         : false,
                                 }))(scaleKey);
 
