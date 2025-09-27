@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import * as R from 'ramda';
-import { FULL_NOTES, STANDARD_TUNE } from 'src/constants';
+import { ALL_NOTES, BASE_SCALES, FULL_NOTES, STANDARD_TUNE } from 'src/constants';
 import { persist } from 'zustand/middleware';
 
 interface IScales {
@@ -87,7 +87,6 @@ interface IFretBoardActions {
     setScaleName: (selectedScaleName: string) => void;
     toggleScaleDisplay: () => void;
     getScale: () => ISelectedScale;
-    getScaleKeys: () => string[];
     getScaleNotesByKeyName: () => string[] | [];
     updateNotesInScale: () => void;
     resetNotes: () => void;
@@ -174,19 +173,71 @@ export const toggleInArray = (arr, item) => (R.includes(item, arr) ? R.without([
 
 const containsAllNotesInScale = (scaleNotes, targetNotes) => targetNotes.every((el) => scaleNotes.includes(el));
 
+export const generateNote = (scale, targetRoot) => {
+    const baseIndex = ALL_NOTES.indexOf('C'); // где находится C в текущем массиве
+    const shift = ALL_NOTES.indexOf(targetRoot) - baseIndex;
+
+    return scale.map((n) => ALL_NOTES[(ALL_NOTES.indexOf(n) + shift + ALL_NOTES.length) % ALL_NOTES.length]);
+};
+
 export const useFretBoardStore = create<TStore>()(
     persist(
         (set, get) => {
             const initialScale = {
                 C: {
-                    minor: {
-                        name: 'minor',
+                    minor_test: {
+                        name: 'minor_test',
                         notes: ['C', 'D', 'D#', 'F', 'G', 'G#', 'A#'],
                         makeAsFiltered: false,
                     },
-                    minor2: {
+                    major: {
+                        name: 'major',
+                        notes: generateNote(BASE_SCALES['major'], 'C'),
+                        makeAsFiltered: false,
+                    },
+                    minor: {
                         name: 'minor',
-                        notes: ['C', 'D', 'D#', 'F', 'G', 'G#', 'A#'],
+                        notes: generateNote(BASE_SCALES['minor'], 'C'),
+                        makeAsFiltered: false,
+                    },
+                    harmonicMinor: {
+                        name: 'harmonicMinor',
+                        notes: generateNote(BASE_SCALES['harmonicMinor'], 'C'),
+                        makeAsFiltered: false,
+                    },
+                    melodicMinor: {
+                        name: 'melodicMinor',
+                        notes: generateNote(BASE_SCALES['melodicMinor'], 'C'),
+                        makeAsFiltered: false,
+                    },
+                    pentatonicMajor: {
+                        name: 'pentatonicMajor',
+                        notes: generateNote(BASE_SCALES['pentatonicMajor'], 'C'),
+                        makeAsFiltered: false,
+                    },
+                    phrygian: {
+                        name: 'phrygian',
+                        notes: generateNote(BASE_SCALES['phrygian'], 'C'),
+                        makeAsFiltered: false,
+                    },
+                    dorian: {
+                        name: 'dorian',
+                        notes: generateNote(BASE_SCALES['dorian'], 'C'),
+                        makeAsFiltered: false,
+                    },
+                    lydian: {
+                        name: 'lydian',
+                        notes: generateNote(BASE_SCALES['lydian'], 'C'),
+                        makeAsFiltered: false,
+                    },
+                    mixolydian: {
+                        name: 'mixolydian',
+                        notes: generateNote(BASE_SCALES['mixolydian'], 'C'),
+                        makeAsFiltered: false,
+                    },
+                    locrian: {
+                        name: 'locrian',
+                        notes: generateNote(BASE_SCALES['locrian'], 'C'),
                         makeAsFiltered: false,
                     },
                 },
@@ -265,7 +316,7 @@ export const useFretBoardStore = create<TStore>()(
                 strings: initialStrings,
 
                 getScale: () => get().selectedScale,
-                getScaleKeys: () => Object.keys(get().scales),
+                getScales: () => get().scales,
                 getScaleNotesByKeyName: () => {
                     const selectedKey = get().selectedScale.selectedKey;
                     const selectedScaleName = get().selectedScale.selectedScaleName;
@@ -275,9 +326,6 @@ export const useFretBoardStore = create<TStore>()(
                     }
 
                     return [];
-                },
-                getAllScaleNames: () => {
-                    return Object.keys(get().scales['C']).map((scaleObjKey) => get().scales['C'][scaleObjKey].name);
                 },
                 setScaleKey: (selectedKey) =>
                     set((state) => ({
@@ -298,24 +346,20 @@ export const useFretBoardStore = create<TStore>()(
                     }),
                 updateFilteredScale: (isFiltered) =>
                     set((state) => {
-                        const updatedScale = {
-                            scales: R.mapObjIndexed((scaleKey) => {
-                                const scaleName = R.mapObjIndexed((scaleNameItem) => ({
+                        const updatedScales = R.mapObjIndexed(
+                            (scaleGroup) =>
+                                R.mapObjIndexed((scaleNameItem) => ({
                                     ...scaleNameItem,
-                                    isFiltered: isFiltered
+                                    makeAsFiltered: isFiltered
                                         ? containsAllNotesInScale(scaleNameItem.notes, get().getUniqSelectedNotes())
                                         : false,
-                                }))(scaleKey);
+                                }))(scaleGroup),
+                            state.scales,
+                        );
 
-                                return {
-                                    ...scaleName,
-                                };
-                            }, state.scales),
-                        };
+                        console.log('updatedScales', updatedScales);
 
-                        return {
-                            scales: updatedScale,
-                        };
+                        return { scales: updatedScales };
                     }),
                 toggleScaleDisplay: () =>
                     set((state) => {

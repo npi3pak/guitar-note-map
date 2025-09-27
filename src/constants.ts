@@ -28,3 +28,18 @@ export const ALL_NOTES = ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 
 
 export type Note = (typeof Note)[keyof typeof Note];
 export const STANDARD_TUNE = ['E4', 'B3', 'G3', 'D3', 'A2', 'E2', 'B1', 'F#1'];
+
+export const BASE_SCALES = {
+    major: ['C', 'D', 'E', 'F', 'G', 'A', 'B'],
+    minor: ['C', 'D', 'D#', 'F', 'G', 'G#', 'A#'],
+    harmonicMinor: ['C', 'D', 'D#', 'F', 'G', 'G#', 'B'],
+    melodicMinor: ['C', 'D', 'D#', 'F', 'G', 'A', 'B'],
+    pentatonicMajor: ['C', 'D', 'E', 'G', 'A'],
+    pentatonicMinor: ['C', 'D#', 'F', 'G', 'A#'],
+    blues: ['C', 'D#', 'F', 'F#', 'G', 'A#'],
+    dorian: ['C', 'D', 'D#', 'F', 'G', 'A', 'A#'],
+    phrygian: ['C', 'C#', 'D#', 'F', 'G', 'G#', 'A#'],
+    lydian: ['C', 'D', 'E', 'F#', 'G', 'A', 'B'],
+    mixolydian: ['C', 'D', 'E', 'F', 'G', 'A', 'A#'],
+    locrian: ['C', 'C#', 'D#', 'F', 'F#', 'G#', 'A#'],
+};
