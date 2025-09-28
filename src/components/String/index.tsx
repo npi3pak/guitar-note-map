@@ -98,37 +98,97 @@ const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes }) => {
     );
 };
 
+const isPressedZeroStyles = (isPressed: boolean) => (isPressed ? 'font-bold' : '');
+
+const isScaleZeroDisplayStyles = (isScaleDisplay: boolean) =>
+    isScaleDisplay ? 'border-1 border-gray-600/25 rounded-xl' : '';
+
+const isZeroHighlightedStyles = (note: string, highlightNotes: unknown) => {
+    if (!highlightNotes[note].display) {
+        return '';
+    }
+
+    // return `${colorMap[highlightNotes[note].colorNum]} font-semibold rounded-xl`;
+    return `bg-gray-300/25 font-semibold rounded-xl`;
+};
+
+const isZeroHighlightedHoverStyles = (note: string, highlightNotes: unknown) => {
+    if (!highlightNotes[note].hover) {
+        return '';
+    }
+
+    // return `${colorMap[highlightNotes[note].colorNum]} font-semibold rounded-xl transition-colors duration-100`;
+    return `bg-gray-300/25 font-semibold rounded-xl`;
+};
+
+const ZeroFret = ({ fret, stringNumber, highlightNotes }) => {
+    const {
+        tuneUpNoteByString,
+        tuneDownNoteByString,
+        getIsLocked,
+        addHoverNote,
+        removeHoverNote,
+        getScale,
+        getScaleNotesByKeyName,
+    } = useFretBoardStore();
+    const { isLocked } = getIsLocked();
+
+    const scaleNoteList = getScaleNotesByKeyName();
+
+    const isScaleDisplayed = getScale().isDisplayed && fret.isNoteInScale;
+    const scaleStepNumber = isScaleDisplayed ? scaleNoteList.indexOf(fret.baseNote) + 1 : null;
+
+    return (
+        <div className="flex w-28 justify-between">
+            <motion.button
+                animate={{ opacity: isLocked ? 0 : 1 }}
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
+                style={{ visibility: isLocked ? 'hidden' : 'visible' }}
+                className="btn btn-ghost btn-xs text-blue-600/50"
+                onClick={() => tuneDownNoteByString(stringNumber)}
+            >
+                {chevronLeft}
+            </motion.button>
+            {isLocked ? (
+                <div
+                    className={`text-center rounded-xl w-12 text-gray-600/50 dark:text-sky-400/50 ${isZeroHighlightedStyles(fret.baseNote, highlightNotes)} ${isZeroHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedZeroStyles(fret.pressed)} ${isScaleZeroDisplayStyles(isScaleDisplayed)}`}
+                    onMouseEnter={() => addHoverNote(fret.baseNote)}
+                    onMouseLeave={() => removeHoverNote(fret.baseNote)}
+                >
+                    <div className="indicator">
+                        {isScaleDisplayed && (
+                            <span className="indicator-item badge border-gray-300/25 bg-gray-100 text-gray-400/50 badge-xs text-[10px] px-1">
+                                {scaleStepNumber}
+                            </span>
+                        )}
+                        {fret.note}
+                    </div>
+                </div>
+            ) : (
+                <div className="text-center rounded-xl w-12 text-gray-600/50 dark:text-sky-400/50">{fret.note}</div>
+            )}
+            <motion.button
+                animate={{ opacity: isLocked ? 0 : 1 }}
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
+                style={{ visibility: isLocked ? 'hidden' : 'visible' }}
+                className="btn btn-ghost btn-xs text-blue-600/50"
+                onClick={() => tuneUpNoteByString(stringNumber)}
+            >
+                {chevronRight}
+            </motion.button>
+        </div>
+    );
+};
+
 export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
-    const { getByString, getHighlightNotes, pressNote, getIsLocked, tuneUpNoteByString, tuneDownNoteByString } =
-        useFretBoardStore();
+    const { getByString, getHighlightNotes, pressNote } = useFretBoardStore();
     const [zeroFret, ...frets] = getByString(stringNumber);
     const highlightNotes = getHighlightNotes();
-    const { isLocked } = getIsLocked();
 
     return (
         <>
             <div className="flex  justify-self-center p-2">
-                <div className="flex w-24 justify-between">
-                    <motion.button
-                        animate={{ opacity: isLocked ? 0 : 1 }}
-                        transition={{ duration: 0.2, ease: 'easeInOut' }}
-                        style={{ visibility: isLocked ? 'hidden' : 'visible' }}
-                        className="btn btn-ghost btn-xs text-blue-600/50"
-                        onClick={() => tuneDownNoteByString(stringNumber)}
-                    >
-                        {chevronLeft}
-                    </motion.button>
-                    <span className="text-gray-600/50 dark:text-sky-400/50">{zeroFret.note}</span>
-                    <motion.button
-                        animate={{ opacity: isLocked ? 0 : 1 }}
-                        transition={{ duration: 0.2, ease: 'easeInOut' }}
-                        style={{ visibility: isLocked ? 'hidden' : 'visible' }}
-                        className="btn btn-ghost btn-xs text-blue-600/50"
-                        onClick={() => tuneUpNoteByString(stringNumber)}
-                    >
-                        {chevronRight}
-                    </motion.button>
-                </div>
+                <ZeroFret fret={zeroFret} highlightNotes={highlightNotes} stringNumber={stringNumber} />
             </div>
             {frets.map((fret, index) => {
                 return (
