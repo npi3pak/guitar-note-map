@@ -41,8 +41,6 @@ const NoteSelector = () => {
 };
 
 export const TopPanels = () => {
-    const { getUniqSelectedNotes, resetNotes } = useFretBoardStore();
-
     return (
         <div className="flex pt-4">
             {/* <div className="hidden md:flex pl-12 flex-[1.5]">
@@ -58,19 +56,19 @@ export const TopPanels = () => {
                 </div>
                 </div> */}
             <div className="hidden md:flex pl-12 flex-[1.5]">
-                <div className="bg-gray-100 rounded-xl py-4 px-10 w-full">
+                <div className="bg-gray-100 rounded-xl py-3 px-10 w-full">
                     <NoteSelector />
                 </div>
             </div>
             <div className="hidden md:flex pl-6 flex-[1.5]">
-                <div className="bg-gray-100 rounded-xl py-4 px-10 w-full">
+                <div className="bg-gray-100 rounded-xl py-3 px-10 w-full">
                     <div className="">
                         <ScaleSelector />
                     </div>
                 </div>
             </div>
             <div className="flex pl-12 md:pl-6 pr-12 flex-[1]">
-                <div className="bg-gray-100 rounded-xl p-4 px-4 flex items-center w-full">
+                <div className="bg-gray-100 rounded-xl px-4 p-4 flex items-center w-full">
                     <Piano />
                 </div>
             </div>

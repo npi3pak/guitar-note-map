@@ -10,13 +10,28 @@ export const ScaleNote = ({ note = 'C' }) => (
     </div>
 );
 
+export const NoteList = () => {
+    const { getScaleNotesByKeyName, getScale } = useFretBoardStore();
+
+    const { isDisplayed } = getScale();
+
+    const notes = isDisplayed ? getScaleNotesByKeyName() : [];
+
+    return (
+        <div className="flex flex-wrap mt-2 gap-2 justify-center">
+            {notes.map((note, item) => (
+                <ScaleNote note={note} key={item} />
+            ))}
+        </div>
+    );
+};
+
 export const ScaleSelector = () => {
     const { getScale, getScales, setScaleKey, setScaleName, getScaleNotesByKeyName, resetScale, toggleScaleFilter } =
         useFretBoardStore();
 
     const { selectedKey, selectedScaleName, isDisplayed, isFiltered } = getScale();
     const allScales = getScales();
-    const notes = isDisplayed ? getScaleNotesByKeyName() : [];
 
     const keysToDisplay = Object.keys(allScales).map((scaleKey) => ({
         name: scaleKey,
@@ -37,7 +52,7 @@ export const ScaleSelector = () => {
 
     return (
         <>
-            <fieldset className="fieldset border-gray-300 rounded-box border h-42 p-2">
+            <fieldset className="fieldset border-gray-300 rounded-box border h-40 p-2">
                 <legend className="fieldset-legend text-gray-500">Scale</legend>
                 <div className="flex join-horizontal">
                     <select
@@ -77,11 +92,7 @@ export const ScaleSelector = () => {
                     />
                     filter scales by selected notes
                 </label>
-                <div className="flex flex-wrap mt-2 gap-2 justify-center">
-                    {notes.map((note, item) => (
-                        <ScaleNote note={note} key={item} />
-                    ))}
-                </div>
+                <NoteList />
             </fieldset>
         </>
     );
