@@ -37,7 +37,7 @@ export const ScaleSelector = () => {
 
     return (
         <>
-            <fieldset className="fieldset border-gray-300 rounded-box border h-42 p-2 mt-2">
+            <fieldset className="fieldset border-gray-300 rounded-box border h-42 p-2">
                 <legend className="fieldset-legend text-gray-500">Scale</legend>
                 <div className="flex join-horizontal">
                     <select

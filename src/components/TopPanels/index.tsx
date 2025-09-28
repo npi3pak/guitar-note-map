@@ -17,15 +17,35 @@ const NoteSelectedLabel = ({ note = 'C', onDelete = (note: string) => {} }) => (
     </div>
 );
 
-export const TopPanels = () => {
+const NoteSelector = () => {
     const { getUniqSelectedNotes, resetNotes } = useFretBoardStore();
-    const selectedNotes = getUniqSelectedNotes();
 
+    const selectedNotes = getUniqSelectedNotes();
     const handleNoteDelete = (note: string) => {};
 
     return (
+        <fieldset className="fieldset border-gray-300 rounded-box border flex flex-wrap bg-white/50 p-2 h-full">
+            <legend className="fieldset-legend text-gray-500">Selected Notes</legend>
+            <div className="flex flex-row justify-between w-full">
+                <div className="flex flex-wrap gap-1 justify-center h-15">
+                    {selectedNotes.map((baseNote, index) => (
+                        <NoteSelectedLabel note={baseNote} key={index} />
+                    ))}
+                </div>
+                <button className="btn btn-xs text-red-400/70" onClick={resetNotes}>
+                    {xIcon}
+                </button>
+            </div>
+        </fieldset>
+    );
+};
+
+export const TopPanels = () => {
+    const { getUniqSelectedNotes, resetNotes } = useFretBoardStore();
+
+    return (
         <div className="flex pt-4">
-            <div className="hidden md:flex pl-12 flex-[1.5]">
+            {/* <div className="hidden md:flex pl-12 flex-[1.5]">
                 <div className="bg-gray-100 rounded-xl p-8 flex w-full">
                     <div className="flex-1">
                         <h1 className="text-4xl text-red-500/50 font-bold">Guitar Note Map</h1>
@@ -36,29 +56,21 @@ export const TopPanels = () => {
                     </div>
                     <div className="flex-1"></div>
                 </div>
+                </div> */}
+            <div className="hidden md:flex pl-12 flex-[1.5]">
+                <div className="bg-gray-100 rounded-xl py-4 px-10 w-full">
+                    <NoteSelector />
+                </div>
             </div>
             <div className="hidden md:flex pl-6 flex-[1.5]">
-                <div className="bg-gray-100 rounded-xl py-5 px-10 w-full">
-                    <fieldset className="fieldset border-gray-300 rounded-box border flex flex-wrap bg-white/50 p-2">
-                        <legend className="fieldset-legend text-gray-500">Selected Notes</legend>
-                        <div className="flex flex-row justify-between w-full">
-                            <div className="flex flex-wrap gap-1 justify-center h-15">
-                                {selectedNotes.map((baseNote, index) => (
-                                    <NoteSelectedLabel note={baseNote} key={index} />
-                                ))}
-                            </div>
-                            <button className="btn btn-xs text-red-400/70" onClick={resetNotes}>
-                                {xIcon}
-                            </button>
-                        </div>
-                    </fieldset>
+                <div className="bg-gray-100 rounded-xl py-4 px-10 w-full">
                     <div className="">
                         <ScaleSelector />
                     </div>
                 </div>
             </div>
             <div className="flex pl-12 md:pl-6 pr-12 flex-[1]">
-                <div className="bg-gray-100 rounded-xl p-10 flex items-center w-full h-full">
+                <div className="bg-gray-100 rounded-xl p-4 px-4 flex items-center w-full">
                     <Piano />
                 </div>
             </div>
