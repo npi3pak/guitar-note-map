@@ -110,8 +110,6 @@ export const stringsSlice = (set, get) => ({
         set((state) => {
             const scaleNotes = get().getScaleNotesByKeyName();
 
-            console.log('scaleNotes1', scaleNotes);
-
             if (scaleNotes.length) {
                 return {
                     strings: R.mapObjIndexed((stringData: IGuitarString) => {
@@ -127,8 +125,6 @@ export const stringsSlice = (set, get) => ({
                     }, state.strings),
                 };
             }
-
-            console.log('state.strings', state.strings);
 
             return { strings: state.strings };
         }),
