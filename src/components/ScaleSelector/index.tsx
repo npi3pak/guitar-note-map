@@ -42,7 +42,7 @@ export const ScaleSelector = () => {
                 <div className="flex join-horizontal">
                     <select
                         className="select select-sm mr-2 flex-1 rounded-md"
-                        value={selectedKey}
+                        value={selectedKey ?? ''}
                         onChange={(e) => setScaleKey(e.target.value)}
                     >
                         <option value={null} />
@@ -54,7 +54,7 @@ export const ScaleSelector = () => {
                     </select>
                     <select
                         className="select select-sm mr-2 flex-3 rounded-l-md"
-                        value={selectedScaleName}
+                        value={selectedScaleName ?? ''}
                         onChange={(e) => setScaleName(e.target.value)}
                     >
                         <option value={null} />
