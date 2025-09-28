@@ -1,5 +1,5 @@
 import { useFretBoardStore } from 'src/store';
-import { trash, xIcon } from '../Icons';
+import { xIcon } from '../Icons';
 import { Piano } from '../Piano';
 import { ScaleSelector } from '../ScaleSelector';
 
@@ -48,7 +48,7 @@ export const TopPanels = () => {
                                 ))}
                             </div>
                             <button className="btn btn-xs text-red-400/70" onClick={resetNotes}>
-                                {trash}
+                                {xIcon}
                             </button>
                         </div>
                     </fieldset>

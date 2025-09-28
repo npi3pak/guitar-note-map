@@ -1,7 +1,8 @@
 import classnames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
-import { EAnimationType, useFretBoardStore, type IFret, type IHighlightNotesState } from 'src/store';
+import { useFretBoardStore } from 'src/store';
+import { EAnimationType, type IFret, type IHighlightNotesState } from 'src/store/interfaces';
 import { chevronLeft, chevronRight } from 'src/components/Icons';
 
 const colorMap: Record<number, string> = {
@@ -74,6 +75,9 @@ const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes }) => {
     const isScaleDisplayed = getScale().isDisplayed && fret.isNoteInScale;
     const scaleStepNumber = isScaleDisplayed ? scaleNoteList.indexOf(fret.baseNote) + 1 : null;
 
+    // console.log('getScale().isDisplayed', getScale().isDisplayed);
+    // console.log('fret.isNoteInScale', fret.isNoteInScale);
+
     return (
         <motion.div
             layout
@@ -128,11 +132,11 @@ const ZeroFret = ({ fret, stringNumber, highlightNotes }) => {
         removeHoverNote,
         getScale,
         getScaleNotesByKeyName,
+        pressNote,
     } = useFretBoardStore();
     const { isLocked } = getIsLocked();
 
     const scaleNoteList = getScaleNotesByKeyName();
-
     const isScaleDisplayed = getScale().isDisplayed && fret.isNoteInScale;
     const scaleStepNumber = isScaleDisplayed ? scaleNoteList.indexOf(fret.baseNote) + 1 : null;
 
@@ -149,9 +153,10 @@ const ZeroFret = ({ fret, stringNumber, highlightNotes }) => {
             </motion.button>
             {isLocked ? (
                 <div
-                    className={`text-center rounded-xl w-12 text-gray-600/50 dark:text-sky-400/50 ${isZeroHighlightedStyles(fret.baseNote, highlightNotes)} ${isZeroHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedZeroStyles(fret.pressed)} ${isScaleZeroDisplayStyles(isScaleDisplayed)}`}
+                    className={`hover:cursor-pointer text-center rounded-xl w-12 text-gray-600/50 dark:text-sky-400/50 ${isZeroHighlightedStyles(fret.baseNote, highlightNotes)} ${isZeroHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedZeroStyles(fret.pressed)} ${isScaleZeroDisplayStyles(isScaleDisplayed)}`}
                     onMouseEnter={() => addHoverNote(fret.baseNote)}
                     onMouseLeave={() => removeHoverNote(fret.baseNote)}
+                    onClick={() => pressNote(stringNumber, 0)}
                 >
                     <div className="indicator">
                         {isScaleDisplayed && (
