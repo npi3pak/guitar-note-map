@@ -108,8 +108,7 @@ const isZeroHighlightedStyles = (note: string, highlightNotes: unknown) => {
         return '';
     }
 
-    // return `${colorMap[highlightNotes[note].colorNum]} font-semibold rounded-xl`;
-    return `bg-gray-300/25 font-semibold rounded-xl`;
+    return 'bg-gray-300/25 font-semibold rounded-xl';
 };
 
 const isZeroHighlightedHoverStyles = (note: string, highlightNotes: unknown) => {
@@ -117,8 +116,7 @@ const isZeroHighlightedHoverStyles = (note: string, highlightNotes: unknown) => 
         return '';
     }
 
-    // return `${colorMap[highlightNotes[note].colorNum]} font-semibold rounded-xl transition-colors duration-100`;
-    return `bg-gray-300/25 font-semibold rounded-xl`;
+    return 'bg-gray-300/25 font-semibold rounded-xl';
 };
 
 const ZeroFret = ({ fret, stringNumber, highlightNotes }) => {

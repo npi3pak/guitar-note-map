@@ -1,5 +1,6 @@
 import classnames from 'classnames';
 import { useFretBoardStore } from 'src/store';
+import { xIcon } from '../Icons';
 
 const DEFAULT_KEY = 'C';
 
@@ -10,15 +11,8 @@ export const ScaleNote = ({ note = 'C' }) => (
 );
 
 export const ScaleSelector = () => {
-    const {
-        getScale,
-        getScales,
-        setScaleKey,
-        setScaleName,
-        getScaleNotesByKeyName,
-        toggleScaleDisplay,
-        toggleScaleFilter,
-    } = useFretBoardStore();
+    const { getScale, getScales, setScaleKey, setScaleName, getScaleNotesByKeyName, resetScale, toggleScaleFilter } =
+        useFretBoardStore();
 
     const { selectedKey, selectedScaleName, isDisplayed, isFiltered } = getScale();
     const allScales = getScales();
@@ -45,7 +39,7 @@ export const ScaleSelector = () => {
         <>
             <fieldset className="fieldset border-gray-300 rounded-box border h-42 p-2 mt-2">
                 <legend className="fieldset-legend text-gray-500">Scale</legend>
-                <div className="flex join join-horizontal">
+                <div className="flex join-horizontal">
                     <select
                         className="select select-sm mr-2 flex-1 rounded-md"
                         value={selectedKey}
@@ -59,7 +53,7 @@ export const ScaleSelector = () => {
                         ))}
                     </select>
                     <select
-                        className="select select-sm flex-3 rounded-l-md"
+                        className="select select-sm mr-2 flex-3 rounded-l-md"
                         value={selectedScaleName}
                         onChange={(e) => setScaleName(e.target.value)}
                     >
@@ -70,12 +64,8 @@ export const ScaleSelector = () => {
                             </option>
                         ))}
                     </select>
-                    <button
-                        className={`btn btn-sm  join-item rounded-r-md ${toggleBntColor}`}
-                        onClick={() => toggleScaleDisplay()}
-                        disabled={!selectedKey || !selectedScaleName}
-                    >
-                        Scale
+                    <button className={`btn btn-sm  rounded-r-md ${toggleBntColor}`} onClick={() => resetScale()}>
+                        {xIcon}
                     </button>
                 </div>
                 <label className="label mt-2">

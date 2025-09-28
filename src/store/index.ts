@@ -328,13 +328,48 @@ export const useFretBoardStore = create<TStore>()(
                     return [];
                 },
                 setScaleKey: (selectedKey) =>
-                    set((state) => ({
-                        selectedScale: { ...state.selectedScale, selectedKey },
-                    })),
+                    set((state) => {
+                        const isDisplayed = !!selectedKey && !!state.selectedScale.selectedScaleName;
+
+                        if (isDisplayed) {
+                            get().updateNotesInScale();
+                        }
+
+                        return {
+                            selectedScale: {
+                                ...state.selectedScale,
+                                selectedKey,
+                                isDisplayed: isDisplayed ? true : state.selectedScale.isDisplayed,
+                            },
+                        };
+                    }),
                 setScaleName: (selectedScaleName) =>
-                    set((state) => ({
-                        selectedScale: { ...state.selectedScale, selectedScaleName },
-                    })),
+                    set((state) => {
+                        const isDisplayed = !!selectedScaleName && !!state.selectedScale.selectedKey;
+
+                        if (isDisplayed) {
+                            get().updateNotesInScale();
+                        }
+
+                        return {
+                            selectedScale: {
+                                ...state.selectedScale,
+                                selectedScaleName,
+                                isDisplayed: isDisplayed ? true : state.selectedScale.isDisplayed,
+                            },
+                        };
+                    }),
+                resetScale: () =>
+                    set((state) => {
+                        return {
+                            selectedScale: {
+                                ...state.selectedScale,
+                                selectedKey: null,
+                                selectedScaleName: null,
+                                isDisplayed: false,
+                            },
+                        };
+                    }),
                 toggleScaleFilter: () =>
                     set((state) => {
                         const isScaleFiltered = !state.selectedScale.isFiltered;
