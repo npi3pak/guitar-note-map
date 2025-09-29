@@ -24,8 +24,9 @@ const NoteSelector = () => {
     const handleNoteDelete = (note: string) => {};
 
     return (
-        <fieldset className="fieldset border-gray-300 rounded-box border flex flex-wrap bg-white/50 p-2 h-full">
-            <legend className="fieldset-legend text-gray-500">Selected Notes</legend>
+        // <fieldset className="fieldset border-gray-300 rounded-box border flex flex-wrap bg-white/50 p-2 h-full">
+        <fieldset className="fieldset p-2">
+            <legend className="fieldset-legend">Selected Notes</legend>
             <div className="flex flex-row justify-between w-full">
                 <div className="flex flex-wrap gap-1 justify-center h-15">
                     {selectedNotes.map((baseNote, index) => (
@@ -56,12 +57,12 @@ export const TopPanels = () => {
                 </div>
                 </div> */}
             <div className="hidden md:flex pl-12 flex-[1.5]">
-                <div className="bg-gray-100 rounded-xl py-3 px-10 w-full">
+                <div className="bg-gray-100 rounded-xl py-3 px-5 w-full">
                     <NoteSelector />
                 </div>
             </div>
             <div className="hidden md:flex pl-6 flex-[1.5]">
-                <div className="bg-gray-100 rounded-xl py-3 px-10 w-full">
+                <div className="bg-gray-100 rounded-xl py-3 px-5 w-full">
                     <div className="">
                         <ScaleSelector />
                     </div>
