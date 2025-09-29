@@ -88,7 +88,7 @@ export const ScaleSelector = () => {
                         type="checkbox"
                         checked={isFiltered}
                         onChange={(e) => toggleScaleFilter(e.target.value)}
-                        className="toggle text-red-400/70"
+                        className="toggle toggle-sm text-red-400/70"
                     />
                     filter scales by selected notes
                 </label>

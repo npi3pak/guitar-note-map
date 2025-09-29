@@ -24,16 +24,15 @@ const NoteSelector = () => {
     const handleNoteDelete = (note: string) => {};
 
     return (
-        // <fieldset className="fieldset border-gray-300 rounded-box border flex flex-wrap bg-white/50 p-2 h-full">
-        <fieldset className="fieldset p-2">
+        <fieldset className="fieldset">
             <legend className="fieldset-legend">Selected Notes</legend>
-            <div className="flex flex-row justify-between w-full">
+            <div className="flex flex-row justify-between w-full bg-white border border-gray-300 rounded-md p-4 mt-0">
                 <div className="flex flex-wrap gap-1 justify-center h-15">
                     {selectedNotes.map((baseNote, index) => (
                         <NoteSelectedLabel note={baseNote} key={index} />
                     ))}
                 </div>
-                <button className="btn btn-xs text-red-400/70" onClick={resetNotes}>
+                <button className="btn btn-ghost btn-xs text-gray-500 btn-circle" onClick={resetNotes}>
                     {xIcon}
                 </button>
             </div>
