@@ -53,7 +53,7 @@ export const ScaleSelector = () => {
     return (
         <>
             <fieldset className="fieldset h-34">
-                <legend className="fieldset-legend">Scale</legend>
+                <legend className="fieldset-legend text-gray-500">Scale</legend>
                 <div className="flex join-horizontal">
                     <select
                         className="select select-sm mr-2 flex-1 rounded-md"
@@ -79,16 +79,16 @@ export const ScaleSelector = () => {
                             </option>
                         ))}
                     </select>
-                    <button className={`btn btn-sm  rounded-r-md ${toggleBntColor}`} onClick={() => resetScale()}>
+                    <button className={`btn btn-sm  rounded-md ${toggleBntColor}`} onClick={() => resetScale()}>
                         {xIcon}
                     </button>
                 </div>
-                <label className="label mt-2">
+                <label className="label mt-2 text-gray-500">
                     <input
                         type="checkbox"
                         checked={isFiltered}
                         onChange={(e) => toggleScaleFilter(e.target.value)}
-                        className="toggle toggle-sm text-red-400/70"
+                        className={`toggle toggle-sm ${isFiltered ? 'text-indigo-600/50' : 'text-gray-300'}`}
                     />
                     filter scales by selected notes
                 </label>
