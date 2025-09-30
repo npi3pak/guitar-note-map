@@ -187,7 +187,7 @@ export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
 
     return (
         <>
-            <div className="flex  justify-self-center p-2">
+            <div className="flex justify-self-center p-2">
                 <ZeroFret fret={zeroFret} highlightNotes={highlightNotes} stringNumber={stringNumber} />
             </div>
             {frets.map((fret, index) => {
