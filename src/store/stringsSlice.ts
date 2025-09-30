@@ -1,6 +1,14 @@
 import * as R from 'ramda';
 import { FULL_NOTES, STANDARD_TUNE } from 'src/constants';
-import { EAnimationType, type IFret, type IGuitarString, type TuneDirection } from './interfaces';
+import {
+    EAnimationType,
+    type IFret,
+    type IGuitarString,
+    type TStore,
+    type TStringSlice,
+    type TuneDirection,
+} from './interfaces';
+import type { StateCreator } from 'zustand';
 
 const getBaseNote = (note: string) => note.replace(/[0-9]/, '');
 
@@ -104,7 +112,7 @@ const initialStrings = {
     },
 };
 
-export const stringsSlice = (set, get) => ({
+export const stringsSlice: StateCreator<TStore, [], [], TStringSlice> = (set, get) => ({
     strings: initialStrings,
     updateNotesInScale: () =>
         set((state) => {
@@ -139,10 +147,31 @@ export const stringsSlice = (set, get) => ({
                 state.strings,
             ),
         })),
+    resetStringNotesByBaseNote: (baseNote) => {
+        set((state) => {
+            return {
+                strings: R.mapObjIndexed((stringData: IGuitarString) => {
+                    const newFrets = R.mapObjIndexed((fret: IFret) => ({
+                        ...fret,
+                        pressed: fret.baseNote === baseNote ? false : fret.pressed,
+                    }))(stringData.fret);
+
+                    return {
+                        ...stringData,
+                        fret: newFrets,
+                    };
+                }, state.strings),
+            };
+        });
+
+        get().removeHighlightNoteByBaseNote(baseNote);
+        get().updateFilteredScale();
+    },
     getByString: (stringNumber) => {
-        const selectedString = get().strings[stringNumber].fret;
+        const selectedString: Record<string, IFret> = get().strings[stringNumber].fret;
         const animationType = get().strings[stringNumber].animationType;
 
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         return Object.entries(selectedString).map(([fretNum, data]) => ({
             note: data.note,
             baseNote: data.baseNote,
@@ -183,6 +212,7 @@ export const stringsSlice = (set, get) => ({
             const lastStringNum = Number(Object.keys(state.strings).length);
 
             if (lastStringNum > 1) {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 const { [lastStringNum]: _, ...restStrings } = state.strings;
 
                 return {
@@ -267,7 +297,7 @@ export const stringsSlice = (set, get) => ({
                 },
             };
 
-            get().updateFilteredScale(get().selectedScale.isFiltered);
+            get().updateFilteredScale();
 
             const pressedNote = {
                 baseNote,
@@ -278,7 +308,7 @@ export const stringsSlice = (set, get) => ({
             };
 
             return {
-                selectedNotes: toggleInArray(state.selectedNotes, pressedNote),
+                selectedNotes: toggleInArray(state.selectedNotes, pressedNote) as (typeof pressedNote)[],
                 highlightedNotes: {
                     ...updatedHighlightedNotes,
                 },

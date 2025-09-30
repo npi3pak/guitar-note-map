@@ -1,5 +1,7 @@
 import * as R from 'ramda';
 import { ALL_NOTES, BASE_SCALES } from 'src/constants';
+import type { TScaleSlice, TStore } from './interfaces';
+import type { StateCreator } from 'zustand';
 
 export const generateNote = (scale, targetRoot) => {
     const baseIndex = ALL_NOTES.indexOf('C');
@@ -24,7 +26,7 @@ const buildScalesByNote = (note: string) =>
 
 const containsAllNotesInScale = (scaleNotes, targetNotes) => targetNotes.every((el) => scaleNotes.includes(el));
 
-export const scalesSlice = (set, get) => ({
+export const scalesSlice: StateCreator<TStore, [], [], TScaleSlice> = (set, get) => ({
     scales: {
         C: { ...buildScalesByNote('C') },
         'C#': { ...buildScalesByNote('C#') },
@@ -98,17 +100,19 @@ export const scalesSlice = (set, get) => ({
                 },
             };
         }),
-    toggleScaleFilter: () =>
+    toggleScaleFilter: () => {
         set((state) => {
-            const isScaleFiltered = !state.selectedScale.isFiltered;
-            get().updateFilteredScale(isScaleFiltered);
-
             return {
-                selectedScale: { ...state.selectedScale, isFiltered: isScaleFiltered },
+                selectedScale: { ...state.selectedScale, isFiltered: !state.selectedScale.isFiltered },
             };
-        }),
-    updateFilteredScale: (isFiltered) =>
+        });
+
+        get().updateFilteredScale();
+    },
+    updateFilteredScale: () =>
         set((state) => {
+            const isFiltered = state.selectedScale.isFiltered;
+
             const updatedScales = R.mapObjIndexed(
                 (scaleGroup) =>
                     R.mapObjIndexed((scaleNameItem) => ({

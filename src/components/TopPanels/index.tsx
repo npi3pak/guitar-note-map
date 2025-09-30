@@ -3,7 +3,7 @@ import { xIcon } from '../Icons';
 import { Piano } from '../Piano';
 import { ScaleSelector } from '../ScaleSelector';
 
-const NoteSelectedLabel = ({ note = 'C', onDelete = (note: string) => {} }) => (
+const NoteSelectedLabel = ({ note = 'C', onDelete }) => (
     <div className="flex items-center px-1 rounded-md bg-red-100 text-red-500 h-7">
         <div>{note}</div>
         <button
@@ -18,10 +18,12 @@ const NoteSelectedLabel = ({ note = 'C', onDelete = (note: string) => {} }) => (
 );
 
 const NoteSelector = () => {
-    const { getUniqSelectedNotes, resetNotes } = useFretBoardStore();
+    const { getUniqSelectedNotes, resetNotes, resetStringNotesByBaseNote } = useFretBoardStore();
 
     const selectedNotes = getUniqSelectedNotes();
-    const handleNoteDelete = (note: string) => {};
+    const handleNoteDelete = (baseNote: string) => {
+        resetStringNotesByBaseNote(baseNote);
+    };
 
     return (
         <fieldset className="fieldset">
@@ -29,7 +31,7 @@ const NoteSelector = () => {
             <div className="flex flex-row justify-between w-full bg-white border border-gray-300 rounded-md p-4 mt-0">
                 <div className="flex flex-wrap gap-1 justify-center h-15">
                     {selectedNotes.map((baseNote, index) => (
-                        <NoteSelectedLabel note={baseNote} key={index} />
+                        <NoteSelectedLabel note={baseNote} key={index} onDelete={handleNoteDelete} />
                     ))}
                 </div>
                 <button className="btn btn-ghost btn-xs text-gray-500 btn-circle" onClick={resetNotes}>

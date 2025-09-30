@@ -5,9 +5,11 @@ import type { TStore, IHighlightNotesState } from './interfaces';
 import { scalesSlice } from './scalesSlice';
 import { stringsSlice } from './stringsSlice';
 
+// TODO: Remove selected notes abstraction
+
 export const useFretBoardStore = create<TStore>()(
     persist(
-        (set, get) => {
+        (set, get, store) => {
             const initialHighlightedNotes = {
                 C: { display: false, hover: false, colorNum: 1 },
                 'C#': { display: false, hover: false, colorNum: 2 },
@@ -24,8 +26,8 @@ export const useFretBoardStore = create<TStore>()(
             };
 
             return {
-                ...stringsSlice(set, get),
-                ...scalesSlice(set, get),
+                ...stringsSlice(set, get, store),
+                ...scalesSlice(set, get, store),
                 selectedNotes: [],
                 highlightedNotes: initialHighlightedNotes,
                 settings: {
@@ -52,6 +54,24 @@ export const useFretBoardStore = create<TStore>()(
                 getHighlightNotes: () => get().highlightedNotes,
                 getSelectedNotes: () => get().selectedNotes,
                 getUniqSelectedNotes: () => [...new Set(get().selectedNotes.map((item) => item.baseNote))],
+                removeHighlightNoteByBaseNote: (baseNote) => {
+                    set((state) => {
+                        const updatedHighlightedNotes = {
+                            ...state.highlightedNotes,
+                            [baseNote]: {
+                                ...state.highlightedNotes[baseNote],
+                                display: false,
+                            },
+                        };
+
+                        console.log('selectedNotes', state.selectedNotes);
+
+                        return {
+                            selectedNotes: state.selectedNotes.filter((item) => item.baseNote !== baseNote),
+                            highlightedNotes: updatedHighlightedNotes,
+                        };
+                    });
+                },
                 addHoverNote: (baseNote: string) =>
                     set((state) => {
                         const updatedHighlightedNotes = R.modifyPath<IHighlightNotesState['highlightedNotes']>(
@@ -66,20 +86,24 @@ export const useFretBoardStore = create<TStore>()(
                             },
                         };
                     }),
-                removeHoverNote: (baseNote: string) =>
-                    set((state) => {
+                removeHoverNote: (baseNote: string) => {
+                    console.log('removeHoverNote', baseNote);
+                    return set((state) => {
                         const updatedHighlightedNotes = R.modifyPath<IHighlightNotesState['highlightedNotes']>(
                             [baseNote, 'hover'],
                             () => false,
                             state.highlightedNotes,
                         );
 
+                        console.log('updatedHighlightedNotes', updatedHighlightedNotes);
+
                         return {
                             highlightedNotes: {
                                 ...updatedHighlightedNotes,
                             },
                         };
-                    }),
+                    });
+                },
             };
         },
         { name: 'fretboard-storage', partialize: (state) => ({ strings: state.strings }) },
