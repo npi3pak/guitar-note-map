@@ -1,92 +1,62 @@
-import classnames from 'classnames';
 import { useFretBoardStore } from 'src/store';
+import { xIcon } from '../Icons';
+import { Piano } from '../Piano';
+import { ScaleSelector } from '../ScaleSelector';
 
-const whiteKeyStyle = 'relative flex-1 border-l border-gray-400/25 rounded-b-xl hover:cursor-pointer';
-const blackKeyStyle = 'absolute top-0 left-[65%] w-[70%] h-[60%] z-10 rounded-b-xl hover:cursor-pointer';
+const NoteSelectedLabel = ({ note = 'C', onDelete }) => (
+    <div className="flex items-center px-1 rounded-md bg-secondary text-secondary-content h-7">
+        <div>{note}</div>
+        <button
+            type="button"
+            aria-label={`Remove ${note}`}
+            className="btn btn-ghost btn-xs btn-circle mx-1"
+            onClick={() => onDelete(note)}
+        >
+            {xIcon}
+        </button>
+    </div>
+);
 
-const colorMap: Record<number, string> = {
-    1: 'bg-blue-300/25 text-blue-500/50',
-    2: 'bg-(--color-piano-Csharp) text-red-500/50',
-    3: 'bg-green-300/25 text-green-500/50',
-    4: 'bg-(--color-piano-Dsharp) text-yellow-500/50',
-    5: 'bg-purple-300/25 text-purple-500/50',
-    6: 'bg-pink-300/25 text-pink-500/50',
-    7: 'bg-(--color-piano-Fsharp) text-indigo-500/50',
-    8: 'bg-teal-300/25 text-teal-500/50',
-    9: 'bg-(--color-piano-Gsharp) text-orange-500/50',
-    10: 'bg-lime-300/25 text-lime-500/50',
-    11: 'bg-(--color-piano-Asharp) text-cyan-500/50',
-    12: 'bg-rose-300/25 text-rose-500/50',
-};
+const NoteSelector = () => {
+    const { getUniqSelectedNotes, resetNotes, resetStringNotesByBaseNote } = useFretBoardStore();
 
-const getColor = ({ note, highlightNotes, isPressed = false }) => {
-    const highlightColorNum =
-        highlightNotes[note].hover || highlightNotes[note].display ? colorMap[highlightNotes[note].colorNum] : null;
-    const isBlackKey = note.endsWith('#');
-
-    if (isPressed) {
-        return 'bg-(--color-piano-pressed)';
-    }
-
-    if (highlightColorNum) {
-        return highlightColorNum;
-    }
-
-    if (isBlackKey) {
-        return 'bg-gray-500';
-    }
-
-    return 'bg-(--color-piano-white)';
-};
-
-const Piano = () => {
-    const { getHighlightNotes } = useFretBoardStore();
-
-    const highlightNotes = getHighlightNotes();
+    const selectedNotes = getUniqSelectedNotes();
+    const handleNoteDelete = (baseNote: string) => {
+        resetStringNotesByBaseNote(baseNote);
+    };
 
     return (
-        <div className="flex h-24 w-full lg:w-120">
-            <div className={classnames(`border-l-0 ${whiteKeyStyle} ${getColor({ note: 'C', highlightNotes })}`)}>
-                <div className={classnames(`${blackKeyStyle} ${getColor({ note: 'C#', highlightNotes })}`)}></div>
+        <fieldset className="fieldset">
+            <legend className="fieldset-legend text-base-content">Selected Notes</legend>
+            <div className="card card-border border-base-300 flex flex-row justify-between w-full rounded-box p-4 mt-0">
+                <div className="flex flex-wrap gap-1 justify-center h-15">
+                    {selectedNotes.map((baseNote, index) => (
+                        <NoteSelectedLabel note={baseNote} key={index} onDelete={handleNoteDelete} />
+                    ))}
+                </div>
+                <button className="btn btn-ghost btn-xs text-base-content btn-circle" onClick={resetNotes}>
+                    {xIcon}
+                </button>
             </div>
-            <div className={classnames(`${whiteKeyStyle} ${getColor({ note: 'D', highlightNotes })}`)}>
-                <div className={classnames(`${blackKeyStyle} ${getColor({ note: 'D#', highlightNotes })}`)}></div>
-            </div>
-            <div className={classnames(`${whiteKeyStyle} ${getColor({ note: 'E', highlightNotes })}`)}></div>
-            <div className={classnames(`${whiteKeyStyle} ${getColor({ note: 'F', highlightNotes })}`)}>
-                <div className={classnames(`${blackKeyStyle} ${getColor({ note: 'F#', highlightNotes })}`)}></div>
-            </div>
-            <div className={classnames(`${whiteKeyStyle} ${getColor({ note: 'G', highlightNotes })}`)}>
-                <div className={classnames(`${blackKeyStyle} ${getColor({ note: 'G#', highlightNotes })}`)}></div>
-            </div>
-            <div className={classnames(`${whiteKeyStyle} ${getColor({ note: 'A', highlightNotes })}`)}>
-                <div className={classnames(`${blackKeyStyle} ${getColor({ note: 'A#', highlightNotes })}`)}></div>
-            </div>
-            <div className={classnames(`${whiteKeyStyle} ${getColor({ note: 'B', highlightNotes })}`)}></div>
-        </div>
+        </fieldset>
     );
 };
 
 export const TopPanels = () => {
     return (
-        <div className="flex pt-4">
-            <div className="hidden md:flex pl-12 flex-[1.5]">
-                <div className="bg-gray-100 rounded-xl p-10 flex w-full">
-                    <div className="flex-1">
-                        <h1 className="text-4xl text-red-500/50 font-bold">Guitar Note Map</h1>
-                        <p className="py-2 text-gray-400">
-                            Interactive tool to explore notes on the guitar fretboard and see their matches on the piano
-                            keyboard
-                        </p>
-                    </div>
-                    <div className="flex-1"></div>
+        <div className="flex flex-col gap-4 px-4 md:px-12 pt-4 md:flex-row">
+            <div className="flex flex-1">
+                <div className="bg-base-100 rounded-box py-3 px-5 w-full card card-border border-base-300">
+                    <NoteSelector />
                 </div>
             </div>
-            <div className="hidden md:flex pl-6 flex-[1.5]">
-                <div className="bg-gray-100 rounded-xl p-10 flex w-full"></div>
+            <div className="md:flex flex-1 hidden">
+                <div className="bg-base-100 rounded-box py-3 px-5 w-full card card-border border-base-300">
+                    <ScaleSelector />
+                </div>
             </div>
-            <div className="flex pl-12 md:pl-6 pr-12 flex-[1]">
-                <div className="bg-gray-100 rounded-xl p-10 flex items-center w-full h-full">
+            <div className="flex flex-1">
+                <div className="bg-base-100 rounded-box p-4 px-5 flex items-center w-full card card-border border-base-300">
                     <Piano />
                 </div>
             </div>
