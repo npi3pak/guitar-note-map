@@ -27,8 +27,7 @@ export const NoteList = () => {
 };
 
 export const ScaleSelector = () => {
-    const { getScale, getScales, setScaleKey, setScaleName, getScaleNotesByKeyName, resetScale, toggleScaleFilter } =
-        useFretBoardStore();
+    const { getScale, getScales, setScaleKey, setScaleName, resetScale, toggleScaleFilter } = useFretBoardStore();
 
     const { selectedKey, selectedScaleName, isDisplayed, isFiltered } = getScale();
     const allScales = getScales();
@@ -87,7 +86,7 @@ export const ScaleSelector = () => {
                     <input
                         type="checkbox"
                         checked={isFiltered}
-                        onChange={(e) => toggleScaleFilter(e.target.value)}
+                        onChange={() => toggleScaleFilter()}
                         className={`toggle toggle-sm ${isFiltered ? 'text-indigo-600/50' : 'text-gray-300'}`}
                     />
                     filter scales by selected notes

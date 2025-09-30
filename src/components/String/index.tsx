@@ -70,13 +70,10 @@ const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes }) => {
             ? { initial: { x: 50, opacity: 0 }, exit: { x: -50, opacity: 0 } }
             : { initial: { x: -100, opacity: 0 }, exit: { x: 100, opacity: 0 } };
 
-    const scaleNoteList = getScaleNotesByKeyName();
+    const scaleNoteList: string[] = getScaleNotesByKeyName();
 
     const isScaleDisplayed = getScale().isDisplayed && fret.isNoteInScale;
     const scaleStepNumber = isScaleDisplayed ? scaleNoteList.indexOf(fret.baseNote) + 1 : null;
-
-    // console.log('getScale().isDisplayed', getScale().isDisplayed);
-    // console.log('fret.isNoteInScale', fret.isNoteInScale);
 
     return (
         <motion.div
@@ -136,9 +133,9 @@ const ZeroFret = ({ fret, stringNumber, highlightNotes }) => {
     } = useFretBoardStore();
     const { isLocked } = getIsLocked();
 
-    const scaleNoteList = getScaleNotesByKeyName();
+    const scaleNoteList: string[] = getScaleNotesByKeyName();
     const isScaleDisplayed = getScale().isDisplayed && fret.isNoteInScale;
-    const scaleStepNumber = isScaleDisplayed ? scaleNoteList.indexOf(fret.baseNote) + 1 : null;
+    const scaleStepNumber: number | null = isScaleDisplayed ? scaleNoteList.indexOf(fret.baseNote as string) + 1 : null;
 
     return (
         <div className="flex w-28 justify-between">
