@@ -1,12 +1,13 @@
-export interface IScales {
-    [key: string]: Record<
-        string,
-        {
-            name: string;
-            notes: string[];
-        }
-    >;
+export interface IScale {
+    name: string;
+    notes: string[];
+    makeAsFiltered?: boolean;
 }
+
+export interface IScales {
+    [key: string]: Record<string, IScale>;
+}
+
 export interface ISelectedScale {
     selectedKey: string | null;
     selectedScaleName: string | null;

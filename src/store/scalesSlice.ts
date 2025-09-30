@@ -1,6 +1,6 @@
 import * as R from 'ramda';
 import { ALL_NOTES, BASE_SCALES } from 'src/constants';
-import type { TScaleSlice, TStore } from './interfaces';
+import type { IScales, IScale, TScaleSlice, TStore } from './interfaces';
 import type { StateCreator } from 'zustand';
 
 export const generateNote = (scale, targetRoot) => {
@@ -113,14 +113,17 @@ export const scalesSlice: StateCreator<TStore, [], [], TScaleSlice> = (set, get)
         set((state) => {
             const isFiltered = state.selectedScale.isFiltered;
 
-            const updatedScales = R.mapObjIndexed(
-                (scaleGroup) =>
-                    R.mapObjIndexed((scaleNameItem) => ({
-                        ...scaleNameItem,
-                        makeAsFiltered: isFiltered
-                            ? containsAllNotesInScale(scaleNameItem.notes, get().getUniqSelectedNotes())
-                            : false,
-                    }))(scaleGroup),
+            const updatedScales: IScales = R.mapObjIndexed(
+                (scaleGroup: Record<string, IScale>) =>
+                    R.mapObjIndexed(
+                        (scaleNameItem: IScale) => ({
+                            ...scaleNameItem,
+                            makeAsFiltered: isFiltered
+                                ? containsAllNotesInScale(scaleNameItem.notes, get().getUniqSelectedNotes())
+                                : false,
+                        }),
+                        scaleGroup,
+                    ),
                 state.scales,
             );
 
