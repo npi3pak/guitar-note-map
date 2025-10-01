@@ -2,7 +2,7 @@ import { chevronLeft, chevronRight, lockIcon, unlockIcon } from 'src/components/
 import { useFretBoardStore } from 'src/store';
 
 export const StringsTuneShift = () => {
-    const { tuneUpAll, tuneDownAll, getIsLocked, setLock, tuneToStandard } = useFretBoardStore();
+    const { tuneUpAll, tuneDownAll, getIsLocked, setLock, tuneToStandard, resetNotes } = useFretBoardStore();
     const { isLocked } = getIsLocked();
 
     return (
@@ -24,6 +24,9 @@ export const StringsTuneShift = () => {
                         Reset to standart
                     </button>
                 )}
+                <button className="btn btn-xs ml-4 md:hidden" onClick={() => resetNotes()}>
+                    Clear notes
+                </button>
             </div>
         </>
     );
