@@ -66,6 +66,18 @@ const updateStringTune = (
     direction: TuneDirection,
     targetNote?: string,
 ): IGuitarString => {
+    const isStringExists = !!strings[stringNumber];
+
+    if (!isStringExists) {
+        const newZeroFretNote = targetNote || STANDARD_TUNE[stringNumber - 1];
+
+        return {
+            number: 1,
+            animationType: null,
+            fret: getInitialFretList(newZeroFretNote),
+        };
+    }
+
     const currentTuneNote = strings[stringNumber].fret[0].note;
     const noteToTune = transposeNote(currentTuneNote, direction, targetNote);
 
