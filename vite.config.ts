@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
+import { VitePluginRadar } from 'vite-plugin-radar';
 import path from 'path';
 
 // https://vite.dev/config/
@@ -13,7 +14,16 @@ export default defineConfig({
             store: path.resolve(__dirname, './src/store'),
         },
     },
-    plugins: [react(), tailwindcss()],
+    plugins: [
+        react(),
+        tailwindcss(),
+        VitePluginRadar({
+            // Google Analytics tag injection
+            analytics: {
+                id: 'G-ML16QS62LW',
+            },
+        }),
+    ],
     server: {
         watch: {
             usePolling: true,

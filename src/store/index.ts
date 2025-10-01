@@ -87,7 +87,6 @@ export const useFretBoardStore = create<TStore>()(
                         };
                     }),
                 removeHoverNote: (baseNote: string) => {
-                    console.log('removeHoverNote', baseNote);
                     return set((state) => {
                         const updatedHighlightedNotes = R.modifyPath<IHighlightNotesState['highlightedNotes']>(
                             [baseNote, 'hover'],
