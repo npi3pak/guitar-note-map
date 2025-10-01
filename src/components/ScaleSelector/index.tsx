@@ -59,7 +59,13 @@ export const ScaleSelector = () => {
                     >
                         <option value={null} />
                         {keysToDisplay.map((scaleKey, item) => (
-                            <option className={classnames({ 'text-info': scaleKey.makeAsFiltered })} key={item}>
+                            <option
+                                className={classnames(
+                                    { 'bg-info/25 text-info-content/50 my-1 text-xs': scaleKey.makeAsFiltered },
+                                    'font-semibold',
+                                )}
+                                key={item}
+                            >
                                 {scaleKey.name}
                             </option>
                         ))}
@@ -71,7 +77,13 @@ export const ScaleSelector = () => {
                     >
                         <option value={null} />
                         {scalesToDisplay.map((scaleName, item) => (
-                            <option className={classnames({ 'text-info': scaleName.makeAsFiltered })} key={item}>
+                            <option
+                                className={classnames(
+                                    { 'bg-info/25 text-info-content/50 my-1 text-xs': scaleName.makeAsFiltered },
+                                    'font-semibold',
+                                )}
+                                key={item}
+                            >
                                 {scaleName.name}
                             </option>
                         ))}
@@ -87,7 +99,7 @@ export const ScaleSelector = () => {
                         onChange={() => toggleScaleFilter()}
                         className={`toggle toggle-sm ${isFiltered ? 'text-info/50' : 'text-base-content'}`}
                     />
-                    filter scales by selected notes
+                    Highlight scales containing selected notes
                 </label>
                 <NoteList />
             </fieldset>

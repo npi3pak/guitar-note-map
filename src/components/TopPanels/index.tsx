@@ -4,12 +4,12 @@ import { Piano } from '../Piano';
 import { ScaleSelector } from '../ScaleSelector';
 
 const NoteSelectedLabel = ({ note = 'C', onDelete }) => (
-    <div className="flex items-center px-1 rounded-md bg-secondary text-secondary-content h-7">
+    <div className="flex items-center px-1 rounded-xl bg-secondary text-secondary-content h-7 px-2">
         <div>{note}</div>
         <button
             type="button"
             aria-label={`Remove ${note}`}
-            className="btn btn-ghost btn-xs btn-circle mx-1"
+            className="btn btn-ghost btn-xs btn-circle"
             onClick={() => onDelete(note)}
         >
             {xIcon}
