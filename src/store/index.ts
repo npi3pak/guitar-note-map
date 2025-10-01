@@ -64,8 +64,6 @@ export const useFretBoardStore = create<TStore>()(
                             },
                         };
 
-                        console.log('selectedNotes', state.selectedNotes);
-
                         return {
                             selectedNotes: state.selectedNotes.filter((item) => item.baseNote !== baseNote),
                             highlightedNotes: updatedHighlightedNotes,
@@ -93,8 +91,6 @@ export const useFretBoardStore = create<TStore>()(
                             () => false,
                             state.highlightedNotes,
                         );
-
-                        console.log('updatedHighlightedNotes', updatedHighlightedNotes);
 
                         return {
                             highlightedNotes: {

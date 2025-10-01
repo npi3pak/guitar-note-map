@@ -1,4 +1,5 @@
 import classnames from 'classnames';
+import { isMobile } from 'react-device-detect';
 import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 import { useFretBoardStore } from 'src/store';
@@ -84,8 +85,16 @@ const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes }) => {
             className={classnames(
                 `rounded-xl w-12 ${isHighlightedStyles(fret.baseNote, highlightNotes)} ${isHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedStyles(fret.pressed)} ${isScaleDisplayStyles(isScaleDisplayed)}`,
             )}
-            onMouseEnter={() => addHoverNote(fret.baseNote)}
-            onMouseLeave={() => removeHoverNote(fret.baseNote)}
+            onMouseEnter={() => {
+                if (!isMobile) {
+                    return addHoverNote(fret.baseNote);
+                }
+            }}
+            onMouseLeave={() => {
+                if (!isMobile) {
+                    return removeHoverNote(fret.baseNote);
+                }
+            }}
         >
             <div className="indicator">
                 {isScaleDisplayed && (
