@@ -10,7 +10,7 @@ export const NavBar = () => {
                 <h1 className="pl-4 text-xl md:text-4xl text-red-500/50 font-bold">Guitar Note Map</h1>
             </div>
             <div className="flex-none pr-4">
-                <button className="btn btn-ghost" onClick={open}>
+                <button className="btn btn-ghost flex md:hidden" onClick={open}>
                     <Menu size={24} className="text-neutral" />
                 </button>
             </div>
