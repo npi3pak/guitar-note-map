@@ -10,7 +10,7 @@ const COLORS = {
 
 function App() {
     return (
-        <div className={`flex flex-col min-h-screen min-h-[100dvh] ${COLORS.MAIN_BG}`}>
+        <div className={`flex flex-col min-h-screen min-h-[100dvh] ${COLORS.MAIN_BG}`} data-theme="pastel2">
             <MobileTopMenu />
             <NavBar />
             <main className="flex-grow flex flex-col mt-4">
