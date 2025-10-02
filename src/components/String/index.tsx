@@ -83,7 +83,7 @@ const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes }) => {
             animate={{ x: 0, opacity: 1 }}
             transition={{ duration: 0.1 }}
             className={classnames(
-                `rounded-xl w-12 ${isHighlightedStyles(fret.baseNote, highlightNotes)} ${isHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedStyles(fret.pressed)} ${isScaleDisplayStyles(isScaleDisplayed)}`,
+                `mx-1 md:mx-0 rounded-xl w-12 ${isHighlightedStyles(fret.baseNote, highlightNotes)} ${isHighlightedHoverStyles(fret.baseNote, highlightNotes)} ${isPressedStyles(fret.pressed)} ${isScaleDisplayStyles(isScaleDisplayed)}`,
             )}
             onMouseEnter={() => {
                 if (!isMobile) {
