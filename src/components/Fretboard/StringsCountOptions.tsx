@@ -1,9 +1,10 @@
 import classNames from 'classnames';
 import { motion } from 'framer-motion';
+import React from 'react';
 import { chevronLeft, chevronRight } from 'src/components/Icons';
 import { useFretBoardStore } from 'src/store';
 
-export const StringsCountOptions = () => {
+export const StringsCountOptions = React.memo(() => {
     const { getIsLocked, getStringsCount, decStrings, incStrings } = useFretBoardStore();
     const { isLocked } = getIsLocked();
     const stringsCount = getStringsCount();
@@ -28,4 +29,4 @@ export const StringsCountOptions = () => {
             </motion.div>
         </div>
     );
-};
+});

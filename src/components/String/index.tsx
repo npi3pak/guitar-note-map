@@ -63,7 +63,7 @@ interface IFretNote {
     scaleStepNumber?: number;
 }
 
-const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes }) => {
+const FretNote: React.FC<IFretNote> = React.memo(({ fret, highlightNotes }) => {
     const { addHoverNote, removeHoverNote, getScale, getScaleNotesByKeyName } = useFretBoardStore();
 
     const animationOffsetSign =
@@ -106,7 +106,7 @@ const FretNote: React.FC<IFretNote> = ({ fret, highlightNotes }) => {
             </div>
         </motion.div>
     );
-};
+});
 
 const isPressedZeroStyles = (isPressed: boolean) => (isPressed ? 'font-bold' : '');
 
@@ -189,7 +189,7 @@ const ZeroFret = ({ fret, stringNumber, highlightNotes }) => {
     );
 };
 
-export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
+export const String: React.FC<IProps> = React.memo(({ stringNumber = 1 }) => {
     const { getByString, getHighlightNotes, pressNote } = useFretBoardStore();
     const [zeroFret, ...frets] = getByString(stringNumber);
     const highlightNotes = getHighlightNotes();
@@ -225,4 +225,4 @@ export const String: React.FC<IProps> = ({ stringNumber = 1 }) => {
             })}
         </>
     );
-};
+});

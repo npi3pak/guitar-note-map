@@ -141,10 +141,10 @@
 }
 
 @plugin "daisyui/theme" {
-  name: "pastel2";
+  name: 'pastel2';
   default: false;
   prefersdark: false;
-  color-scheme: "light";
+  color-scheme: 'light';
   --color-base-100: oklch(96% 0.001 286.375);
   --color-base-200: oklch(92% 0.003 48.717);
   --color-base-300: oklch(92% 0.006 264.531);
@@ -175,7 +175,6 @@
   --noise: 0;
 }
 
-
 @config "../tailwind.config.js";
 
 :root {
@@ -195,4 +194,29 @@
   --color-piano-Gsharp: #fdeedd;
   --color-piano-A: #fce9e8;
   --color-piano-Asharp: #dff9fe;
+}
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
 }

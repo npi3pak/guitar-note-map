@@ -1,8 +1,9 @@
+import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { chevronLeft, chevronRight, lockIcon, unlockIcon } from 'src/components/Icons';
 import { useFretBoardStore } from 'src/store';
 
-export const StringsTuneShift = () => {
+export const StringsTuneShift = React.memo(() => {
     const { tuneUpAll, tuneDownAll, getIsLocked, setLock, tuneToStandard, resetNotes, resetScale, getScale } =
         useFretBoardStore();
     const { isLocked } = getIsLocked();
@@ -57,4 +58,4 @@ export const StringsTuneShift = () => {
             </div>
         </>
     );
-};
+});

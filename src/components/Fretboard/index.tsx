@@ -16,7 +16,7 @@ export const Fretboard: React.FC = () => {
 
     return (
         <div className="px-4 md:px-12 pt-6">
-            <div className="bg-base-100 rounded-box p-4 overflow-x-scroll card card-border border-base-300">
+            <div className="bg-base-100 rounded-box p-4 overflow-x-auto card card-border border-base-300">
                 <div className={styles.fretboard}>
                     <StringsCountOptions />
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((index) => {

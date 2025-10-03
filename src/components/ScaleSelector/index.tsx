@@ -2,16 +2,17 @@ import { motion, AnimatePresence } from 'framer-motion';
 import classnames from 'classnames';
 import { useFretBoardStore } from 'src/store';
 import { xIcon } from '../Icons';
+import React from 'react';
 
 const DEFAULT_KEY = 'C';
 
-export const ScaleNote = ({ note = 'C' }) => (
+export const ScaleNote = React.memo(({ note = 'C' }: { note: string }) => (
     <div className="flex items-center px-1 rounded-md bg-info/25 text-info">
         <div>{note}</div>
     </div>
-);
+));
 
-export const NoteList = () => {
+export const NoteList = React.memo(() => {
     const { getScaleNotesByKeyName, getScale } = useFretBoardStore();
 
     const { isDisplayed } = getScale();
@@ -25,7 +26,7 @@ export const NoteList = () => {
             ))}
         </div>
     );
-};
+});
 
 export const ScaleSelector = () => {
     const { getScale, getScales, setScaleKey, setScaleName, resetScale, toggleScaleFilter } = useFretBoardStore();
@@ -121,5 +122,3 @@ export const ScaleSelector = () => {
         </>
     );
 };
-
-// isDisplayed
