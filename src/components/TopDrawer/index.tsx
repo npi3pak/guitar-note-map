@@ -23,9 +23,9 @@ export const TopDrawer = ({ children }: { children: React.ReactNode }) => {
                         animate={{ y: 0 }}
                         exit={{ y: '-100%' }}
                         transition={{ duration: 0.3, ease: 'easeInOut' }}
-                        className="fixed top-0 left-0 right-0 z-50 bg-base-200 shadow-lg"
+                        className="fixed top-0 left-0 right-0 z-50 shadow-lg"
                     >
-                        <div className="px-4 py-2 bg-base-100 relative">
+                        <div className="px-4 py-2 bg-base-100 relative rounded-b-box">
                             {children}
                             <button className="btn btn-lg btn-ghost absolute right-0 bottom-0 p-8" onClick={close}>
                                 <CircleX />
