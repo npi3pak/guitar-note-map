@@ -1,3 +1,4 @@
+import { motion, AnimatePresence } from 'framer-motion';
 import classnames from 'classnames';
 import { useFretBoardStore } from 'src/store';
 import { xIcon } from '../Icons';
@@ -29,7 +30,7 @@ export const NoteList = () => {
 export const ScaleSelector = () => {
     const { getScale, getScales, setScaleKey, setScaleName, resetScale, toggleScaleFilter } = useFretBoardStore();
 
-    const { selectedKey, selectedScaleName, isFiltered } = getScale();
+    const { selectedKey, selectedScaleName, isFiltered, isDisplayed } = getScale();
     const allScales = getScales();
 
     const keysToDisplay = Object.keys(allScales).map((scaleKey) => ({
@@ -57,7 +58,7 @@ export const ScaleSelector = () => {
                         value={selectedKey ?? ''}
                         onChange={(e) => setScaleKey(e.target.value)}
                     >
-                        <option value={null} />
+                        <option value="">Select key</option>
                         {keysToDisplay.map((scaleKey, item) => (
                             <option
                                 className={classnames(
@@ -75,7 +76,9 @@ export const ScaleSelector = () => {
                         value={selectedScaleName ?? ''}
                         onChange={(e) => setScaleName(e.target.value)}
                     >
-                        <option value={null} />
+                        <option value="" selected>
+                            Select scale
+                        </option>
                         {scalesToDisplay.map((scaleName, item) => (
                             <option
                                 className={classnames(
@@ -88,9 +91,21 @@ export const ScaleSelector = () => {
                             </option>
                         ))}
                     </select>
-                    <button className="btn btn-sm bg-info/25" onClick={() => resetScale()}>
-                        {xIcon}
-                    </button>
+                    <AnimatePresence>
+                        {isDisplayed && (
+                            <motion.button
+                                key="clear-scales"
+                                className="btn btn-sm bg-info/25"
+                                onClick={() => resetScale()}
+                                initial={{ opacity: 0, y: -5 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -5 }}
+                                transition={{ duration: 0.1 }}
+                            >
+                                {xIcon}
+                            </motion.button>
+                        )}
+                    </AnimatePresence>
                 </div>
                 <label className="label mt-2 text-base-content">
                     <input
@@ -106,3 +121,5 @@ export const ScaleSelector = () => {
         </>
     );
 };
+
+// isDisplayed

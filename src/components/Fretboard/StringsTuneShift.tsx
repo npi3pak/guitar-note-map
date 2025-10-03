@@ -53,7 +53,7 @@ export const StringsTuneShift = () => {
                             Clear scales
                         </motion.button>
                     )}
-                </AnimatePresence>{' '}
+                </AnimatePresence>
             </div>
         </>
     );

@@ -1,3 +1,4 @@
+import { motion, AnimatePresence } from 'framer-motion';
 import { useFretBoardStore } from 'src/store';
 import { xIcon } from '../Icons';
 
@@ -28,13 +29,21 @@ export const NoteSelector = () => {
             <legend className="fieldset-legend text-base-content">Selected Notes</legend>
             <div className="card card-border border-base-300 flex flex-row justify-between w-full rounded-box p-4 mt-0">
                 <div className="flex flex-wrap gap-1 justify-center h-15 overflow-y-scroll">
+                    {!selectedNotes.length && <p className='text-black/25 font-semibold text-md'>Tap notes on fretboard or piano roll</p>}
                     {selectedNotes.map((baseNote, index) => (
                         <NoteSelectedLabel note={baseNote} key={index} onDelete={handleNoteDelete} />
                     ))}
                 </div>
-                <button className="btn btn-ghost btn-xs text-base-content btn-circle" onClick={resetNotes}>
-                    {xIcon}
-                </button>
+                <AnimatePresence>
+                    {!!selectedNotes.length && (
+                        <motion.button
+                            className="btn btn-ghost btn-xs text-base-content btn-circle"
+                            onClick={resetNotes}
+                        >
+                            {xIcon}
+                        </motion.button>
+                    )}
+                </AnimatePresence>
             </div>
         </fieldset>
     );
