@@ -1,9 +1,12 @@
+import { motion, AnimatePresence } from 'framer-motion';
 import { chevronLeft, chevronRight, lockIcon, unlockIcon } from 'src/components/Icons';
 import { useFretBoardStore } from 'src/store';
 
 export const StringsTuneShift = () => {
-    const { tuneUpAll, tuneDownAll, getIsLocked, setLock, tuneToStandard, resetNotes } = useFretBoardStore();
+    const { tuneUpAll, tuneDownAll, getIsLocked, setLock, tuneToStandard, resetNotes, resetScale, getScale } =
+        useFretBoardStore();
     const { isLocked } = getIsLocked();
+    const { isDisplayed: isScaleDisplayed } = getScale();
 
     return (
         <>
@@ -24,9 +27,33 @@ export const StringsTuneShift = () => {
                         Reset to standart
                     </button>
                 )}
-                <button className="btn btn-xs ml-4 md:hidden" onClick={() => resetNotes()}>
-                    Clear notes
-                </button>
+                <AnimatePresence>
+                    <motion.button
+                        key="clear-notes"
+                        className="btn btn-xs ml-4 md:hidden"
+                        onClick={() => resetNotes()}
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -5 }}
+                        transition={{ duration: 0.2 }}
+                    >
+                        Clear notes
+                    </motion.button>
+
+                    {isScaleDisplayed && (
+                        <motion.button
+                            key="clear-scales"
+                            className="btn btn-xs ml-4 md:hidden"
+                            onClick={() => resetScale()}
+                            initial={{ opacity: 0, y: -5 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -5 }}
+                            transition={{ duration: 0.2 }}
+                        >
+                            Clear scales
+                        </motion.button>
+                    )}
+                </AnimatePresence>{' '}
             </div>
         </>
     );

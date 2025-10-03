@@ -5,7 +5,7 @@ import { ScaleSelector } from '../ScaleSelector';
 export const MobileTopMenu = () => {
     return (
         <TopDrawer>
-            <div className="py-2 card border-base-300">
+            <div className="card border-base-300">
                 <NoteSelector />
             </div>
             <div className="py-2 card border-base-300">
