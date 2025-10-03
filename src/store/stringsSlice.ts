@@ -193,7 +193,7 @@ export const stringsSlice: StateCreator<TStore, [], [], TStringSlice> = (set, ge
         }));
     },
     getStringsCount: () => Number(Object.keys(get().strings).length),
-    incStrings: () =>
+    incStrings: () => {
         set((state) => {
             const newStringNum = Number(Object.keys(state.strings).length + 1);
 
@@ -218,8 +218,10 @@ export const stringsSlice: StateCreator<TStore, [], [], TStringSlice> = (set, ge
                     ...state.strings,
                 },
             };
-        }),
-    decStrings: () =>
+        });
+        get().updateNotesInScale();
+    },
+    decStrings: () => {
         set((state) => {
             const lastStringNum = Number(Object.keys(state.strings).length);
 
@@ -239,10 +241,13 @@ export const stringsSlice: StateCreator<TStore, [], [], TStringSlice> = (set, ge
                     ...state.strings,
                 },
             };
-        }),
+        });
+
+        get().updateNotesInScale();
+    },
     tuneToStandard: () => {
         get().resetNotes();
-        return set((state) => ({
+        set((state) => ({
             strings: {
                 [1]: updateStringTune(state.strings, 1, 0, 'E4'),
                 [2]: updateStringTune(state.strings, 2, 0, 'B3'),
@@ -252,11 +257,12 @@ export const stringsSlice: StateCreator<TStore, [], [], TStringSlice> = (set, ge
                 [6]: updateStringTune(state.strings, 6, 0, 'E2'),
             },
         }));
+
+        get().updateNotesInScale();
     },
     tuneUpAll: () => {
         get().resetNotes();
-
-        return set((state) => ({
+        set((state) => ({
             strings: Object.keys(state.strings).reduce(
                 (acc, stringNum) => ({
                     ...acc,
@@ -265,10 +271,12 @@ export const stringsSlice: StateCreator<TStore, [], [], TStringSlice> = (set, ge
                 {},
             ),
         }));
+
+        get().updateNotesInScale();
     },
     tuneDownAll: () => {
         get().resetNotes();
-        return set((state) => ({
+        set((state) => ({
             strings: Object.keys(state.strings).reduce(
                 (acc, stringNum) => ({
                     ...acc,
@@ -277,24 +285,30 @@ export const stringsSlice: StateCreator<TStore, [], [], TStringSlice> = (set, ge
                 {},
             ),
         }));
+
+        get().updateNotesInScale();
     },
     tuneUpNoteByString: (stringNumber) => {
         get().resetNotes();
-        return set((state) => ({
+        set((state) => ({
             strings: {
                 ...state.strings,
                 [stringNumber]: updateStringTune(state.strings, stringNumber, +1),
             },
         }));
+
+        get().updateNotesInScale();
     },
     tuneDownNoteByString: (stringNumber) => {
         get().resetNotes();
-        return set((state) => ({
+        set((state) => ({
             strings: {
                 ...state.strings,
                 [stringNumber]: updateStringTune(state.strings, stringNumber, -1),
             },
         }));
+
+        get().updateNotesInScale();
     },
     searchNoteAndPress: (baseNote: string) => {
         const strings = get().strings;
