@@ -51,7 +51,10 @@ export const Piano = () => {
             >
                 <div
                     className={classnames(`${blackKeyStyle} ${getColor({ note: 'C#', highlightNotes })}`)}
-                    onClick={() => searchNoteAndPress('C#')}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        searchNoteAndPress('C#');
+                    }}
                 ></div>
             </div>
             <div
@@ -60,7 +63,10 @@ export const Piano = () => {
             >
                 <div
                     className={classnames(`${blackKeyStyle} ${getColor({ note: 'D#', highlightNotes })}`)}
-                    onClick={() => searchNoteAndPress('D#')}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        return searchNoteAndPress('D#');
+                    }}
                 ></div>
             </div>
             <div
@@ -73,7 +79,10 @@ export const Piano = () => {
             >
                 <div
                     className={classnames(`${blackKeyStyle} ${getColor({ note: 'F#', highlightNotes })}`)}
-                    onClick={() => searchNoteAndPress('F#')}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        return searchNoteAndPress('F#');
+                    }}
                 ></div>
             </div>
             <div
@@ -82,7 +91,10 @@ export const Piano = () => {
             >
                 <div
                     className={classnames(`${blackKeyStyle} ${getColor({ note: 'G#', highlightNotes })}`)}
-                    onClick={() => searchNoteAndPress('G#')}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        return searchNoteAndPress('G#');
+                    }}
                 ></div>
             </div>
             <div
@@ -91,7 +103,10 @@ export const Piano = () => {
             >
                 <div
                     className={classnames(`${blackKeyStyle} ${getColor({ note: 'A#', highlightNotes })}`)}
-                    onClick={() => searchNoteAndPress('A#')}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        return searchNoteAndPress('A#');
+                    }}
                 ></div>
             </div>
             <div
