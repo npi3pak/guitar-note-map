@@ -27,7 +27,7 @@ export const NoteSelector = () => {
         <fieldset className="fieldset">
             <legend className="fieldset-legend text-base-content">Selected Notes</legend>
             <div className="card card-border border-base-300 flex flex-row justify-between w-full rounded-box p-4 mt-0">
-                <div className="flex flex-wrap gap-1 justify-center h-15">
+                <div className="flex flex-wrap gap-1 justify-center h-15 overflow-y-scroll">
                     {selectedNotes.map((baseNote, index) => (
                         <NoteSelectedLabel note={baseNote} key={index} onDelete={handleNoteDelete} />
                     ))}
