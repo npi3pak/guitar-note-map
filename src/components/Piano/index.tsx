@@ -40,28 +40,64 @@ const getColor = ({ note, highlightNotes, isPressed = false }) => {
 };
 
 export const Piano = () => {
-    const { getHighlightNotes } = useFretBoardStore();
+    const { getHighlightNotes, searchNoteAndPress } = useFretBoardStore();
     const highlightNotes = getHighlightNotes();
 
     return (
         <div className="flex h-24 w-full lg:w-120">
-            <div className={classnames(`border-l-2 ${whiteKeyStyle} ${getColor({ note: 'C', highlightNotes })}`)}>
-                <div className={classnames(`${blackKeyStyle} ${getColor({ note: 'C#', highlightNotes })}`)}></div>
+            <div
+                className={classnames(`border-l-2 ${whiteKeyStyle} ${getColor({ note: 'C', highlightNotes })}`)}
+                onClick={() => searchNoteAndPress('C')}
+            >
+                <div
+                    className={classnames(`${blackKeyStyle} ${getColor({ note: 'C#', highlightNotes })}`)}
+                    onClick={() => searchNoteAndPress('C#')}
+                ></div>
             </div>
-            <div className={classnames(`${whiteKeyStyle} ${getColor({ note: 'D', highlightNotes })}`)}>
-                <div className={classnames(`${blackKeyStyle} ${getColor({ note: 'D#', highlightNotes })}`)}></div>
+            <div
+                className={classnames(`${whiteKeyStyle} ${getColor({ note: 'D', highlightNotes })}`)}
+                onClick={() => searchNoteAndPress('D')}
+            >
+                <div
+                    className={classnames(`${blackKeyStyle} ${getColor({ note: 'D#', highlightNotes })}`)}
+                    onClick={() => searchNoteAndPress('D#')}
+                ></div>
             </div>
-            <div className={classnames(`${whiteKeyStyle} ${getColor({ note: 'E', highlightNotes })}`)}></div>
-            <div className={classnames(`${whiteKeyStyle} ${getColor({ note: 'F', highlightNotes })}`)}>
-                <div className={classnames(`${blackKeyStyle} ${getColor({ note: 'F#', highlightNotes })}`)}></div>
+            <div
+                className={classnames(`${whiteKeyStyle} ${getColor({ note: 'E', highlightNotes })}`)}
+                onClick={() => searchNoteAndPress('E')}
+            ></div>
+            <div
+                className={classnames(`${whiteKeyStyle} ${getColor({ note: 'F', highlightNotes })}`)}
+                onClick={() => searchNoteAndPress('F')}
+            >
+                <div
+                    className={classnames(`${blackKeyStyle} ${getColor({ note: 'F#', highlightNotes })}`)}
+                    onClick={() => searchNoteAndPress('F#')}
+                ></div>
             </div>
-            <div className={classnames(`${whiteKeyStyle} ${getColor({ note: 'G', highlightNotes })}`)}>
-                <div className={classnames(`${blackKeyStyle} ${getColor({ note: 'G#', highlightNotes })}`)}></div>
+            <div
+                className={classnames(`${whiteKeyStyle} ${getColor({ note: 'G', highlightNotes })}`)}
+                onClick={() => searchNoteAndPress('G')}
+            >
+                <div
+                    className={classnames(`${blackKeyStyle} ${getColor({ note: 'G#', highlightNotes })}`)}
+                    onClick={() => searchNoteAndPress('G#')}
+                ></div>
             </div>
-            <div className={classnames(`${whiteKeyStyle} ${getColor({ note: 'A', highlightNotes })}`)}>
-                <div className={classnames(`${blackKeyStyle} ${getColor({ note: 'A#', highlightNotes })}`)}></div>
+            <div
+                className={classnames(`${whiteKeyStyle} ${getColor({ note: 'A', highlightNotes })}`)}
+                onClick={() => searchNoteAndPress('A')}
+            >
+                <div
+                    className={classnames(`${blackKeyStyle} ${getColor({ note: 'A#', highlightNotes })}`)}
+                    onClick={() => searchNoteAndPress('A#')}
+                ></div>
             </div>
-            <div className={classnames(`border-r-2 ${whiteKeyStyle} ${getColor({ note: 'B', highlightNotes })}`)}></div>
+            <div
+                className={classnames(`border-r-2 ${whiteKeyStyle} ${getColor({ note: 'B', highlightNotes })}`)}
+                onClick={() => searchNoteAndPress('B')}
+            ></div>
         </div>
     );
 };

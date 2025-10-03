@@ -296,6 +296,31 @@ export const stringsSlice: StateCreator<TStore, [], [], TStringSlice> = (set, ge
             },
         }));
     },
+    searchNoteAndPress: (baseNote: string) => {
+        const strings = get().strings;
+
+        let bestMatch: { stringNumber: number; fretNumber: number } | null = null;
+
+        for (const stringNumberKey in strings) {
+            const stringNumber = Number(stringNumberKey);
+            const { fret } = strings[stringNumber];
+
+            for (const fretKey in fret) {
+                const fretNumber = Number(fretKey);
+                const fretNoteBase = fret[fretNumber].baseNote;
+
+                if (fretNoteBase === baseNote) {
+                    if (!bestMatch || fretNumber < bestMatch.fretNumber) {
+                        bestMatch = { stringNumber, fretNumber };
+                    }
+                }
+            }
+        }
+
+        if (bestMatch) {
+            get().pressNote(bestMatch.stringNumber, bestMatch.fretNumber);
+        }
+    },
     pressNote: (stringNumber, fretNumber) =>
         set((state) => {
             const updatedString = R.modifyPath([stringNumber, 'fret', fretNumber, 'pressed'], R.not, state.strings);

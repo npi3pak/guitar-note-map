@@ -99,6 +99,7 @@ export interface IStringActions {
     tuneUpNoteByString: (stringNumber: number) => void;
     tuneDownNoteByString: (stringNumber: number) => void;
     pressNote: (stringNumber: number, fretNumber: number) => void;
+    searchNoteAndPress: (note: string) => void;
 }
 
 export type TStringSlice = IStringActions & IFretBoardState;
