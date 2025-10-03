@@ -77,9 +77,7 @@ export const ScaleSelector = () => {
                         value={selectedScaleName ?? ''}
                         onChange={(e) => setScaleName(e.target.value)}
                     >
-                        <option value="" selected>
-                            Select scale
-                        </option>
+                        <option value="">Select scale</option>
                         {scalesToDisplay.map((scaleName, item) => (
                             <option
                                 className={classnames(
