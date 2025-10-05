@@ -5,7 +5,9 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
+        "dev:m4l": "VITE_M4L_APP=true vite",
         "build": "tsc -b && vite build",
+        "build:m4l": "VITE_M4L_APP=true tsc -b && vite build",
         "lint": "eslint .",
         "preview": "vite preview",
         "lint:ts": "tsc -b"
