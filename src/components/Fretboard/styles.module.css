@@ -8,10 +8,8 @@
 
 .fretboard-m4l {
   display: grid;
-  height: 120px;
-  width: auto;
   grid-template-columns: 2fr repeat(3, 4fr) repeat(3, 4fr) repeat(3, 2fr) repeat(2, 2fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: repeat(6, auto);
   gap: 0;
   overflow: hidden;
 }

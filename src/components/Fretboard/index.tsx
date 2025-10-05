@@ -20,7 +20,7 @@ export const Fretboard: React.FC<IProps> = ({ m4l = false }) => {
 
     if (m4l) {
         return (
-            <div className="pl-8 overflow-x-auto">
+            <div className="pl-8 flex overflow-x-auto h-[160px]">
                 <div className={styles['fretboard-m4l']}>
                     <StringsCountOptions />
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((index) => {
