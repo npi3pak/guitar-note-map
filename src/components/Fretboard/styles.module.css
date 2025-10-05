@@ -5,3 +5,23 @@
   grid-column-gap: 0px;
   grid-row-gap: 0px;
 }
+
+.fretboard-m4l {
+  display: grid;
+  height: 120px;
+  width: auto;
+  grid-template-columns: 2fr repeat(3, 4fr) repeat(3, 4fr) repeat(3, 2fr) repeat(2, 2fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 0;
+  overflow: hidden;
+}
+
+.fretboard-m4l > * {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

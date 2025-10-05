@@ -6,13 +6,47 @@ import { useFretBoardStore } from 'src/store';
 import styles from './styles.module.css';
 import React from 'react';
 
-export const Fretboard: React.FC = () => {
+interface IProps {
+    m4l?: boolean;
+}
+
+export const Fretboard: React.FC<IProps> = ({ m4l = false }) => {
     const { getStringsCount, resetPressedNotes } = useFretBoardStore();
     const stringsCount = getStringsCount();
 
     React.useEffect(() => {
         resetPressedNotes();
     }, []);
+
+    if (m4l) {
+        return (
+            <div className="pl-8 overflow-x-auto">
+                <div className={styles['fretboard-m4l']}>
+                    <StringsCountOptions />
+                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((index) => {
+                        const isMarker = [3, 5, 7, 9].includes(index);
+
+                        return (
+                            <div
+                                key={index}
+                                className={classnames(
+                                    'flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold',
+                                    {
+                                        'rounded-full w-6 h-6 bg-gray-600/20': isMarker,
+                                    },
+                                )}
+                            >
+                                {index}
+                            </div>
+                        );
+                    })}
+                    {[...Array(stringsCount).keys()].map((stringNum, item) => (
+                        <String stringNumber={stringNum + 1} key={item} m4l />
+                    ))}
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="px-4 md:px-12 pt-6">

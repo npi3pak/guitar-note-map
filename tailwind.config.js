@@ -19,6 +19,7 @@ module.exports = {
 
                 'piano-white': colors.white,
                 'piano-black': colors.black,
+                'ableton-background': '#a5a5a5',
             },
         },
     },

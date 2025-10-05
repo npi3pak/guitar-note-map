@@ -21,6 +21,34 @@ const colorMap: Record<number, string> = {
     12: 'bg-rose-300/25 text-rose-500/50',
 };
 
+// Add regulag map for all cases
+const colorMapM4l: Record<number, string> = {
+    1: 'bg-blue-300/70 text-blue-500',
+    2: 'bg-red-300/70 text-red-500',
+    3: 'bg-green-300/70 text-green-500',
+    4: 'bg-yellow-300/70 text-yellow-500',
+    5: 'bg-purple-300/70 text-purple-500',
+    6: 'bg-pink-300/70 text-pink-500',
+    7: 'bg-indigo-300/70 text-indigo-500',
+    8: 'bg-teal-300/70 text-teal-500',
+    9: 'bg-orange-300/70 text-orange-500',
+    10: 'bg-lime-300/70 text-lime-500',
+    11: 'bg-cyan-300/70 text-cyan-500',
+    12: 'bg-rose-300/70 text-rose-500',
+};
+
+const webColors = {
+    fret: 'border-blue-400',
+    string: 'bg-gray-500/25',
+    noteText: 'text-blue-600/50',
+};
+
+const m4lColors = {
+    fret: 'border-gray-600',
+    string: 'bg-gray-500/25',
+    noteText: 'text-black/50',
+};
+
 function getFlexClass(index: number) {
     if (index < 3) {
         return 'flex-1';
@@ -55,6 +83,7 @@ const isHighlightedHoverStyles = (note: string, highlightNotes: unknown) => {
 
 interface IProps {
     stringNumber: number;
+    m4l?: boolean;
 }
 
 interface IFretNote {
@@ -189,10 +218,11 @@ const ZeroFret = ({ fret, stringNumber, highlightNotes }) => {
     );
 };
 
-export const String: React.FC<IProps> = React.memo(({ stringNumber = 1 }) => {
+export const String: React.FC<IProps> = React.memo(({ stringNumber = 1, m4l = false }) => {
     const { getByString, getHighlightNotes, pressNote } = useFretBoardStore();
     const [zeroFret, ...frets] = getByString(stringNumber);
     const highlightNotes = getHighlightNotes();
+    const colors = m4l ? m4lColors : webColors;
 
     return (
         <>
@@ -203,14 +233,16 @@ export const String: React.FC<IProps> = React.memo(({ stringNumber = 1 }) => {
                 return (
                     <div
                         className={classnames(
-                            `relative border-r-4 border-blue-400 flex justify-center ${getFlexClass(index)}`,
+                            `relative border-r-4 ${colors.fret} flex justify-center ${getFlexClass(index)}`,
                         )}
                         key={index}
                     >
-                        <div className="absolute top-1/2 left-0 w-full h-[1px] bg-gray-400/25 -translate-y-1/2 pointer-events-none"></div>
+                        <div
+                            className={`absolute top-1/2 left-0 w-full h-[1px] ${colors.string} -translate-y-1/2 pointer-events-none`}
+                        ></div>
                         <button
                             className={classnames(
-                                'relative z-10 text-blue-600/50 dark:text-sky-400/50 hover:cursor-pointer',
+                                `relative z-10 ${colors.noteText} dark:text-sky-400/50 hover:cursor-pointer`,
                             )}
                             onClick={() => pressNote(stringNumber, index + 1)}
                         >

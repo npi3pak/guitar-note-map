@@ -5,6 +5,13 @@ import type { TStore, IHighlightNotesState } from './interfaces';
 import { scalesSlice } from './scalesSlice';
 import { stringsSlice } from './stringsSlice';
 
+(window as any).m4l = {
+    addHoverNote: (baseNote: string) => {
+        const { addHoverNote } = useFretBoardStore.getState();
+        addHoverNote(baseNote);
+    },
+};
+
 // TODO: Remove selected notes abstraction
 
 export const useFretBoardStore = create<TStore>()(
