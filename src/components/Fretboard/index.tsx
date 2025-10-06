@@ -22,7 +22,7 @@ export const Fretboard: React.FC<IProps> = ({ m4l = false }) => {
         return (
             <div className="flex overflow-x-auto h-[160px]">
                 <div className={styles['fretboard-m4l']}>
-                    <StringsCountOptions />
+                    <div />
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((index) => {
                         const isMarker = [3, 5, 7, 9].includes(index);
 
