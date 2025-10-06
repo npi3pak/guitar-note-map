@@ -27,7 +27,7 @@ export const M4lMenu = () => {
     const stringsCount = getStringsCount();
 
     return (
-        <div className="p-2 pt-6 flex">
+        <div className="p-2 flex">
             <div className="p-3 flex flex-col bg-ableton-black card  w-[150px]">
                 <div className="flex flex-row justify-items-center items-center">
                     <button

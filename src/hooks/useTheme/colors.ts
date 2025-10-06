@@ -1,0 +1,41 @@
+export const webColors = {
+    fret: 'border-blue-400',
+    string: 'bg-gray-500/25',
+    noteText: 'text-blue-600/50',
+    zeroFretArrows: 'text-blue-600/50',
+    fretNotesMap: {
+        1: 'bg-blue-300/25 text-blue-500/50',
+        2: 'bg-red-300/25 text-red-500/50',
+        3: 'bg-green-300/25 text-green-500/50',
+        4: 'bg-yellow-300/25 text-yellow-500/50',
+        5: 'bg-purple-300/25 text-purple-500/50',
+        6: 'bg-pink-300/25 text-pink-500/50',
+        7: 'bg-indigo-300/25 text-indigo-500/50',
+        8: 'bg-teal-300/25 text-teal-500/50',
+        9: 'bg-orange-300/25 text-orange-500/50',
+        10: 'bg-lime-300/25 text-lime-500/50',
+        11: 'bg-cyan-300/25 text-cyan-500/50',
+        12: 'bg-rose-300/25 text-rose-500/50',
+    },
+};
+
+export const m4lColors = {
+    fret: 'border-gray-600',
+    string: 'bg-gray-500/25',
+    noteText: 'text-black/50',
+    zeroFretArrows: 'text-ableton-orange',
+    fretNotesMap: {
+        1: 'bg-blue-300/70 text-blue-500',
+        2: 'bg-red-300/70 text-red-500',
+        3: 'bg-green-300/70 text-green-500',
+        4: 'bg-yellow-300/70 text-yellow-500',
+        5: 'bg-purple-300/70 text-purple-500',
+        6: 'bg-pink-300/70 text-pink-500',
+        7: 'bg-indigo-300/70 text-indigo-500',
+        8: 'bg-teal-300/70 text-teal-500',
+        9: 'bg-orange-300/70 text-orange-500',
+        10: 'bg-lime-300/70 text-lime-500',
+        11: 'bg-cyan-300/70 text-cyan-500',
+        12: 'bg-rose-300/70 text-rose-500',
+    },
+};
