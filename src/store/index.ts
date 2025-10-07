@@ -3,12 +3,21 @@ import * as R from 'ramda';
 import { persist } from 'zustand/middleware';
 import type { TStore, IHighlightNotesState } from './interfaces';
 import { scalesSlice } from './scalesSlice';
-import { stringsSlice } from './stringsSlice';
+import { getBaseNote, stringsSlice } from './stringsSlice';
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).m4l = {
-    addHoverNote: (baseNote: string) => {
+    addHoverNote: (note: string) => {
+        const baseNote = getBaseNote(note);
+
         const { addHoverNote } = useFretBoardStore.getState();
         addHoverNote(baseNote);
+    },
+    removeHoverNote: (note: string) => {
+        const baseNote = getBaseNote(note);
+
+        const { removeHoverNote } = useFretBoardStore.getState();
+        removeHoverNote(baseNote);
     },
 };
 

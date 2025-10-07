@@ -10,7 +10,7 @@ import {
 } from './interfaces';
 import type { StateCreator } from 'zustand';
 
-const getBaseNote = (note: string) => note.replace(/[0-9]/, '');
+export const getBaseNote = (note: string) => note.replace(/[0-9]/, '');
 
 const getNoteListSlice = (initialNote: string, sliceLen: number = 12) =>
     FULL_NOTES.slice(FULL_NOTES.indexOf(initialNote), FULL_NOTES.indexOf(initialNote) + sliceLen);
