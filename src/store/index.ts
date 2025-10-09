@@ -3,21 +3,53 @@ import * as R from 'ramda';
 import { persist } from 'zustand/middleware';
 import type { TStore, IHighlightNotesState } from './interfaces';
 import { scalesSlice } from './scalesSlice';
-import { getBaseNote, stringsSlice } from './stringsSlice';
+import { stringsSlice } from './stringsSlice';
+import { SORTED_ALL_NOTES } from 'src/constants';
+
+const midiToNoteName = (midi) => {
+    if (!Number.isFinite(midi) || !Number.isInteger(midi)) {
+        throw new TypeError('midi must be an integer');
+    }
+    if (midi < 0 || midi > 127) {
+        throw new RangeError('midi must be in range 0..127');
+    }
+
+    return SORTED_ALL_NOTES[midi % 12];
+};
+
+const getM4LScale = (rootNote, intervalString) => {
+    if (rootNote === undefined || intervalString === undefined) {
+        return [];
+    }
+
+    const intervals = intervalString.split(' ').map(Number);
+    return intervals.map((i) => SORTED_ALL_NOTES[(rootNote + i) % 12]);
+};
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 (window as any).m4l = {
-    addHoverNote: (note: string) => {
-        const baseNote = getBaseNote(note);
-
-        const { addHoverNote } = useFretBoardStore.getState();
-        addHoverNote(baseNote);
+    test: (testStr: string) => {
+        console.log(`test ${testStr}`);
     },
-    removeHoverNote: (note: string) => {
-        const baseNote = getBaseNote(note);
+    sendMidi: (midiNoteNum: string) => (velocity: string) => {
+        const { removeHoverNote, addHoverNote } = useFretBoardStore.getState();
 
-        const { removeHoverNote } = useFretBoardStore.getState();
-        removeHoverNote(baseNote);
+        const baseNote = midiToNoteName(midiNoteNum);
+
+        if (Number(velocity) === 0) {
+            removeHoverNote(baseNote);
+        }
+
+        if (Number(velocity) > 0) {
+            addHoverNote(baseNote);
+        }
+    },
+    setScale: (rootNote) => (intervalString: string) => {
+        const { setM4lScaleNotes } = useFretBoardStore.getState();
+
+        const scaledNoteList = getM4LScale(rootNote, intervalString);
+
+        setM4lScaleNotes(scaledNoteList);
     },
 };
 

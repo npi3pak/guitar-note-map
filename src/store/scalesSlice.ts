@@ -41,6 +41,7 @@ export const scalesSlice: StateCreator<TStore, [], [], TScaleSlice> = (set, get)
         'A#': { ...buildScalesByNote('A#') },
         B: { ...buildScalesByNote('B') },
     },
+    m4lScaleNotes: [],
     selectedScale: {
         selectedKey: null,
         selectedScaleName: null,
@@ -52,9 +53,14 @@ export const scalesSlice: StateCreator<TStore, [], [], TScaleSlice> = (set, get)
     getScaleNotesByKeyName: () => {
         const selectedKey = get().selectedScale.selectedKey;
         const selectedScaleName = get().selectedScale.selectedScaleName;
+        const m4lScaleNotes = get().getM4lScaleNotes();
 
         if (selectedKey && selectedScaleName) {
             return get().scales[selectedKey][selectedScaleName].notes;
+        }
+
+        if (m4lScaleNotes.length) {
+            return m4lScaleNotes;
         }
 
         return [];
@@ -69,6 +75,23 @@ export const scalesSlice: StateCreator<TStore, [], [], TScaleSlice> = (set, get)
                     selectedKey,
                     isDisplayed: isDisplayed ? true : state.selectedScale.isDisplayed,
                 },
+            };
+        });
+
+        get().updateNotesInScale();
+    },
+    getM4lScaleNotes: () => get().m4lScaleNotes,
+    setM4lScaleNotes: (notes) => {
+        set(() => ({
+            m4lScaleNotes: notes,
+        }));
+
+        get().updateNotesInScale();
+    },
+    toggleScaleDisplay: () => {
+        set((state) => {
+            return {
+                selectedScale: { ...state.selectedScale, isDisplayed: !state.selectedScale.isDisplayed },
             };
         });
 

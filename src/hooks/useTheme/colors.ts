@@ -2,7 +2,9 @@ export const webColors = {
     fret: 'border-blue-400',
     string: 'bg-gray-500/25',
     noteText: 'text-blue-600/50',
-    zeroFretArrows: 'text-blue-600/50',
+    zeroFretArrows: 'btn-ghost text-blue-600/50',
+    zeroFretscaleHighlight: 'border-gray-600/25',
+    scaleHighlight: 'border-indigo-600/25',
     fretNotesMap: {
         1: 'bg-blue-300/25 text-blue-500/50',
         2: 'bg-red-300/25 text-red-500/50',
@@ -23,7 +25,9 @@ export const m4lColors = {
     fret: 'border-gray-600',
     string: 'bg-gray-500/25',
     noteText: 'text-black/50',
-    zeroFretArrows: 'text-ableton-orange',
+    zeroFretArrows: 'btn-link text-ableton-orange',
+    zeroFretscaleHighlight: 'border-none bg-ableton-indigo/25',
+    scaleHighlight: 'border-none bg-ableton-indigo/25',
     fretNotesMap: {
         1: 'bg-blue-300/70 text-blue-500',
         2: 'bg-red-300/70 text-red-500',

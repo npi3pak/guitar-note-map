@@ -26,6 +26,7 @@ module.exports = {
                 'ableton-accent-light': '#07eeff',
                 'ableton-black': '#242424',
                 'ableton-orange': '#feb903',
+                'ableton-indigo': '#be99ff',
             },
         },
     },

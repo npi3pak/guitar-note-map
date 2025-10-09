@@ -59,18 +59,22 @@ export type TuneDirection = 1 | -1 | 0;
 
 export interface IScaleState {
     scales: IScales;
+    m4lScaleNotes: string[];
     selectedScale: ISelectedScale;
 }
 
 export interface IScaleActions {
     getScale: () => ISelectedScale;
     getScales: () => IScales;
+    getM4lScaleNotes: () => string[];
     getScaleNotesByKeyName: () => string[] | [];
     setScaleKey: (selectedKey: string | null) => void;
     setScaleName: (selectedScaleName: string | null) => void;
+    setM4lScaleNotes: (notes: string[]) => void;
     resetScale: () => void;
     toggleScaleFilter: () => void;
     updateFilteredScale: () => void;
+    toggleScaleDisplay: () => void;
 }
 
 export type TScaleSlice = IScaleActions & IScaleState;

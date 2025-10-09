@@ -20,7 +20,7 @@ export const Fretboard: React.FC<IProps> = ({ m4l = false }) => {
 
     if (m4l) {
         return (
-            <div className="flex overflow-x-auto h-[160px]">
+            <div className="flex overflow-x-auto h-[165px] mt-1">
                 <div className={styles['fretboard-m4l']}>
                     <div />
                     {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((index) => {
@@ -30,9 +30,9 @@ export const Fretboard: React.FC<IProps> = ({ m4l = false }) => {
                             <div
                                 key={index}
                                 className={classnames(
-                                    'flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold',
+                                    'flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold text-xs',
                                     {
-                                        'rounded-full w-6 h-6 bg-gray-600/20': isMarker,
+                                        'rounded-full w-5 h-5 bg-gray-600/20': isMarker,
                                     },
                                 )}
                             >

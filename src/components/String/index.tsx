@@ -7,37 +7,6 @@ import { EAnimationType, type IFret, type IHighlightNotesState } from 'src/store
 import { chevronLeft, chevronRight } from 'src/components/Icons';
 import { useTheme } from 'src/hooks/useTheme';
 
-const colorMap: Record<number, string> = {
-    1: 'bg-blue-300/25 text-blue-500/50',
-    2: 'bg-red-300/25 text-red-500/50',
-    3: 'bg-green-300/25 text-green-500/50',
-    4: 'bg-yellow-300/25 text-yellow-500/50',
-    5: 'bg-purple-300/25 text-purple-500/50',
-    6: 'bg-pink-300/25 text-pink-500/50',
-    7: 'bg-indigo-300/25 text-indigo-500/50',
-    8: 'bg-teal-300/25 text-teal-500/50',
-    9: 'bg-orange-300/25 text-orange-500/50',
-    10: 'bg-lime-300/25 text-lime-500/50',
-    11: 'bg-cyan-300/25 text-cyan-500/50',
-    12: 'bg-rose-300/25 text-rose-500/50',
-};
-
-// Add regulag map for all cases
-const colorMapM4l: Record<number, string> = {
-    1: 'bg-blue-300/70 text-blue-500',
-    2: 'bg-red-300/70 text-red-500',
-    3: 'bg-green-300/70 text-green-500',
-    4: 'bg-yellow-300/70 text-yellow-500',
-    5: 'bg-purple-300/70 text-purple-500',
-    6: 'bg-pink-300/70 text-pink-500',
-    7: 'bg-indigo-300/70 text-indigo-500',
-    8: 'bg-teal-300/70 text-teal-500',
-    9: 'bg-orange-300/70 text-orange-500',
-    10: 'bg-lime-300/70 text-lime-500',
-    11: 'bg-cyan-300/70 text-cyan-500',
-    12: 'bg-rose-300/70 text-rose-500',
-};
-
 function getFlexClass(index: number) {
     if (index < 3) {
         return 'flex-1';
@@ -79,9 +48,10 @@ interface IFretNote {
     fret: Partial<IFret>;
     highlightNotes: IHighlightNotesState['highlightedNotes'];
     scaleStepNumber?: number;
+    m4l?: boolean;
 }
 
-const FretNote: React.FC<IFretNote> = React.memo(({ fret, highlightNotes }) => {
+const FretNote: React.FC<IFretNote> = React.memo(({ fret, highlightNotes, m4l }) => {
     const { addHoverNote, removeHoverNote, getScale, getScaleNotesByKeyName } = useFretBoardStore();
     const colors = useTheme();
 
@@ -94,6 +64,9 @@ const FretNote: React.FC<IFretNote> = React.memo(({ fret, highlightNotes }) => {
 
     const isScaleDisplayed = getScale().isDisplayed && fret.isNoteInScale;
     const scaleStepNumber = isScaleDisplayed ? scaleNoteList.indexOf(fret.baseNote) + 1 : null;
+
+    const isScaleDisplayStyles = (isScaleDisplay: boolean) =>
+        isScaleDisplay ? `border-1 ${colors.scaleHighlight}` : '';
 
     return (
         <motion.div
@@ -116,8 +89,10 @@ const FretNote: React.FC<IFretNote> = React.memo(({ fret, highlightNotes }) => {
             }}
         >
             <div className="indicator">
-                {isScaleDisplayed && (
-                    <span className="indicator-item badge border-indigo-300/25 bg-indigo-100 text-indigo-400/50 badge-xs text-[10px] px-1">
+                {isScaleDisplayed && !m4l && (
+                    <span
+                        className={`indicator-item badge border-indigo-300/25 bg-indigo-100 text-indigo-400/50 badge-xs text-[10px] px-1`}
+                    >
                         {scaleStepNumber}
                     </span>
                 )}
@@ -129,26 +104,7 @@ const FretNote: React.FC<IFretNote> = React.memo(({ fret, highlightNotes }) => {
 
 const isPressedZeroStyles = (isPressed: boolean) => (isPressed ? 'font-bold' : '');
 
-const isScaleZeroDisplayStyles = (isScaleDisplay: boolean) =>
-    isScaleDisplay ? 'border-1 border-gray-600/25 rounded-xl' : '';
-
-const isZeroHighlightedStyles = (note: string, highlightNotes: unknown) => {
-    if (!highlightNotes[note].display) {
-        return '';
-    }
-
-    return 'bg-gray-300/25 font-semibold rounded-xl';
-};
-
-const isZeroHighlightedHoverStyles = (note: string, highlightNotes: unknown) => {
-    if (!highlightNotes[note].hover) {
-        return '';
-    }
-
-    return 'bg-gray-300/25 font-semibold rounded-xl';
-};
-
-const ZeroFret = ({ fret, stringNumber, highlightNotes }) => {
+const ZeroFret = ({ fret, stringNumber, highlightNotes, m4l }) => {
     const colors = useTheme();
     const {
         tuneUpNoteByString,
@@ -160,8 +116,27 @@ const ZeroFret = ({ fret, stringNumber, highlightNotes }) => {
         getScaleNotesByKeyName,
         pressNote,
     } = useFretBoardStore();
-    const { isLocked } = getIsLocked();
 
+    const isZeroHighlightedHoverStyles = (note: string, highlightNotes: unknown) => {
+        if (!highlightNotes[note].hover) {
+            return '';
+        }
+
+        return 'bg-gray-300/25 font-semibold rounded-xl';
+    };
+
+    const isScaleZeroDisplayStyles = (isScaleDisplay: boolean) =>
+        isScaleDisplay ? `border-1 ${colors.zeroFretscaleHighlight} rounded-xl` : '';
+
+    const isZeroHighlightedStyles = (note: string, highlightNotes: unknown) => {
+        if (!highlightNotes[note].display) {
+            return '';
+        }
+
+        return 'bg-gray-300/25 font-semibold rounded-xl';
+    };
+
+    const { isLocked } = getIsLocked();
     const scaleNoteList: string[] = getScaleNotesByKeyName();
     const isScaleDisplayed = getScale().isDisplayed && fret.isNoteInScale;
     const scaleStepNumber: number | null = isScaleDisplayed ? scaleNoteList.indexOf(fret.baseNote as string) + 1 : null;
@@ -172,7 +147,7 @@ const ZeroFret = ({ fret, stringNumber, highlightNotes }) => {
                 animate={{ opacity: isLocked ? 0 : 1 }}
                 transition={{ duration: 0.2, ease: 'easeInOut' }}
                 style={{ visibility: isLocked ? 'hidden' : 'visible' }}
-                className={`btn btn-ghost btn-xs ${colors.zeroFretArrows}`}
+                className={`btn btn-xs ${colors.zeroFretArrows}`}
                 onClick={() => tuneDownNoteByString(stringNumber)}
             >
                 {chevronLeft}
@@ -185,7 +160,7 @@ const ZeroFret = ({ fret, stringNumber, highlightNotes }) => {
                     onClick={() => pressNote(stringNumber, 0)}
                 >
                     <div className="indicator">
-                        {isScaleDisplayed && (
+                        {isScaleDisplayed && !m4l && (
                             <span className="indicator-item badge border-gray-300/25 bg-gray-100 text-gray-400/50 badge-xs text-[10px] px-1">
                                 {scaleStepNumber}
                             </span>
@@ -200,7 +175,7 @@ const ZeroFret = ({ fret, stringNumber, highlightNotes }) => {
                 animate={{ opacity: isLocked ? 0 : 1 }}
                 transition={{ duration: 0.2, ease: 'easeInOut' }}
                 style={{ visibility: isLocked ? 'hidden' : 'visible' }}
-                className={`btn btn-ghost btn-xs ${colors.zeroFretArrows}`}
+                className={`btn btn-xs ${colors.zeroFretArrows}`}
                 onClick={() => tuneUpNoteByString(stringNumber)}
             >
                 {chevronRight}
@@ -218,7 +193,7 @@ export const String: React.FC<IProps> = React.memo(({ stringNumber = 1, m4l = fa
     return (
         <>
             <div className="flex justify-self-center p-2">
-                <ZeroFret fret={zeroFret} highlightNotes={highlightNotes} stringNumber={stringNumber} />
+                <ZeroFret fret={zeroFret} highlightNotes={highlightNotes} stringNumber={stringNumber} m4l={m4l} />
             </div>
             {frets.map((fret, index) => {
                 return (
@@ -239,7 +214,7 @@ export const String: React.FC<IProps> = React.memo(({ stringNumber = 1, m4l = fa
                         >
                             <div className="w-12 flex justify-center">
                                 <AnimatePresence mode="wait">
-                                    <FretNote key={fret.note} fret={fret} highlightNotes={highlightNotes} />
+                                    <FretNote key={fret.note} fret={fret} highlightNotes={highlightNotes} m4l={m4l} />
                                 </AnimatePresence>
                             </div>
                         </button>

@@ -128,7 +128,8 @@ export const stringsSlice: StateCreator<TStore, [], [], TStringSlice> = (set, ge
     strings: initialStrings,
     updateNotesInScale: () =>
         set((state) => {
-            const scaleNotes = get().getScaleNotesByKeyName();
+            const m4lScaleNotes = get().getM4lScaleNotes();
+            const scaleNotes = m4lScaleNotes.length ? m4lScaleNotes : get().getScaleNotesByKeyName();
 
             if (scaleNotes.length) {
                 return {

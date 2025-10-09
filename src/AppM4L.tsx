@@ -6,7 +6,7 @@ import { m4lColors } from './hooks/useTheme/colors.ts';
 function App() {
     return (
         <ThemeProvider theme={m4lColors}>
-            <div className="flex flex-row bg-ableton-gray">
+            <div className="flex flex-row bg-ableton-gray items-center">
                 <M4lMenu />
                 <Fretboard m4l />
             </div>
