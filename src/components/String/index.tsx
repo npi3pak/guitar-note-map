@@ -142,7 +142,7 @@ const ZeroFret = ({ fret, stringNumber, highlightNotes, m4l }) => {
     const scaleStepNumber: number | null = isScaleDisplayed ? scaleNoteList.indexOf(fret.baseNote as string) + 1 : null;
 
     return (
-        <div className="flex w-28 justify-between">
+        <div className="flex w-28 justify-between items-center">
             <motion.button
                 animate={{ opacity: isLocked ? 0 : 1 }}
                 transition={{ duration: 0.2, ease: 'easeInOut' }}

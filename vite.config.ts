@@ -31,12 +31,16 @@ export default defineConfig({
     plugins: [
         react(),
         tailwindcss(),
-        VitePluginRadar({
-            // Google Analytics tag injection
-            analytics: {
-                id: 'G-ML16QS62LW',
-            },
-        }),
+        ...(isM4L
+            ? []
+            : [
+                  VitePluginRadar({
+                      // Google Analytics tag injection
+                      analytics: {
+                          id: 'G-ML16QS62LW',
+                      },
+                  }),
+              ]),
     ],
     server: {
         watch: {

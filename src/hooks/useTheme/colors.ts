@@ -26,8 +26,8 @@ export const m4lColors = {
     string: 'bg-gray-500/25',
     noteText: 'text-black/50',
     zeroFretArrows: 'btn-link text-ableton-orange',
-    zeroFretscaleHighlight: 'border-none bg-ableton-indigo/25',
-    scaleHighlight: 'border-none bg-ableton-indigo/25',
+    zeroFretscaleHighlight: 'border-2 border-indigo-500/25 bg-ableton-indigo/25',
+    scaleHighlight: 'border-2 border-indigo-500/25 bg-ableton-indigo/25',
     fretNotesMap: {
         1: 'bg-blue-300/70 text-blue-500',
         2: 'bg-red-300/70 text-red-500',
