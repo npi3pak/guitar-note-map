@@ -25,6 +25,7 @@ export const Note = {
 } as const;
 
 export const ALL_NOTES = ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#'];
+export const SORTED_ALL_NOTES = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
 
 export type Note = (typeof Note)[keyof typeof Note];
 export const STANDARD_TUNE = ['E4', 'B3', 'G3', 'D3', 'A2', 'E2', 'B1', 'F#1'];

@@ -1,69 +1,111 @@
-# React + TypeScript + Vite
+# Guitar Note Map
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive guitar fretboard visualization tool with scales, notes, and chord reference. Perfect for guitarists of all levels to learn and practice.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Interactive fretboard** with customizable string count (4-8 strings)
+- **Scale visualization** with support for various modes (major, minor, pentatonic, blues, etc.)
+- **Tuning options** with individual string pitch adjustment
+- **Note search** across the entire fretboard
+- **Piano integration** for note reference
 
-## Expanding the ESLint configuration
+## Quick Start
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Installation
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Start development server
+npm run dev
 ```
+
+### Build
+
+```bash
+# Build for production
+npm run build
+```
+
+## Tech Stack
+
+- **React 19** with TypeScript
+- **Vite** for build tooling and development
+- **Tailwind CSS** + **DaisyUI** for styling
+- **Zustand** for state management
+- **Framer Motion** for animations
+- **Lucide React** for icons
+
+## Project Structure
+
+```
+src/
+├── components/           # React components
+│   ├── Fretboard/       # Main fretboard component
+│   ├── String/          # String component
+│   ├── ScaleSelector/   # Scale selection
+│   ├── NoteSelector/    # Note selection
+│   ├── Piano/           # Virtual piano
+│   └── ...
+├── store/               # Zustand store
+│   ├── scalesSlice.ts   # Scale state management
+│   ├── stringsSlice.ts  # String state management
+│   └── interfaces.ts    # TypeScript interfaces
+├── hooks/               # Custom hooks
+│   └── useTheme/        # Theme management
+├── constants.ts         # Constants (notes, scales)
+└── App.tsx             # Main application
+```
+
+## 🎵 Supported Scales
+
+- **Major and minor** (natural, harmonic, melodic)
+- **Pentatonic** (major and minor)
+- **Blues scale**
+- **Church modes** (dorian, phrygian, lydian, mixolydian, locrian)
+
+## Configuration
+
+### String Count
+- Support for 4 to 8 strings
+- Standard tuning: E4, B3, G3, D3, A2, E2, B1, F#1
+
+### Tuning Options
+- Individual string tuning
+- Half-step up/down adjustment
+- Reset to standard tuning
+
+### Themes
+Themes are configured in `src/hooks/useTheme/colors.ts`:
+- `webColors` - for web version
+- `m4lColors` - for M4L version
+
+### Scales
+Add new scales in `src/constants.ts` in the `BASE_SCALES` object.
+
+### Linting
+```bash
+npm run lint        # ESLint
+npm run lint:ts     # TypeScript check
+```
+
+## License
+
+MIT License
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+---
+
+*Note: This project also supports an M4L (Max for Live) plugin version for Ableton Live integration.*
