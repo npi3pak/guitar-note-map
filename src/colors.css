@@ -1,0 +1,147 @@
+[data-theme='app'] {
+  .fret {
+    @apply border-blue-400;
+  }
+
+  .string {
+    @apply bg-gray-500/25;
+  }
+
+  .note-text {
+    @apply text-blue-600/50;
+  }
+
+  .zero-fret-arrows {
+    @apply btn-ghost text-blue-600/50;
+  }
+
+  .zero-fretscale-highlight {
+    @apply border-gray-600/25;
+  }
+
+  .scale-highlight {
+    @apply border-indigo-600/25;
+  }
+
+  .fret-note-1 {
+    @apply bg-blue-300/25 text-blue-500/50;
+  }
+
+  .fret-note-2 {
+    @apply bg-red-300/25 text-red-500/50;
+  }
+
+  .fret-note-3 {
+    @apply bg-green-300/25 text-green-500/50;
+  }
+
+  .fret-note-4 {
+    @apply bg-yellow-300/25 text-yellow-500/50;
+  }
+
+  .fret-note-5 {
+    @apply bg-purple-300/25 text-purple-500/50;
+  }
+
+  .fret-note-6 {
+    @apply bg-pink-300/25 text-pink-500/50;
+  }
+
+  .fret-note-7 {
+    @apply bg-indigo-300/25 text-indigo-500/50;
+  }
+
+  .fret-note-8 {
+    @apply bg-teal-300/25 text-teal-500/50;
+  }
+
+  .fret-note-9 {
+    @apply bg-orange-300/25 text-orange-500/50;
+  }
+
+  .fret-note-10 {
+    @apply bg-lime-300/25 text-lime-500/50;
+  }
+
+  .fret-note-11 {
+    @apply bg-cyan-300/25 text-cyan-500/50;
+  }
+
+  .fret-note-12 {
+    @apply bg-rose-300/25 text-rose-500/50;
+  }
+}
+
+[data-theme='m4l'] {
+  .fret {
+    @apply border-gray-600;
+  }
+
+  .string {
+    @apply bg-gray-500/25;
+  }
+
+  .note-text {
+    @apply text-black/50;
+  }
+
+  .zero-fret-arrows {
+    @apply btn-link text-ableton-orange;
+  }
+
+  .zero-fretscale-highlight {
+    @apply border-2 border-indigo-500/25 bg-ableton-indigo/25;
+  }
+
+  .scale-highlight {
+    @apply border-2 border-indigo-500/25 bg-ableton-indigo/25;
+  }
+
+  .fret-note-1 {
+    @apply bg-blue-300/70 text-blue-500;
+  }
+
+  .fret-note-2 {
+    @apply bg-red-300/70 text-red-500;
+  }
+
+  .fret-note-3 {
+    @apply bg-green-300/70 text-green-500;
+  }
+
+  .fret-note-4 {
+    @apply bg-yellow-300/70 text-yellow-500;
+  }
+
+  .fret-note-5 {
+    @apply bg-purple-300/70 text-purple-500;
+  }
+
+  .fret-note-6 {
+    @apply bg-pink-300/70 text-pink-500;
+  }
+
+  .fret-note-7 {
+    @apply bg-indigo-300/70 text-indigo-500;
+  }
+
+  .fret-note-8 {
+    @apply bg-teal-300/70 text-teal-500;
+  }
+
+  .fret-note-9 {
+    @apply bg-orange-300/70 text-orange-500;
+  }
+
+  .fret-note-10 {
+    @apply bg-lime-300/70 text-lime-500;
+  }
+
+  .fret-note-11 {
+    @apply bg-cyan-300/70 text-cyan-500;
+  }
+
+  .fret-note-12 {
+    @apply bg-rose-300/70 text-rose-500;
+  }
+}
