@@ -1,33 +1,20 @@
+import React from 'react';
 import classnames from 'classnames';
 import { String } from 'components/String';
 import { StringsTuneShift } from 'src/components/Fretboard/StringsTuneShift';
 import { StringsCountOptions } from 'components/Fretboard/StringsCountOptions';
 import { useFretBoardStore } from 'src/store';
 import styles from './styles.module.css';
-import React from 'react';
+import { FretboardContext } from './FretboardContext';
+import { FretTopNum } from './FretTopNum';
 
 interface IProps {
     m4l?: boolean;
 }
 
-const FretTopNum = () => (
-    <>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((index) => {
-            const isMarker = [3, 5, 7, 9].includes(index);
-
-            return (
-                <div
-                    key={index}
-                    className={classnames(styles.fretMarkers, {
-                        [styles.fretMarkersRound]: isMarker,
-                    })}
-                >
-                    {index}
-                </div>
-            );
-        })}
-    </>
-);
+export interface FretboardContextValue {
+    m4l: boolean;
+}
 
 export const Fretboard: React.FC<IProps> = ({ m4l = false }) => {
     const { getStringsCount, resetPressedNotes } = useFretBoardStore();
@@ -37,32 +24,30 @@ export const Fretboard: React.FC<IProps> = ({ m4l = false }) => {
         resetPressedNotes();
     }, []);
 
-    if (m4l) {
-        return (
-            <div className={styles.fretboardContainer}>
-                <div className={styles.fretboard}>
-                    <div />
-                    <FretTopNum />
-                    {[...Array(stringsCount).keys()].map((stringNum, item) => (
-                        <String stringNumber={stringNum + 1} key={item} m4l />
-                    ))}
-                </div>
-            </div>
-        );
-    }
-
     return (
-        <div className={styles.fretboardContainer}>
-            <div className="bg-base-100 rounded-box p-4 overflow-x-auto card card-border border-base-300">
-                <div className={styles.fretboard}>
-                    <StringsCountOptions />
-                    <FretTopNum />
-                    {[...Array(stringsCount).keys()].map((stringNum, item) => (
-                        <String stringNumber={stringNum + 1} key={item} />
-                    ))}
-                </div>
-                <StringsTuneShift />
+        <FretboardContext.Provider value={{ m4l }}>
+            <div className={styles.fretboard}>
+                {m4l ? <div /> : <StringsCountOptions />}
+                <FretTopNum />
+                {[...Array(stringsCount).keys()].map((stringNum, item) => (
+                    <String stringNumber={stringNum + 1} key={item} m4l={m4l} />
+                ))}
             </div>
-        </div>
+            {!m4l && <StringsTuneShift />}
+        </FretboardContext.Provider>
     );
 };
+
+export const FretboardAppContainer = () => (
+    <div className={classnames(styles.fretboardContainer)}>
+        <div className="bg-base-100 rounded-box p-4 overflow-x-auto card card-border border-base-300">
+            <Fretboard />
+        </div>
+    </div>
+);
+
+export const FretboardM4LContainer = () => (
+    <div className={styles.fretboardContainer}>
+        <Fretboard m4l />
+    </div>
+);

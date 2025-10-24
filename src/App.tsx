@@ -1,4 +1,4 @@
-import { Fretboard } from 'components/Fretboard';
+import { FretboardAppContainer } from 'components/Fretboard';
 import { Footer } from 'components/Footer';
 import { TopPanels } from 'components/TopPanels';
 import { NavBar } from './components/Navbar';
@@ -10,7 +10,7 @@ const App = () => (
         <NavBar />
         <main className="flex-grow flex flex-col mt-4">
             <TopPanels />
-            <Fretboard />
+            <FretboardAppContainer />
         </main>
         <Footer />
     </div>

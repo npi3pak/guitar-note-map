@@ -47,4 +47,9 @@ export default defineConfig({
             usePolling: true,
         },
     },
+    css: {
+        modules: {
+            localsConvention: 'camelCase',
+        },
+    },
 });
