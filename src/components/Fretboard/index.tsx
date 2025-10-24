@@ -3,8 +3,7 @@ import { String } from 'components/String';
 import { StringsTuneShift } from 'src/components/Fretboard/StringsTuneShift';
 import { StringsCountOptions } from 'components/Fretboard/StringsCountOptions';
 import { useFretBoardStore } from 'src/store';
-import appStyles from './appStyles.module.css';
-import m4lStyles from './m4lStyles.module.css';
+import styles from './styles.module.css';
 import React from 'react';
 
 interface IProps {
@@ -19,8 +18,8 @@ const FretTopNum = () => (
             return (
                 <div
                     key={index}
-                    className={classnames(appStyles.fretMarkers, {
-                        [appStyles.fretMarkersRound]: isMarker,
+                    className={classnames(styles.fretMarkers, {
+                        [styles.fretMarkersRound]: isMarker,
                     })}
                 >
                     {index}
@@ -40,8 +39,8 @@ export const Fretboard: React.FC<IProps> = ({ m4l = false }) => {
 
     if (m4l) {
         return (
-            <div className={m4lStyles.fretboardContainer}>
-                <div className={m4lStyles.fretboard}>
+            <div className={styles.fretboardContainer}>
+                <div className={styles.fretboard}>
                     <div />
                     <FretTopNum />
                     {[...Array(stringsCount).keys()].map((stringNum, item) => (
@@ -53,9 +52,9 @@ export const Fretboard: React.FC<IProps> = ({ m4l = false }) => {
     }
 
     return (
-        <div className={appStyles.fretboardContainer}>
+        <div className={styles.fretboardContainer}>
             <div className="bg-base-100 rounded-box p-4 overflow-x-auto card card-border border-base-300">
-                <div className={appStyles.fretboard}>
+                <div className={styles.fretboard}>
                     <StringsCountOptions />
                     <FretTopNum />
                     {[...Array(stringsCount).keys()].map((stringNum, item) => (
