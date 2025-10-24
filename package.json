@@ -9,6 +9,7 @@
         "build": "tsc -b && vite build",
         "build:m4l": "VITE_M4L_APP=true tsc -b && vite build",
         "test": "vitest run",
+        "test:watch": "vitest watch",
         "lint": "eslint .",
         "preview": "vite preview",
         "lint:ts": "tsc -b"
