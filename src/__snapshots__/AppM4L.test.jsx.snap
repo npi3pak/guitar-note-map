@@ -1,0 +1,2180 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`App global snapshot > matches the root snapshot for m4l App 1`] = `
+<div
+  class="flex flex-row bg-ableton-gray items-center"
+>
+  <div
+    class="p-1 flex"
+  >
+    <div
+      class="p-1 flex flex-col bg-ableton-black card w-[150px] h-[160px] items-center justify-center"
+    >
+      <div
+        class="flex flex-row justify-between"
+      >
+        <div
+          class="flex flex-col items-center"
+        >
+          <div
+            class="flex flex-row justify-items-center items-center"
+          >
+            <button
+              class="text-ableton-gray  text-[1px]"
+            >
+              <svg
+                class="size-4"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </button>
+            <label
+              class="text-ableton-gray text-[10px]"
+            >
+              strings: 
+              6
+            </label>
+            <button
+              class="text-ableton-gray  text-[1px]"
+            >
+              <svg
+                class="size-4"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            class="flex flex-row justify-items-center items-center"
+          >
+            <button
+              class="border-ableton-orange text-ableton-gray  mr-1 text-[1px]"
+              disabled=""
+            >
+              <svg
+                class="size-4"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </button>
+            <label
+              class="text-ableton-gray text-[10px]"
+            >
+              strings tune
+            </label>
+            <button
+              class="border-ableton-orange text-ableton-gray  mr-1 text-[1px]"
+              disabled=""
+            >
+              <svg
+                class="size-4"
+                fill="currentColor"
+                viewBox="0 0 16 16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            class="flex"
+          >
+            <button
+              class="text-ableton-gray  text-[10px]"
+              disabled=""
+            >
+              Tune to standard
+            </button>
+          </div>
+        </div>
+        <div
+          class="flex  items-center"
+        >
+          <button
+            class="border-ableton-orange text-ableton-orange mr-1 hover:brightness-120"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M8 1a3.5 3.5 0 0 0-3.5 3.5V7A1.5 1.5 0 0 0 3 8.5v5A1.5 1.5 0 0 0 4.5 15h7a1.5 1.5 0 0 0 1.5-1.5v-5A1.5 1.5 0 0 0 11.5 7V4.5A3.5 3.5 0 0 0 8 1Zm2 6V4.5a2 2 0 1 0-4 0V7h4Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        class="border-t-1 mt-4 border-ableton-border-gray flex w-full"
+      />
+      <div
+        class="flex flex-row mt-6"
+      >
+        <button
+          class="border border-ableton-orange text-ableton-orange text-[10px] px-1 active:bg-ableton-orange active:text-black"
+        >
+          Reset Notes
+        </button>
+      </div>
+      <div
+        class="flex flex-row mt-1"
+      >
+        <button
+          class="border border-ableton-orange text-ableton-orange text-[10px] px-1 active:bg-ableton-orange active:text-black"
+        >
+          Scale Highlight
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    class="flex overflow-x-auto h-[165px] mt-1"
+  >
+    <div
+      class="_fretboard-m4l_d3bf3e"
+    >
+      <div />
+      <div
+        class="flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold text-xs"
+      >
+        1
+      </div>
+      <div
+        class="flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold text-xs"
+      >
+        2
+      </div>
+      <div
+        class="flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold text-xs rounded-full w-5 h-5 bg-gray-600/20"
+      >
+        3
+      </div>
+      <div
+        class="flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold text-xs"
+      >
+        4
+      </div>
+      <div
+        class="flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold text-xs rounded-full w-5 h-5 bg-gray-600/20"
+      >
+        5
+      </div>
+      <div
+        class="flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold text-xs"
+      >
+        6
+      </div>
+      <div
+        class="flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold text-xs rounded-full w-5 h-5 bg-gray-600/20"
+      >
+        7
+      </div>
+      <div
+        class="flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold text-xs"
+      >
+        8
+      </div>
+      <div
+        class="flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold text-xs rounded-full w-5 h-5 bg-gray-600/20"
+      >
+        9
+      </div>
+      <div
+        class="flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold text-xs"
+      >
+        10
+      </div>
+      <div
+        class="flex items-center justify-center self-center justify-self-center text-yellow-500 font-bold text-xs"
+      >
+        11
+      </div>
+      <div
+        class="flex justify-self-center p-2"
+      >
+        <div
+          class="flex w-28 justify-between items-center"
+        >
+          <button
+            class="btn btn-xs zero-fret-arrows"
+            style="visibility: hidden;"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+          <div
+            class="hover:cursor-pointer text-center rounded-xl w-12 text-gray-600/50 dark:text-sky-400/50    "
+          >
+            <div
+              class="indicator"
+            >
+              E4
+            </div>
+          </div>
+          <button
+            class="btn btn-xs zero-fret-arrows"
+            style="visibility: hidden;"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                F4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                F#4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                G4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                G#4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                A4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                A#4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                B4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                C5
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                C#5
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                D5
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                D#5
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="flex justify-self-center p-2"
+      >
+        <div
+          class="flex w-28 justify-between items-center"
+        >
+          <button
+            class="btn btn-xs zero-fret-arrows"
+            style="visibility: hidden;"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+          <div
+            class="hover:cursor-pointer text-center rounded-xl w-12 text-gray-600/50 dark:text-sky-400/50    "
+          >
+            <div
+              class="indicator"
+            >
+              B3
+            </div>
+          </div>
+          <button
+            class="btn btn-xs zero-fret-arrows"
+            style="visibility: hidden;"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                C4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                C#4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                D4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                D#4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                E4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                F4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                F#4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                G4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                G#4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                A4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                A#4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="flex justify-self-center p-2"
+      >
+        <div
+          class="flex w-28 justify-between items-center"
+        >
+          <button
+            class="btn btn-xs zero-fret-arrows"
+            style="visibility: hidden;"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+          <div
+            class="hover:cursor-pointer text-center rounded-xl w-12 text-gray-600/50 dark:text-sky-400/50    "
+          >
+            <div
+              class="indicator"
+            >
+              G3
+            </div>
+          </div>
+          <button
+            class="btn btn-xs zero-fret-arrows"
+            style="visibility: hidden;"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                G#3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                A3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                A#3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                B3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                C4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                C#4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                D4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                D#4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                E4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                F4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                F#4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="flex justify-self-center p-2"
+      >
+        <div
+          class="flex w-28 justify-between items-center"
+        >
+          <button
+            class="btn btn-xs zero-fret-arrows"
+            style="visibility: hidden;"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+          <div
+            class="hover:cursor-pointer text-center rounded-xl w-12 text-gray-600/50 dark:text-sky-400/50    "
+          >
+            <div
+              class="indicator"
+            >
+              D3
+            </div>
+          </div>
+          <button
+            class="btn btn-xs zero-fret-arrows"
+            style="visibility: hidden;"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                D#3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                E3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                F3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                F#3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                G3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                G#3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                A3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                A#3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                B3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                C4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                C#4
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="flex justify-self-center p-2"
+      >
+        <div
+          class="flex w-28 justify-between items-center"
+        >
+          <button
+            class="btn btn-xs zero-fret-arrows"
+            style="visibility: hidden;"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+          <div
+            class="hover:cursor-pointer text-center rounded-xl w-12 text-gray-600/50 dark:text-sky-400/50    "
+          >
+            <div
+              class="indicator"
+            >
+              A2
+            </div>
+          </div>
+          <button
+            class="btn btn-xs zero-fret-arrows"
+            style="visibility: hidden;"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                A#2
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                B2
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                C3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                C#3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                D3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                D#3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                E3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                F3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                F#3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                G3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                G#3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="flex justify-self-center p-2"
+      >
+        <div
+          class="flex w-28 justify-between items-center"
+        >
+          <button
+            class="btn btn-xs zero-fret-arrows"
+            style="visibility: hidden;"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M9.78 4.22a.75.75 0 0 1 0 1.06L7.06 8l2.72 2.72a.75.75 0 1 1-1.06 1.06L5.47 8.53a.75.75 0 0 1 0-1.06l3.25-3.25a.75.75 0 0 1 1.06 0Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+          <div
+            class="hover:cursor-pointer text-center rounded-xl w-12 text-gray-600/50 dark:text-sky-400/50    "
+          >
+            <div
+              class="indicator"
+            >
+              E2
+            </div>
+          </div>
+          <button
+            class="btn btn-xs zero-fret-arrows"
+            style="visibility: hidden;"
+          >
+            <svg
+              class="size-4"
+              fill="currentColor"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                F2
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                F#2
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-1"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                G2
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                G#2
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                A2
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.7]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                A#2
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                B2
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                C3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                C#3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                D3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+      <div
+        class="relative border-r-4 fret flex justify-center flex-[0.5]"
+      >
+        <div
+          class="absolute top-1/2 left-0 w-full h-[1px] string -translate-y-1/2 pointer-events-none"
+        />
+        <button
+          class="relative z-10 note-text dark:text-sky-400/50 hover:cursor-pointer"
+        >
+          <div
+            class="w-12 flex justify-center"
+          >
+            <div
+              class="mx-1 md:mx-0 rounded-xl w-12    "
+              style="opacity: 0; transform: translateX(-100px);"
+            >
+              <div
+                class="indicator"
+              >
+                D#3
+              </div>
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
